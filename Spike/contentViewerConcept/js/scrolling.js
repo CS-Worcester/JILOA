@@ -26,4 +26,30 @@ $(document).ready(function(){
 	$('div.image-row:gt('+rowIndex+'),div.image-row:lt('+rowIndex+')').animate({ 'marginLeft' : "0px"} , 1000); //resets all other rows to the first image
   });
   
+  /*
+	Testing Swip Function -- "I don't know if this works yet because I do not have a platform to test it on"-Joe
+	The concept is that if a user swipes it will animate the slide by 1 in either direction, if the row is at the end or begining respectively it will 
+	make an animation that looks like it was trying to go, this was something i just thought would look nice
+  */
+  
+  $('.image-row').live("swipeleft", function(){
+						var currentMargin = $(this).css('marginLeft'); //Get the current margin of the swiped image-row
+						if($(this).attr('images') > currentMargin/-545){ //get the number of images and compare it to what the last image margin would express
+																		 //if it is below the last image would display then execute the default animation
+							$(this).animate({ 'marginLeft': currentMargin-545+'px'}, 1000);
+							}
+						else{ //Otherwise execute the bounceback animation
+							$(this).animate({ 'marginLeft': currentMargin-200+'px'}, 250).animate({ 'marginLeft': currentMargin+'px'}, 250);
+						}
+	});
+	
+	$('.image-row').live("swiperight", function(){
+						var currentMargin = $(this).css('marginLeft'); //get the current margin of the swiped row
+						if(currentMargin > 0){ //if the current margin is gt 0 then it can be swiped right
+							$(this).animate({ 'marginLeft': currentMargin+545+'px'}, 1000); //execute animation
+							}
+						else{ //otherwise bounceback  animation
+							$(this).animate({ 'marginLeft': '200px'}, 250).animate({ 'marginLeft': '0px'}, 250); 
+						}
+	});
 });
