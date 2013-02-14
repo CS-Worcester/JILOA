@@ -25,4 +25,5 @@ $(document).ready(function(){
 	$('#row-wrapper').animate({ 'marginTop': -rowIndex*420+'px'},1000); //animates based on row height for 1000ms
 	$('div.image-row:gt('+rowIndex+'),div.image-row:lt('+rowIndex+')').animate({ 'marginLeft' : "0px"} , 1000); //resets all other rows to the first image
   });
+  );
   
