@@ -12,37 +12,28 @@ $(document).ready(function(){
   */
   for(var i = 0;i<$('div.image-row').size();i++){
 	$('div.image-row:eq('+i+')').attr('images',$('div.image-row:eq('+i+')').children('img').size());
-	$('.image-selector:eq('+i+')').attr('id',i);
+	$('.image-selector:eq('+i+')').attr('row',i);
 		for(var j = 0; j < $('div.image-row:eq('+i+')').attr('images'); j++){
-			$('.image-selector:eq('+i+')').append('<a image='+j+'>['+j+']</a> ');
+			$('.image-selector:eq('+i+')').append('<a data-role="button" class="image-btn" image='+j+'>'+j+'</a> ');
 		}
   }
-  //image row information parsing and application is complete at this point
   
-  
-  /*
-	Functions to handle image movement
-  */
-  $('.image-selector a').click(function(){ 
-	currentRow = $(this).parent().attr('id');
+	//-----------------------------
+	//      Button Transitions
+	//-----------------------------
+  $('.image-btn').live('vclick', function(){ //removed old functions due to not being touch compatable
+	if($(this).closest('.image-selector').attr('row') != currentRow){
+		currentRow = $(this).closest('.image-selector').attr('row');
+		slideY($('#row-wrapper'), -$(this).closest('.image-selector').attr('row')*imageHeight, animationTime);
+		slideX($('div.image-row:gt('+currentRow+'),div.image-row:lt('+currentRow+')'), 0, animationTime);
+	}
 	currentImage = $(this).attr('image');
 	slideX($('div.image-row:eq('+currentRow+')'), -currentImage*imageWidth, animationTime);
   });
-  
-  $('.image-selector').click(function(){
-    slideY($('#row-wrapper'), -$(this).attr('id')*imageHeight, animationTime);
-    if(currentRow != $(this).attr('id')){
-      currentRow = $(this).attr('id');
-      currentImage = 0;
-      slideX($('div.image-row:gt('+currentRow+'),div.image-row:lt('+currentRow+')'), 0, animationTime);//.animate({ 'marginLeft' : "0px"} , animationTime); //resets all other rows to the first image
-    }
-  });
-  /*
-	Testing Swip Function -- "I don't know if this works yet because I do not have a platform to test it on"-Joe
-	The concept is that if a user swipes it will animate the slide by 1 in either direction, if the row is at the end or begining respectively it will 
-	make an animation that looks like it was trying to go, this was something i just thought would look nice
-  */
-  
+
+	//-----------------------------
+	//       Swipe Transitions
+	//-----------------------------
   $('.image-row').live("swipeleft", function(){ //Swipe left event
     if(currentImage < $(this).attr('images')-1){
       currentImage++;

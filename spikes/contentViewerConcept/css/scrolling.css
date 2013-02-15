@@ -1,0 +1,31 @@
+#image-display{
+	width: 42%;
+	height: 80%;;
+	   -moz-box-shadow: 0 0 5px 5px #222;
+	-webkit-box-shadow: 0 0 5px 5px #222;
+			box-shadow: 0 0 5px 5px #222;
+	position: fixed;
+	overflow: hidden;
+	background-color: #000;
+}
+
+#article-display{
+	width: 48%;
+	padding: 1%;
+	margin-left: 45%;
+	   -moz-border-radius: 2em;
+	-webkit-border-radius: 2em;
+			border-radius: 2em;
+}
+
+.image-row{
+	float: left;
+	overflow: visible;
+	width: 99999px;
+}
+
+.image-row img{
+	width: 525px;
+	float: left;
+	padding: 10px;
+}
