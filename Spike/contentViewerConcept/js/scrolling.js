@@ -1,13 +1,20 @@
 $(document).ready(function(){
-  var imageRows = $('div.image-row').size(); //Returns the number of image rows
-  var currentRow = 0;
-  var currentImage = 0;
+  //var imageRows = $('div.image-row').size(); //Returns the number of image rows
+  var currentRow = 0; //starts at 0 by default --created so clicking image-selector links could work with swipe functions
+  var currentImage = 0; //starts at 0 by default --created so clicking image-selector links could work with swipe functions
+  var imageHeight = 420; //pre-define image heigh --used in animations 
+  var imageWidth = 545; //pre-defined image width --used in animations
+  var animationTime = 1000; //pre-defined animation time --used in animations
   
-  for(var i = 0;i<imageRows;i++){  //populate the div image-rows with the number of children as an attribute "images" for easier reference
-	$('div.image-row:eq('+i+')').attr('images',$('div.image-row:eq('+i+')').children('img').size()); //get the number of img children
-	$('.image-selector:eq('+i+')').attr('id',i); //find the image selectors and assign them an image row save the row under the id attribute
-		for(var j = 0; j < $('div.image-row:eq('+i+')').attr('images'); j++){ //populate the div with the respective number of links
-			$('.image-selector:eq('+i+')').append('<a image='+j+'>['+j+']</a> '); //here is where the link content goes
+  /* Dynamic population of links and attributes that hold data required
+      Image Rows indexes and the number of images in a row etc.
+      costly but usefull for potential dynamic values
+  */
+  for(var i = 0;i<$('div.image-row').size();i++){
+	$('div.image-row:eq('+i+')').attr('images',$('div.image-row:eq('+i+')').children('img').size());
+	$('.image-selector:eq('+i+')').attr('id',i);
+		for(var j = 0; j < $('div.image-row:eq('+i+')').attr('images'); j++){
+			$('.image-selector:eq('+i+')').append('<a image='+j+'>['+j+']</a> ');
 		}
   }
   //image row information parsing and application is complete at this point
@@ -16,24 +23,19 @@ $(document).ready(function(){
   /*
 	Functions to handle image movement
   */
-  $('.image-selector a').click(function(){ //when the user clicks the numerical link under the "image selector" it will preform this function
-  console.log('image-selector a clicked');
-  console.log(':: Start----------\n:: Current Image = '+currentImage+'\n:: Current Row'+currentRow+'\n');
-	currentRow = $(this).parent().attr('id'); //get the parent index which tells us the row to modify
-	currentImage = $(this).attr('image'); //gets the image we want to scroll to
-	$('div.image-row:eq('+currentRow+')').animate({ 'marginLeft': -currentImage*545+'px'}, 1000); //scoll by modifying the margin, animation length 1000ms
-  console.log(':: Finish----------\n:: Current Image = '+currentImage+'\n:: Current Row'+currentRow+'\n');
+  $('.image-selector a').click(function(){ 
+	currentRow = $(this).parent().attr('id');
+	currentImage = $(this).attr('image');
+	slideX($('div.image-row:eq('+currentRow+')'), -currentImage*imageWidth, animationTime);
   });
   
-  $('.image-selector').click(function(){ //when the user clicks on the div around the links (this includes clicking on a link) it preforms this function
-  console.log('image-selector clicked');
-  console.log(':: Start----------\n:: Current Image = '+currentImage+'\n:: Current Row'+currentRow+'\n');
-      $('#row-wrapper').animate({ 'marginTop': -$(this).attr('id')*420+'px'},1000); //animates based on row height for 1000ms
-      if(currentRow){ //get the row index (same as previous function)
-        currentRow = $(this).attr('id');
-        $('div.image-row:gt('+currentRow+'),div.image-row:lt('+currentRow+')').animate({ 'marginLeft' : "0px"} , 1000); //resets all other rows to the first image
+  $('.image-selector').click(function(){
+    slideY($('#row-wrapper'), -$(this).attr('id')*imageHeight, animationTime);
+    if(currentRow != $(this).attr('id')){
+      currentRow = $(this).attr('id');
+      currentImage = 0;
+      slideX($('div.image-row:gt('+currentRow+'),div.image-row:lt('+currentRow+')'), 0, animationTime);//.animate({ 'marginLeft' : "0px"} , animationTime); //resets all other rows to the first image
     }
-  console.log(':: Finish----------\n:: Current Image = '+currentImage+'\n:: Current Row'+currentRow+'\n');
   });
   /*
 	Testing Swip Function -- "I don't know if this works yet because I do not have a platform to test it on"-Joe
@@ -41,30 +43,30 @@ $(document).ready(function(){
 	make an animation that looks like it was trying to go, this was something i just thought would look nice
   */
   
-  $('.image-row').live("swipeleft", function(){
-    console.log('image-row swipeleft');
-    console.log(':: Start----------\n:: Current Image = '+currentImage+'\n:: Current Row'+currentRow+'\n');
-    if(currentImage+1 < $(this).attr('images')){ //get the number of images and compare it to what the last image margin would express
+  $('.image-row').live("swipeleft", function(){ //Swipe left event
+    if(currentImage < $(this).attr('images')-1){
       currentImage++;
-      $(this).animate({ 'marginLeft': currentImage*-545+'px'}, 1000);
+      slideX($(this), -currentImage*imageWidth, animationTime);
     }
-    else{ //Otherwise execute the bounceback animation
-      $(this).animate({ 'marginLeft': (currentImage*-545)-200+'px'}, 250).animate({'marginLeft': currentImage*-545+'px'}, 250);
+    else{
+      slideX($(this), (currentImage*-imageWidth)-(imageWidth/2), animationTime/2);
+      slideX($(this), (currentImage*-imageWidth), animationTime/2);
     }
-    console.log(':: Finish----------\n:: Current Image = '+currentImage+'\n:: Current Row'+currentRow+'\n');
-  });
-	
-	$('.image-row').live("swiperight", function(){
-    console.log('image-row swiperight');
-    console.log(':: Start----------\n:: Current Image = '+currentImage+'\n:: Current Row'+currentRow+'\n');
+  }).live("swiperight", function(){ //Swipe right event
     if(currentImage == 0){
-      $(this).animate({ 'marginLeft': '200px'}, 250).animate({ 'marginLeft': '0px'}, 250); 
+      slideX($(this), imageWidth/2, animationTime/2);
+      slideX($(this), 0, animationTime/2);
     }
-    else{ //if the current margin is lt 0 then it can be swiped right
+    else{ 
       currentImage--;
-      $(this).animate({ 'marginLeft': currentImage*-545+'px'}, 1000); //execute animation
-      }
-    console.log(':: Finish----------\n:: Current Image = '+currentImage+'\n:: Current Row'+currentRow+'\n');
+      slideX($(this), currentImage*-imageWidth, animationTime);
+    }
 	});
-});
   
+  });
+  function slideX(object, dist, speed){ //Slide on the X axis using margin
+      object.animate({'marginLeft' : dist+'px'}, speed);
+  }
+  function slideY(object, dist, speed){ //Slide on the Y axis using margin
+      object.animate({'marginTop' : dist+'px'}, speed);
+  }
