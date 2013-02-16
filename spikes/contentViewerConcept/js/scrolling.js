@@ -55,6 +55,10 @@ $(document).ready(function(){
 	});
   
   });
+  
+  /*
+	Animation Functions
+  */
   function slideX(object, dist, speed){ //Slide on the X axis using margin
       object.stop().animate({'marginLeft' : dist+'px'}, speed);
   }
