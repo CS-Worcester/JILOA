@@ -56,8 +56,8 @@ $(document).ready(function(){
   
   });
   function slideX(object, dist, speed){ //Slide on the X axis using margin
-      object.animate({'marginLeft' : dist+'px'}, speed);
+      object.stop().animate({'marginLeft' : dist+'px'}, speed);
   }
   function slideY(object, dist, speed){ //Slide on the Y axis using margin
-      object.animate({'marginTop' : dist+'px'}, speed);
+      object.stop().animate({'marginTop' : dist+'px'}, speed);
   }
