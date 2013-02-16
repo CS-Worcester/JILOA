@@ -41,12 +41,12 @@ $(document).ready(function(){
     }
     else{
       slideX($(this), (currentImage*-imageWidth)-(imageWidth/2), animationTime/2);
-      slideX($(this), (currentImage*-imageWidth), animationTime/2);
+      slideXQueue($(this), (currentImage*-imageWidth), animationTime/2);
     }
   }).live("swiperight", function(){ //Swipe right event
     if(currentImage == 0){
       slideX($(this), imageWidth/2, animationTime/2);
-      slideX($(this), 0, animationTime/2);
+      slideXQueue($(this), 0, animationTime/2);
     }
     else{ 
       currentImage--;
@@ -57,6 +57,9 @@ $(document).ready(function(){
   });
   function slideX(object, dist, speed){ //Slide on the X axis using margin
       object.stop().animate({'marginLeft' : dist+'px'}, speed);
+  }
+  function slideXQueue(object, dist, speed){ //used for bounceback effect, this is the original slide function
+		object.animate({'marginLeft' : dist+'px'}, speed);
   }
   function slideY(object, dist, speed){ //Slide on the Y axis using margin
       object.stop().animate({'marginTop' : dist+'px'}, speed);
