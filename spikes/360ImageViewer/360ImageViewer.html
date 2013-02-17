@@ -1,50 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title :: Article Title</title>
+<title>3d Image Viewer</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="stylesheet" href="themes/default.css" />
+	<link rel="stylesheet" href="css/360dImageViewer.css" />
 	<script src="js/jquery1.8.3.js"></script>
 	<script src="js/jquerymobile.js"></script>
-	<script type="text/javascript">
-	$(function() {
-		var currentVal = 0;
-		var imageUrl = "images/image1_";
-		$('#slider').on("change", function(event){
-						  if($(this).val() != currentVal){
-							currentVal = $(this).val();
-							$('#image-viewer').css('background-image', 'url(' + imageUrl+currentVal +'.jpg)').text(currentVal);
-						  }
-						});
-    });
-	</script>
-	<style type="text/css" >
-		#image-viewer-wrapper{
-			width:40%;
-			margin-left: 2em;
-			float: left;
-		}
-		#image-viewer{
-			font-size: 5em;
-			text-align: center;
-			background-image:url('images/image1_1.jpg');
-			background-repeat:no-repeat;
-			background-position:center; 
-			height: 300px;
-			width: 400px;
-		}
-		
-		#slider-wrapper{
-			width: 400px;
-			padding-left: 60px;
-		}
-		
-		#description{
-			float: left;
-			margin: 2em;
-			width: 40%;
-		}
-	</style>
+	<script src="js/360ImageViewer.js"></script>
 </head>
 <body>
 <div data-role="page" data-theme="a">

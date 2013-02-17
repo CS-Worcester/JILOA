@@ -6,7 +6,7 @@
 	#image-viewer{
 		font-size: 5em;
 		text-align: center;
-		background-image:url('images/image1_1.jpg');
+		background-image:url('../images/image1_1.jpg');
 		background-repeat:no-repeat;
 		background-position:center; 
 		height: 300px;
@@ -20,6 +20,5 @@
 
 	#description{
 		float: left;
-		margin: 2em;
 		width: 40%;
 	}
