@@ -1,0 +1,10 @@
+.article{
+	float: left;
+	width: 100px;
+	display: block;
+	height: 400px;
+	background-color: black;
+}
+#article-wrapper{
+	width: 9000px;
+}
