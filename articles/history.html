@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title :: Article Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="../css/theme.css" />
+	<link rel="stylesheet" href="css/scrolling.css" />
+	<script src="../js/jquery-1.7.2.js"></script>
+	<script src="js/scrolling.js"></script> <!-- moved here to populate dynamic content before jquery mobile styles are applied -->
+	<script src="../js/jquery.mobile-1.2.0.js"></script>
+</head>
+<body>
+<div data-role="page" data-theme="a"> 
+	<div data-role="header" role="banner">
+		<a data-role="button" data-icon="home" data-iconpos="notext" href="../index.html" rel="external"> Home </a>
+		<h1> Article Title </h1>
+	</div>
+	<div data-role="content" role="main">
+		<!-- div to hold the images that will be displayed
+			 acts as a "window" to the underlying divs this is done through overflow: hidden
+			 position is fixed meaning even when the user scrolls the viewer and its contents remain still
+			 -->
+	<div class="ui-grid-a my-breakpoint">
+		<div class="ui-block-a">
+			<div id="image-display">
+				<div id="left-arrow"></div>
+				<div id="right-arrow"></div>
+				<div id="row-wrapper">
+					<div class="image-row">
+						<img src="images/imgtest.jpg" /> 
+						<img src="images/imgtest.jpg" />
+						<img src="images/imgtest.jpg" />
+						<img src="images/imgtest.jpg" />
+						<img src="images/imgtest.jpg" /> 
+					</div>
+					<div class="image-row">
+						<img src="images/imgtest.jpg" /> 
+						<img src="images/imgtest.jpg" />
+					</div>
+					<div class="image-row">
+						<img src="images/imgtest.jpg" /> 
+						<img src="images/imgtest.jpg" />
+					</div>
+					<div class="image-row">
+						<img src="images/imgtest.jpg" /> 
+						<img src="images/imgtest.jpg" />
+					</div>
+				</div>
+			</div>
+		</div>		
+		<!--Div to hold the article currently filled with lorem text for testing
+			spans are currently used for the image-selector, they ar dynamically populated with js
+			-->
+		<div class="ui-block-b">
+			<div id="article-display">
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac eros et arcu congue dapibus eget eu massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi dapibus magna in lectus ultricies a egestas ipsum convallis. Suspendisse vitae enim a augue aliquam tristique sit amet sed nisi. Maecenas ante purus, gravida et porta id, euismod sit amet nisl. Mauris volutpat ultrices nibh at mollis. Fusce condimentum sodales ligula et suscipit. Fusce aliquet porta augue, ut facilisis orci interdum eget. Suspendisse at orci est. Duis faucibus ultricies nulla in gravida.
+				</p>
+				<p>
+				Donec in elementum ligula. Donec nec elit ipsum, eget rutrum risus. Curabitur eleifend tortor ac massa pellentesque tempus. Fusce nec nisi id felis luctus aliquam in eget ligula. Phasellus non justo fermentum neque posuere condimentum sit amet at odio. Mauris tortor sapien, dignissim ut gravida non, posuere et dui. Pellentesque nec neque nibh, eget accumsan odio. Donec velit neque, ultrices ut lobortis sit amet, rhoncus tristique nunc. Morbi eu dolor arcu, at adipiscing lectus. In hac habitasse platea dictumst. Maecenas eget diam sit amet sem lobortis porta eu eu enim. Aenean hendrerit tristique elit, ut bibendum ipsum suscipit non. Aenean tincidunt turpis ac turpis aliquet egestas. Nam non nulla augue, in dapibus felis. Nulla tincidunt, nunc nec euismod lobortis, sem nisi fringilla leo, a scelerisque sem felis in metus. Nulla urna arcu, hendrerit at tempor sed, condimentum in orci.
+				</p>
+				<p >
+				Nullam eros ligula, volutpat ac consequat commodo, interdum eu felis. Vestibulum quis felis diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eu iaculis diam. In hac habitasse platea dictumst. Donec vehicula eros vel nisi gravida vitae ullamcorper massa rhoncus. Nulla sed justo et lorem cursus tempus. In commodo euismod turpis, placerat tincidunt diam eleifend ac. Praesent viverra massa id lacus feugiat id mollis mauris pharetra. Donec eu dolor ante, nec auctor dolor. Ut vel gravida felis.
+				</p>
+				<p>
+				In venenatis augue quis elit feugiat et convallis nibh auctor. Integer congue tempor facilisis. In hac habitasse platea dictumst. Mauris sollicitudin, neque in ultrices faucibus, risus eros viverra turpis, eu auctor augue mauris quis nunc. Integer hendrerit magna quis nunc tempor consectetur. Vivamus ultricies lectus odio, vitae aliquam nulla. Curabitur sed vehicula neque. In venenatis pretium urna eget pretium.
+				</p>
+				<div data-role="controlgroup"  data-type="horizontal" class="image-selector"> <!-- first set that will be dynamically populated via JS -->
+					<a data-role="button">View Image:</a>
+				</div>
+				<p>
+				Aenean mattis pretium dui, at consectetur quam luctus nec. Cras tincidunt nulla non mi condimentum nec adipiscing lorem venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus auctor imperdiet arcu, in porttitor neque vulputate quis. Curabitur vitae magna quis ipsum dictum bibendum. Donec ut nunc id lorem tristique egestas id quis est. Aenean eu tortor turpis. Etiam adipiscing ante at libero dignissim sed scelerisque felis consectetur. Fusce congue aliquam mi, id molestie orci feugiat at. Ut imperdiet felis ac ipsum euismod sit amet laoreet erat molestie. Nunc sodales tristique leo, id elementum orci venenatis eu. Aliquam malesuada viverra viverra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pretium vulputate fringilla. Sed scelerisque convallis viverra.
+				</p>
+				<p>
+				Sed quis libero turpis. Nam ligula risus, sagittis vitae auctor et, tempor a leo. Sed sollicitudin semper leo non scelerisque. Ut nec mi libero, tincidunt euismod eros. Fusce adipiscing tortor a justo malesuada vel adipiscing tortor suscipit. Duis egestas, diam id condimentum cursus, enim turpis cursus orci, sed feugiat arcu nibh dictum dolor. Pellentesque non enim felis, a ultricies justo. Nam dignissim sem eu odio cursus pretium. Sed cursus, felis sed facilisis faucibus, tellus neque dapibus quam, et volutpat felis odio a nisi. Proin at neque eu ante rutrum ultricies. Praesent sed nunc justo, molestie egestas sapien.
+				</p>
+				<p row='1'>
+				Vivamus odio lacus, imperdiet in feugiat eget, venenatis eget lacus. Ut adipiscing accumsan euismod. Nam sodales eros nec nisl euismod sed fermentum erat lobortis. Phasellus luctus magna vitae dolor rhoncus eget porttitor neque ultrices. Mauris bibendum, orci bibendum vestibulum lobortis, mauris elit condimentum nulla, at malesuada tortor nisl quis lacus. Aenean at massa justo, eu viverra dui. Proin quis nunc mauris, in bibendum metus. Pellentesque lobortis, leo nec pretium pellentesque, sem velit semper lacus, sed placerat purus tellus in neque. Vestibulum mauris enim, viverra sit amet porttitor et, scelerisque sit amet nisl. Sed eget leo turpis, non lacinia purus. Sed eget augue pharetra nisi hendrerit vestibulum. Vestibulum ac arcu in justo aliquam ullamcorper at non mi. Suspendisse pretium justo at turpis euismod in congue nisl aliquet. Vestibulum venenatis lacinia vulputate. Donec gravida bibendum nunc, eget pellentesque sapien accumsan at.
+				</p>
+				<p>
+				Morbi sem leo, auctor ac vestibulum et, aliquet vitae dui. Donec at cursus metus. Curabitur nibh risus, consectetur quis ultrices et, dictum a eros. Aenean id accumsan nunc. Integer ornare varius orci, quis mollis sem dignissim semper. Aenean sodales convallis fermentum. Etiam tincidunt pharetra vehicula. Pellentesque eleifend mi sem, eget consectetur tortor. Mauris et erat commodo dolor venenatis convallis. In rhoncus condimentum mi, in hendrerit lectus sollicitudin et. Vivamus auctor hendrerit lectus, vel vestibulum leo mollis id. Suspendisse sodales nulla id augue fringilla faucibus. Cras in urna vel mi facilisis pretium. Nulla ullamcorper molestie vestibulum.
+				</p>
+				<p>
+				Duis non felis eu libero tempus elementum. Phasellus non scelerisque leo. Nulla blandit commodo leo, consequat iaculis urna ornare et. Aenean sodales metus ut est ultricies mattis. Duis cursus malesuada nunc, eu accumsan sapien pulvinar sed. Morbi molestie sollicitudin dapibus. Sed euismod, sem eget congue volutpat, quam sem adipiscing quam, at egestas massa libero a dolor. Nulla libero turpis, iaculis et tincidunt quis, convallis consequat tortor. In elementum interdum eros, at pellentesque arcu vehicula at. Ut sit amet purus sed metus accumsan dictum at vel urna.
+				</p>
+				<div data-role="controlgroup"  data-type="horizontal" class="image-selector"> <!-- second set that will be dynamically populated via JS -->
+					<a data-role="button">View Image:</a>
+				</div>
+				<p>
+				Nullam id enim at nisl tincidunt hendrerit nec a mauris. In non nibh elit. Praesent pharetra lorem vitae nunc tristique vestibulum. Donec in lorem a dui pretium ultricies et vel mauris. Etiam urna tortor, elementum nec laoreet id, porta et sem. Suspendisse vestibulum enim vel lectus luctus et euismod nibh adipiscing. Donec nisl augue, molestie quis mattis non, ornare ut magna. Pellentesque iaculis pellentesque imperdiet. Vivamus sit amet est lorem.
+				</p>
+				<p row="2">
+				Nam at erat nunc. Proin et eros dui. Aenean vestibulum lobortis odio id placerat. Duis euismod facilisis laoreet. Praesent in nulla nisi. Donec imperdiet, magna eu laoreet semper, enim tellus laoreet nulla, sit amet egestas tortor mauris a justo. Praesent vitae leo lacus, eget convallis ipsum.
+				</p>
+				<p>
+				Donec tincidunt eros a erat vulputate gravida. Curabitur pharetra commodo velit, eget dictum nisl volutpat ac. Donec lorem enim, vulputate vel porta in, mattis ac est. Aenean eu lectus elit, in luctus ante. Fusce tristique nisl eu purus varius sed feugiat elit consequat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc a sodales sem. Quisque purus lacus, laoreet imperdiet tincidunt vel, faucibus nec erat. In vitae accumsan sem. Quisque erat nibh, tristique vitae lacinia quis, blandit a purus. Fusce feugiat tempus ipsum, eget adipiscing purus cursus id. Aenean lectus mi, convallis et interdum eget, elementum in orci. Nam a libero est. Quisque at magna in mi interdum mollis. Donec elementum massa id tortor auctor ullamcorper dictum augue venenatis.
+				</p>
+				<p>
+				Nullam iaculis egestas erat, eget pretium diam pellentesque vitae. Nunc vel quam in justo venenatis auctor. Phasellus vehicula massa eget mauris tincidunt pharetra. Maecenas convallis nisl nec leo egestas sed varius nunc rutrum. Mauris pulvinar ante sagittis massa adipiscing nec ultricies neque venenatis. Pellentesque turpis ligula, semper et auctor sit amet, auctor sit amet purus. Fusce id tincidunt quam. Nulla non lacus eget justo blandit blandit. Maecenas vitae sem orci, in egestas odio.
+				</p>
+				<div data-role="controlgroup"  data-type="horizontal" class="image-selector"> <!-- third set that will be dynamically populated via JS -->
+					<a data-role="button">View Image:</a>
+				</div>
+				<p>
+				In hac habitasse platea dictumst. Duis at diam a elit viverra pulvinar. Donec vulputate interdum diam. Vivamus quam augue, aliquet ut vulputate faucibus, lacinia vitae arcu. Vivamus vulputate pellentesque urna. Morbi porttitor faucibus feugiat. Nulla condimentum, lacus non rhoncus volutpat, risus urna molestie justo, quis hendrerit risus ante lacinia tellus.
+				</p>
+				<p row="3">
+				Vivamus condimentum tincidunt nisi sed interdum. Donec et purus vel mauris tempor molestie in eu justo. Duis sit amet mi lorem. Fusce fringilla sagittis neque, at semper nisl vehicula et. Phasellus at nulla nec libero tempus tincidunt ac quis turpis. Cras sollicitudin felis non lectus accumsan hendrerit. Vivamus sapien lorem, sollicitudin eget varius ut, aliquam eget velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer ultricies turpis vitae est accumsan ultrices. Etiam et rutrum diam. Mauris quis ante orci. Ut vitae dui quis massa lacinia malesuada.
+				</p>
+				<p>
+				Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc faucibus, leo sed viverra vestibulum, sem nisl pretium justo, non suscipit nibh massa nec lectus. Duis a eros eu dolor vehicula ultrices. Etiam odio arcu, ultricies et rutrum vel, ornare nec est. Cras a enim ante, a vestibulum ipsum. Quisque tincidunt orci risus. Fusce ut erat sit amet orci sodales pretium quis at dolor. Ut tincidunt diam ligula, a aliquam eros. Duis in arcu quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas lobortis elementum tortor vitae varius. Morbi mattis, tellus nec tempus laoreet, nisi tortor hendrerit eros, ac pulvinar leo eros sit amet diam. Nullam nec nisi a felis convallis euismod. Cras sit amet est velit, nec commodo mauris. Vivamus dignissim augue vel ipsum posuere ac gravida lectus eleifend. Aenean tincidunt augue vitae dui laoreet suscipit.
+				</p>
+				<p>
+				Proin viverra viverra ligula sed posuere. Quisque porttitor dictum faucibus. Fusce dui erat, imperdiet mollis volutpat non, vehicula nec tortor. Maecenas a lorem rhoncus arcu ultrices volutpat ut sit amet justo. Sed a porta turpis. Etiam blandit aliquet elementum. Sed dapibus dolor non mauris varius eget faucibus mi tempor. Suspendisse tellus metus, rutrum non accumsan vel, tincidunt vitae nunc. Vestibulum tempor suscipit magna vel aliquet. Nulla sit amet arcu eget enim suscipit tincidunt non ac quam.
+				</p>
+				<p>
+				Donec lorem est, varius facilisis varius ullamcorper, interdum faucibus nunc. Praesent aliquam augue et nibh mattis nec tempus lorem tempor. Vestibulum non sem ut sem dapibus aliquam. Suspendisse potenti. Mauris eu scelerisque mi. Donec elit massa, fermentum quis venenatis vel, pellentesque semper dui. Ut et urna magna, in porttitor lectus. Quisque at mauris in purus pulvinar convallis.
+				</p>
+				<div data-role="controlgroup"  data-type="horizontal" class="image-selector"> <!-- fourth set that will be dynamically populated via JS -->
+					<a data-role="button">View Image:</a>
+				</div>
+				<p>
+				Nullam vel erat tellus, adipiscing bibendum dolor. Aliquam pharetra mi id sem semper vestibulum ornare metus vehicula. Proin vehicula felis lacus, vitae iaculis risus. Nullam sagittis dolor sed urna porta ut adipiscing tortor euismod. Ut vel velit nisl, sed accumsan nisi. Donec eget eros velit. Integer vitae fermentum turpis. Suspendisse accumsan nisl quis magna sagittis in tincidunt augue lobortis. Etiam a metus eget massa ullamcorper mollis nec hendrerit erat. Etiam molestie metus sit amet nibh tincidunt vitae tincidunt risus ultrices. Donec tincidunt vehicula purus, quis commodo leo mollis at. Cras quis metus risus, vitae hendrerit leo. In ut urna erat, at feugiat urna.
+				</p>
+				<p>
+				Donec ut tempus metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In porta ligula rhoncus nisi rutrum viverra. Integer augue ante, iaculis nec laoreet ac, pellentesque ut libero. Sed ultrices mattis nibh eu dictum. Mauris eu mauris ligula. Nulla dictum fringilla euismod. Praesent leo sapien, posuere non adipiscing eget, ullamcorper et metus. Fusce volutpat urna non nisi adipiscing sagittis. Aenean varius euismod orci, a hendrerit nulla suscipit a. Donec porttitor arcu at massa aliquam feugiat. Nullam non hendrerit risus.
+				</p>
+			</div>
+		</div>	
+	</div>
+	</div>
+	<div data-role="footer">
+		<h3> Footer Data </h3>
+	</div>
+</div>
+</body>
+</html>
