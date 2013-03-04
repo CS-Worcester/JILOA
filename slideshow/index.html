@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+
+<html lang = "en">
+<head>
+	<meta charset = "utf-8" />
+	<title> Slideshow </title>
+	
+	<link rel="stylesheet" href="css/scrolling.css" />
+	<link rel = "stylesheet" href = "css/styles.css" />
+	<script src="JavaScript/jquery-1.7.2.js"></script>
+	<script src="JavaScript/JavaScript.js"></script> <!-- moved here to populate dynamic content before jquery mobile styles are applied -->
+	<script src="JavaScript/jquery.mobile-1.2.0.js"></script>
+	
+</head>
+
+<body>
+	<div data-role="page" data-theme="a"> 
+	<div data-role="header" role="banner">
+		<a data-role="button" data-icon="home" data-iconpos="notext"> Home </a>
+		<h1> Slideshow </h1>
+	</div>
+	<div data-role="content" role="main">
+		<!-- div to hold the images that will be displayed
+			 acts as a "window" to the underlying divs this is done through overflow: hidden
+			 position is fixed meaning even when the user scrolls the viewer and its contents remain still
+			 -->
+		
+		<!--Div to hold the article currently filled with lorem text for testing
+			spans are currently used for the image-selector, they ar dynamically populated with js
+			-->
+	<div class="ui-grid-a my-breakpoint">
+		<div class="ui-block-a">
+			<div id="image-display">
+				<div id="left-arrow"></div>
+				<div id="right-arrow"></div>
+				<div id="up-arrow"></div>
+				<div id="down-arrow" <img src="Images/Arrows/white-down.png"></div>
+				<div id="row-wrapper">
+					<div class="image-row">
+						<li><a href="Images/1.jpg"><img src="Images/1.jpg" /> </a></li>
+						<li><a href="Images/2.jpg"><img src="Images/2.jpg" /> </a></li>
+						<li><a href="Images/3.jpg"><img src="Images/3.jpg" /> </a></li>
+						<li><a href="Images/4.jpg"><img src="Images/4.jpg" /> </a></li>
+						<li><a href="Images/5.jpg"><img src="Images/5.jpg" /> </a></li>
+						<li><a href="Images/6.jpg"><img src="Images/6.jpg" /> </a></li>
+						<li><a href="Images/7.jpg"><img src="Images/7.jpg" /> </a></li>
+					</div>
+			    </div>
+			</div>
+			<!-- Sample button
+			<div id="hide-display">
+				<div class="image-hide">
+					<a data-role="button"><img src="Images/Arrows/white-down.png"></a>
+				</div>
+		</div> -->
+		
+ 	</div>
+ 	
+ 	<!--  
+	<div id="slideshow">
+		<h1>Images</h1>
+		<ul class="slides">
+			<li><a href="Images/1.jpg"><img src="Images/1.jpg" width="620" height="320" /> <div>Flower</div></a></li>
+			<li><a href="Images/2.jpg"><img src="Images/2.jpg" width="620" height="320" /> <div>Flower</div></a></li>
+			<li><a href="Images/3.jpg"><img src="Images/3.jpg" width="620" height="320" /> <div>Flower</div></a></li>
+			<li><a href="Images/4.jpg"><img src="Images/4.jpg" width="620" height="320" /> <div>Flower</div></a></li>
+			<li><a href=""><img src="Images/1.jpg" width="620" height="320"><div>Flower</div></a></li>
+        	<li><img src="Images/4.jpg" width="620" height="320" alt="" /></li>
+    	</ul>
+	-->
+	</div>
+	<script src="script.js"></script>
+	
+</body>
+</html>

@@ -1,0 +1,97 @@
+
+
+
+
+li {
+  float:left;
+  position:relative;
+  display:inline-block;
+  margin:15px;
+  box-shadow:0 0 5px rgba(0,0,0,.35);
+}
+
+/*
+li div {
+  position:absolute;
+  height:0;
+  width:280px;
+  background:rgba(0,0,0,.45);
+  overflow:hidden;
+  bottom:10px;
+  left:10px;
+  padding: 0 10px;
+  line-height:50px;
+  color:#fff;
+  transition:height 1s;
+}
+
+}
+
+li:hover div {
+  height:50px;
+}
+	
+
+
+/* Joe's stuff helps*/		
+#image-display{
+	width: 100%;
+	left: 0%;
+	height: 250px; /* controls hieght of bottom box */
+	   -moz-box-shadow: 0 0 5px 5px #222;
+	-webkit-box-shadow: 0 0 5px 5px #222;
+			box-shadow: 0 0 5px 5px #222;
+	position: fixed;
+	bottom: 0px;
+	overflow: hidden;
+	background-color: #000;
+}
+
+
+.image-row{
+	float: left;
+	overflow: visible;
+	width: 99999px;
+} 
+
+.image-row img{
+	width: 250px;
+	float: left;
+	padding: 20px; /* controls padding on bottom image viewer */
+}
+
+#left-arrow{
+	width: 15%; /* How far in arrow is*/
+	height: 250px; /* location of arrow up and down wise */ 
+	position: absolute;
+	background-image:url('../Images/Arrows/white-leftarrow.png');
+	background-repeat:no-repeat;
+	background-position:center; 
+	z-index: 200;
+}
+
+#right-arrow{
+	width: 5%;
+	left: 95%;
+	height: 250px;
+	position: absolute;
+	background-image:url('../Images/Arrows/white-rightarrow.png');
+	background-repeat:no-repeat;
+	background-position:center; 
+	z-index: 200;
+}
+
+#image-hide{
+	width: 100%;
+}
+
+/* Place holder for down arrow button */
+#down-arrow{
+	width: 50%;
+	left: 25%;
+	height: 35px;
+	position: absolute;
+	background-image:url('../Images/Arrows/white-down.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
