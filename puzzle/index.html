@@ -1,0 +1,42 @@
+<!-- ==============================================
+	File: index.html
+	Description: HTML Design for Puzzle Application
+	Authors: Worcester State University CS401
+	Version: 1.0
+=================================================== -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>ideaLab Puzzle Application</title>
+            <meta http-equiv="Content-Language" content="en-GB"/>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <meta name="keywords" content=""/>
+            <meta name="description" content=""/>
+    
+            <link rel="stylesheet" href="css/puzzle.css" type="text/css"/>
+            <link rel="stylesheet" href="css/jquery-ui.css" type="text/css"/>
+    
+            <script type="text/javascript" src="js/jquery.js"></script>
+            <script type="text/javascript" src="js/jquery-ui.js"></script> 
+            <script type="text/javascript" src="js/puzzle.js"></script>
+            <script type="text/javascript">
+                jQuery(document).ready(function() {
+                    jqJigsawPuzzle.createPuzzleFromImage("#my_puzzle", {
+                        piecesSize: 'big',
+                        borderWidth: 10,
+                        shuffle: {
+                            rightLimit: 500,
+                            leftLimit: 500,
+                            topLimit: 5,
+                            bottomLimit: 5
+                        }
+                    });
+                });
+            </script>
+    </head>
+    <body>
+        <div>
+            <img id="my_puzzle" src="assets/wam.jpg" alt=""/>
+        </div>
+    </body>
+</html>
