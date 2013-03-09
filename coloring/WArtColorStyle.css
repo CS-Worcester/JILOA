@@ -1,0 +1,122 @@
+/* 
+    Document   : WArtColorStyle
+    Created on : Feb 12, 2013, 3:50:49 PM
+    Author     : jasonhintlian
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+body{
+    background-color: white;
+}
+#drawingCanvas{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    cursor: pointer;
+}
+.tools{
+    float: right;
+    margin: auto;
+    height: 90px;
+    width:50px;
+}
+.coloringPage{
+    border: solid 3px #000000;
+    margin: auto;
+    height: 90px;
+    width:90px;
+}
+/* colorpicker styles */
+.colorselect {
+    background-color: #fff;
+    border: solid 3px #000000;
+    border-radius: 0px;
+    /*box-shadow: 2px 2px 2px #444444;*/
+    color: #000;
+    border-radius: 5px;
+    font-size: 12px;
+    position: absolute;
+    margin-left: 100px;
+    margin-bottom: 200px;
+}
+.sizeselect {
+    background-color: #000;
+    border: solid 3px #000000;
+    /*box-shadow: 2px 2px 2px #444444;*/
+    position: absolute;
+    border-radius: 5px;
+    margin-left: 114px;
+    margin-top: 100px;
+    
+}
+#picker{
+    cursor: crosshair;
+    position: absolute;
+    margin: 10px;
+    border: 0;
+}
+.preview {
+   background: url("assets/colorButtonBrush.png") repeat scroll center center transparent;
+   
+    border: solid 3px #000000;
+    background-color: #000000;
+    border-radius:50px;
+    box-shadow: 2px 2px 2px #444444;
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+}
+ .sizepreview {
+     float: right;
+    margin: auto;
+    margin-top: 20px;
+    background: url("assets/colortips.png") repeat scroll center center transparent;
+    border: solid 3px #000000;
+    background-color: #000000;
+    border-radius:5px;
+    box-shadow: 2px 2px 2px #444444;
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+}
+#toolbox{
+    position: absolute;
+    left: 10mm;
+    top: 30mm;
+}
+#coloringscroll{
+    position: absolute;
+    right: 2mm;
+    top: 25mm;
+}
+#coloringCanvas{
+    cursor: pointer;
+    position: absolute;
+    left: 20%;
+    top: 5%;
+}
+#layer1{
+    pointer-events:none;
+    background: transparent;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    cursor: crosshair;
+}
+
+#layer1:active {
+    cursor: crosshair;
+}
+#drawingCanvas:active { 
+    cursor: crosshair;
+}
+.scrollButton{
+    margin: auto;
+    height: 30px;
+    width:90px;
+}
