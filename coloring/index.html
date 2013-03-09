@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src = 'WArtColor.js'></script>
+        <link type="text/css" rel="stylesheet" href="WArtColorStyle.css"/>
+    </head>
+    <body>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> 
+
+        <script>window.jQuery || document.write('<script src="jquery-1.9.1.min.js"><\/script>');</script>
+
+        <table align ="center">
+
+            <!-- Brush Sizes -->
+
+            <tr>
+                <td id ="toolbox" style = "z-index: 3">
+                    <br>
+                    <div class="preview" style="text-align: center"></div>
+
+                    <!-- color selection element -->
+                    <div class="colorselect" style="display:none; z-index: 2">
+                        <canvas id="layer2" width="427" height="339"></canvas>
+                    </div>
+                    <div style=" text-shadow: 3px; font-family: cursive; font-size: 20px; text-align: center">Colors</div>
+                    <div class="sizepreview"></div>
+
+                    <!-- color selection element -->
+                    <div class="sizeselect" style="display:none; z-index: 1">
+                        <canvas id="layer3" width="400" height="125"></canvas>
+                    </div>
+                    <div style=" text-shadow: 3px; font-family: cursive; font-size: 20px; text-align: center">Sizes</div>
+                </td>
+
+                <td>
+                    <!-- Canvas --> 
+                    <div id ="coloringCanvas">
+                        <canvas  id='drawingCanvas' style="  border: 3px solid black; z-index:1; cursor: crosshair ; "  ></canvas>
+                        <canvas  id='layer1' style="border: 3px solid black; z-index:2; cursor: crosshair" ></canvas>
+                    </div>
+
+                </td>
+
+                <td id ="coloringscroll">
+                    <!-- functionality for selecting to come but it will 
+                    work similar to the current color selection logic -->
+                    <br>
+                    <img  class ="scrollButton" src ="assets/scrollUp.png">
+                    </br>
+
+                    <div style="height: 475px;width:130px; overflow:auto;">
+                        <!-- Tools -->
+
+                        <br>
+                        <img onclick= "setColoringPage(statue1);" class ="coloringPage" src ="assets/thumb1.png">
+                        </br>
+                        <br>
+                        <img onclick= "setColoringPage(statue2);" class ="coloringPage" src ="assets/thumb2.png">
+                        </br>
+                        <br>
+                        <img onclick= "setColoringPage(statue3);" class ="coloringPage" src ="assets/thumb3.png">
+                        </br>
+                        <br>
+                        <img onclick= "setColoringPage(statue4);" class ="coloringPage" src ="assets/thumb4.png">
+                        </br>
+                        <br>
+                        <img onclick= "setColoringPage(statue5);" class ="coloringPage" src ="assets/thumb5.png">
+                        </br>
+                        <br>
+                        <img onclick= "setColoringPage(statue6);" class ="coloringPage" src ="assets/thumb6.png">
+                        </br>
+                        <br>
+                        <img onclick= "setColoringPage(statue7);" class ="coloringPage" src ="assets/thumb7.png">
+                        </br>
+                        <br>
+                        <img onclick= "setColoringPage(blank);" class ="coloringPage" src ="assets/blankthumb.png">
+                        </br>
+
+                    </div>
+                    <br>
+                    <img  class ="scrollButton" src ="assets/scrollDownBlack.png">
+                    </br>
+                </td>
+                <td>
+
+                    <!-- something new? -->
+
+                </td>
+            </tr>
+        </table>
+
+    </body>
+</html>
+
