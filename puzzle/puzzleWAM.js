@@ -1,43 +1,24 @@
-/*
- * «Copyright 2012 José F. Maldonado»
- *
- *  This file is part of jqJigsawPuzzle.
- *
- *  jqJigsawPuzzle is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser General Public License as published 
- *  by the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  jqJigsawPuzzle is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *  GNU Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public License
- *  along with jqJigsawPuzzle. If not, see <http://www.gnu.org/licenses/>.
- */
+/* ================================================================================ 
+    File: puzzleWAM.js
+    «Copyright 2012 José F. Maldonado»
+    License: GNU Lesser General Public License
+    Modifications: Worcester State University CS401
+===================================================================================*/
 
 /**
  * Declare the namespace for the library.
  */
 jqJigsawPuzzle = new Object();
 
+
 /**
  * The array 'pieceSizes' defines the logical and the real sizes of the three sizes of pieces (small, normal and big).
  */
 jqJigsawPuzzle.pieceSizes = {
-    small : {
-        logical: 25,
-        real: 43
-    },
     normal : {
-        logical: 50, 
-        real: 86
-    },
+        logical: 50, real: 86 },
     big : {
-        logical: 100, 
-        real: 170
-    }
+        logical: 100, real: 170 }
 };
 
 /**
@@ -440,3 +421,38 @@ jqJigsawPuzzle.setTimerCounter = function(piecesContainer, time) {
     if(hours < 10) hours = '0' + hours;
     jQuery(piecesContainer).find(".time_compter").html(hours + ':' + minutes + ':' + seconds);
 };
+
+/**
+ * Define the sound object, created by SoundManager, used for reproduce a sound when a piece is put.
+ */
+jqJigsawPuzzle.pieceSound = null;
+
+/**
+ * Define the sound object, created by SoundManager, used for reproduce a sound when the puzzle is solve.
+ */
+jqJigsawPuzzle.finishSound = null;
+
+/**
+ * Configure SoundManager.
+ */ 
+/*soundManager.setup({
+    url: 'swf/',
+    flashVersion: 9,
+    useFlashBlock: false,
+    onready: function() {
+        // Initialize sounds.
+        jqJigsawPuzzle.pieceSound = soundManager.createSound({
+            id: 'piece',
+            url: 'mp3/tom1.mp3'
+            //, onload: function() {}
+        });
+        jqJigsawPuzzle.finishSound = soundManager.createSound({
+            id: 'finish',
+            url: 'mp3/large_crowd_applause.mp3'
+            //, onload: function() {}
+        });
+    },
+    ontimeout: function() {
+        // The library has not successfully initialized.
+    }
+});*/
