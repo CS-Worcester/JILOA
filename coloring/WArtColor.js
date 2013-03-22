@@ -4,6 +4,14 @@
  * Coloring Team: Jason Hintlian, Beto Luna
  */
 
+
+//var tool;
+var paint = "paint";
+var fillBucket = "fillBucket";
+var eraser = "eraser";
+var sprayPaint = "sprayPaint";
+var state = paint;
+
 // coloring scroll book image locations
 var statue1 = "assets/1.png";
 var statue2 = "assets/2.png";
@@ -15,85 +23,56 @@ var statue7 = "assets/7.png";
 var blank = "assets/blank.png";
 
 var sizePanelOpen = false;
+var colorPanelOpen = false;
 
 // eraser color
-
 var colorWhite = "#FFFFFF";
 
 //size variable
-
-var sizeExtraSmall = 2
+var sizeExtraSmall = 2;
 var sizeSmall = 10;
 var sizeMedium = 26;
 var sizeLarge = 50;
 var sizeExtraLarge = 80;
+var currentSize = sizeMedium;
 
 // holds the coloring page
 var outlineImage = new Image();
+var currentPage = statue1;
 
-var currentSize = sizeSmall;
-
-var currentColor = "#000000";
+// color variables
+var colorData;
+var outlineColorData;
+var currentColor = "rgb(0, 0, 0)";
+var currentColorR;
+var currentColorG;
+var currentColorB;
 
 //var currentState = new Red(this);
 var myCanvas, layer1, context, context1;
 
 window.onload = window.onresize = function() {
 
+// color menu
+    var canvas1 = document.getElementById('layer2');
+    var ctx1 = canvas1.getContext('2d');
 
-
-
-// sizw stuff
-        var canvas = document.getElementById('layer3');
-        var ctx = canvas.getContext('2d');
+// size menu
+    var canvas = document.getElementById('layer3');
+    var ctx = canvas.getContext('2d');
 
     // Get the canvas element and its drawing context 
     myCanvas = document.getElementById('drawingCanvas');
-
-    // make sure canvas loads  
-    if (!myCanvas) {
-        alert('Error: I cannot find the canvas element!');
-        return;
-    }
-    // make sure we have context handle
-    if (!myCanvas.getContext) {
-        alert('Error: no canvas.getContext!');
-        return;
-    }
-
-    // Get the 2D canvas context.
     context = myCanvas.getContext('2d');
-    if (!context) {
-        alert('Error: failed to getContext!');
-        return;
-    }
 
-    // Get the canvas element and its drawing context 
     layer1 = document.getElementById('layer1');
-
-    // make sure canvas loads  
-    if (!layer1) {
-        alert('Error: I cannot find the canvas element!');
-        return;
-    }
-    // make sure we have context handle
-    if (!layer1.getContext) {
-        alert('Error: no canvas.getContext!');
-        return;
-    }
-
-    // Get the 2D canvas context.
     context1 = layer1.getContext('2d');
-    if (!context) {
-        alert('Error: failed to getContext!');
-        return;
-    }
 
     // set canvas width to 60% of the window note: canvas 
     // id in css must be set to left: 20%; to accomadate
     var canvasWidthToWindow = .6;
 
-    // set canvas heigth to 60% of the window note: canvas 
+    // set canvas heigth to 90% of the window note: canvas 
     // id in css must be set to top: 5%; to accomadate
     var canvasHeightToWindow = .9;
 
@@ -105,192 +84,350 @@ window.onload = window.onresize = function() {
     var canvasWidth = viewportWidth * canvasWidthToWindow;
     var canvasHeight = viewportHeight * canvasHeightToWindow;
 
-
-    /*
-     * var canvasHeight = canvasWidth / widthToHeight;
-     var canvasWidth = viewportWidth * canvasToWindow;
-     */
-
-
     // set the the canvas dimensions
     myCanvas.setAttribute('width', canvasWidth);
     myCanvas.setAttribute('height', canvasHeight);
     layer1.setAttribute('width', canvasWidth);
     layer1.setAttribute('height', canvasHeight);
 
-    // get handle 'c' for jqeury function soon to remove maybe
-    //myCanvas.setAttribute('id', 'c');
-
     // set canvas background color white its magic
     context.fillStyle = '#ffffff';
-    context1.fillStyle = '#ffffff';
+    //context1.fillStyle = '#ffffff';
     // fill the canvas with background color
     context.fillRect(0, 0, canvasWidth, canvasHeight);
     //myCanvas.style.backgroundImage = defaultBackground;
-    outlineImage.src = "assets/1.png";
+    outlineImage.src = currentPage;
+
 
     // this makes sure the image is loaded before we move on
     // else the image will not be displayed
 
     outlineImage.onload = function() {
-        // this is how you draw an image to canvas with own 
-        // dimensions 0,0, x y are coordinates
         context1.drawImage(outlineImage, 0, 0, canvasWidth, canvasHeight);
     };
+    
+    //***************** Drawing Canvas Events ******************//
 
+    painting = false;
 
-    // handles all canvas events
-    function eventCanvas(event) {
-        event._x = event.layerX;
-        event._y = event.layerY;
-
-        // Call the event handler of the tool. note: brushes 
-        // on page represent sizes not tools
-        // for future implementation of more tool
-        var func = tool[event.type];
-        if (func) {
-            func(event);
+    $('#drawingCanvas').on("vmousedown", function(e) { // mouse move handler
+        e.preventDefault();
+        var canvasOffset = $(myCanvas).offset();
+        var canvasX = Math.floor(e.pageX - canvasOffset.left);
+        var canvasY = Math.floor(e.pageY - canvasOffset.top);
+        if (state === fillBucket) {
+            floodFillScanLine(canvasX, canvasY, currentColor, context, context1);
+        } else {
+            context.beginPath();
+            context.moveTo(canvasX - 1, canvasY);
+            context.lineTo(canvasX, canvasY);
+            
+            if(state === eraser){
+               context.strokeStyle = "white";
+            }else{
+               context.strokeStyle = currentColor; 
+            }
+            context.lineCap = "round";//Draw a line with rounded end caps
+            context.lineJoin = "round";//Create a rounded corner when the two lines meet
+            context.lineWidth = currentSize;
+            context.stroke();
+            painting = true;
         }
-    }
+        if (sizePanelOpen) {
+            $('.sizeselect').fadeToggle("fast", "linear");
+            sizePanelOpen = false;
+            $("#sizepreview").toggleClass("down");
+            buttonSize = false;
+        }
+        if (colorPanelOpen) {
+            $('.colorselect').fadeToggle("fast", "linear");
+            colorPanelOpen = false;
+            $("#preview").toggleClass("down");
+            buttonColor = false;
+        }
+    });
 
 
-    function init() {
-
-        // plans to implement a state patern to handle tol selection in the future
-        // var currentState = new Small(this);
-
-        // The pencil tool instance.
-
-
-        tool = new marker();
-
-        // Attach the mousedown, mousemove and mouseup event listeners.
-        myCanvas.addEventListener('mousedown', eventCanvas, false);
-        myCanvas.addEventListener('mousemove', eventCanvas, false);
-        myCanvas.addEventListener('mouseup', eventCanvas, false);
-        myCanvas.addEventListener('onmouseout', drawingCanvas, false);
-    }
-
-// state has no funtion yet for state patern to come making many change still
-    var marker = function(state) {
-        var tool = this;
-        this.started = false;
-
-        // This is called when you start holding down the mouse button.
-        // This starts the pencil drawing.
-        this.mousedown = function(event) {
-            event.preventDefault();
-            context.beginPath();
-            context.moveTo(event._x, event._y);
-            context.strokeStyle = currentColor;
-            //context.arc(event._x, event._y, currentSize / 2, 0, Math.PI * 2, true);
-            //context.lineTo(event._x, event._y);
-            //context.fill();
-            if(sizePanelOpen){
-                $('.sizeselect').fadeToggle("fast", "linear");
-                sizePanelOpen = false;
-            }
-            tool.started = true;
-        };
-
-        // This function is called every time you move the mouse. it only 
-        // draws if the tool.started state is set to true .
-        this.mousemove = function(event) {
-            //context.drawImage(outlineImage, 0, 0, canvasWidth, canvasHeight);
-            if (tool.started) {
-                // try removing the '_' see what happens weird
-                //context.lineTo(event._x, event._y);
-                //context.fillStyle = currentColor;
-                //context.arc(event._x, event._y, 10, 0, 2 * Math.PI);
-                //context.beginPath();
-                 //event.preventDefault();
-                
-                //context.closePath();
-                //context.fillStyle = "RED";
-               // context.arc(event._x, event._y, currentSize, 0, Math.PI * 2, true);
-                //context.fill();
-                context.lineCap = "round";//Draw a line with rounded end caps
-		context.lineJoin = "round";//Create a rounded corner when the two lines meet
-                context.lineWidth = currentSize;
-                //context.lineTo(event._x, event._y);
-               // context.moveTo(event._x, event._y);
-               //context.strokeStyle = currentColor;
-                context.lineTo(event._x, event._y);
+    $("#drawingCanvas").on("vmousemove", function(e) {
+        var canvasOffset = $(myCanvas).offset();
+        var canvasX = Math.floor(e.pageX - canvasOffset.left);
+        var canvasY = Math.floor(e.pageY - canvasOffset.top);
+        if (state === fillBucket) {
+            // do nothing
+        } else {
+            if (painting) {
+                context.lineTo(canvasX, canvasY);
                 context.stroke();
-
-
-                // 
-                // I can fix this with multiple layers of canvas !!!!!
-                // 
-                // context.drawImage(outlineImage, 0, 0, canvasWidth, canvasHeight);
-
             }
-        };
+        }
+    });
 
-        // This is called when you release the mouse button.
-        this.mouseup = function(event) {
-            if (tool.started) {
-                //tool.mousemove(event);
-                tool.started = false;
+    $('#drawingCanvas').on("vmouseup", function(e) { // mouse move handler
+
+        if (state === fillBucket) {
+        } else {
+            if (painting) {
+                painting = false;
             }
-        };
-        myCanvas.onmouseout = function(event) {
-            if (tool.started) {
-                //tool.mousemove(event);
-                tool.started = false;
+        }
+    });
+
+    $('#drawingCanvas').on("vmouseout", function(e) {
+        if (state === fillBucket) {
+        } else {
+            if (painting) {
+                painting = false;
             }
-        };
-    };
+        }
+    });
+    
+    //***************** Drawing Canvas Events ******************//
 
 
+    //***************** Left Side Buttons ******************//
 
-    // Implementation to come
+    var buttonColor = false;
+    var buttonSize = false;
+    var buttonBrush = true;
+    var buttonBucket = false;
+    var buttonEraser = false;
 
-    var fillBucket = function(state) {
+    $(document).ready(function() {
+        
+        //***************** Color and Size ******************//
 
-        var tool = this;
-        this.started = false;
+        $('#preview').click(function() {
+            $(this).toggleClass("down");
+            buttonColor = !buttonColor;
+            $('#preview').css('backgroundColor', currentColor);
+            if (buttonSize) {
+                $("#sizepreview").toggleClass("down");
+                $('#sizepreview').css('backgroundColor', currentColor);
+                buttonSize = false;
+                if (sizePanelOpen) {
+                    $('.sizeselect').fadeToggle("fast", "linear");
+                    sizePanelOpen = false;
+                }
+            }
+        });
 
-        // implementaion will only require the mouse down event paint fill logic to come
+        $('#sizepreview').click(function() {
+            $(this).toggleClass("down");
+            buttonSize = !buttonSize;
+            $('#sizepreview').css('backgroundColor', currentColor);
+            if (buttonColor) {
+                $("#preview").toggleClass("down");
+                $('#preview').css('backgroundColor', currentColor);
+                buttonColor = false;
+                if (colorPanelOpen) {
+                    $('.colorselect').fadeToggle("fast", "linear");
+                    colorPanelOpen = false;
+                }
+            }
+        });
+        
+        //***************** Color and Size End ******************//
+        
+        //***************** Tools ******************//
 
-        this.state = state;
-        this.mousedown = function(event) {
-            context.beginPath();
-            context.moveTo(event._x, event._y);
-            tool.started = true;
-        };
-    };
+        $('#brushtool').click(function() {
+            if (!buttonBrush) {
+                $(this).toggleClass("down");
+                buttonBrush = true;
 
 
-    // this function uses jquery because I am not sure how to change the preview 
-    // background without it or fade out
+                $('#brushtool').css('backgroundColor', currentColor);
+                if (buttonColor) {
+                    $("#preview").toggleClass("down");
+                    $('#preview').css('backgroundColor', currentColor);
+                    buttonColor = false;
+                    if (colorPanelOpen) {
+                        $('.colorselect').fadeToggle("fast", "linear");
+                        colorPanelOpen = false;
+                    }
+                }
+                if (buttonSize) {
+                    $("#sizepreview").toggleClass("down");
+                    $('#sizepreview').css('backgroundColor', currentColor);
+                    buttonSize = false;
+                    if (sizePanelOpen) {
+                        $('.sizeselect').fadeToggle("fast", "linear");
+                        sizePanelOpen = false;
+                    }
+                }
+                
+                if (buttonBucket) {
+                    $("#buckettool").toggleClass("down");
+                    $('#buckettool').css('backgroundColor', currentColor);
+                    buttonBucket = false;
+                }
+                
+                if (buttonEraser) {
+                    $("#erasertool").toggleClass("down");
+                    $('#erasertool').css('backgroundColor', currentColor);
+                    buttonEraser = false;
+                }
+            }
+        });
+
+        $('#buckettool').click(function() {
+            if (!buttonBucket) {
+                $(this).toggleClass("down");
+                buttonBucket = true;
+                //$(this).css({ boxShadow: '10px 10px 10px ' + currentColor });
+                
+                $('#buckettool').css('backgroundColor', currentColor);
+                if (buttonColor) {
+                    $("#preview").toggleClass("down");
+                    $('#preview').css('backgroundColor', currentColor);
+                    buttonColor = false;
+                    if (colorPanelOpen) {
+                        $('.colorselect').fadeToggle("fast", "linear");
+                        colorPanelOpen = false;
+                    }
+                }
+                if (buttonSize) {
+                    $("#sizepreview").toggleClass("down");
+                    $('#sizepreview').css('backgroundColor', currentColor);
+                    buttonSize = false;
+                    if (sizePanelOpen) {
+                        $('.sizeselect').fadeToggle("fast", "linear");
+                        sizePanelOpen = false;
+                    }
+                }
+                if (buttonBrush) {
+                    $("#brushtool").toggleClass("down");
+                    $('#brushtool').css('backgroundColor', currentColor);
+                    buttonBrush = false;
+                }
+                
+                if (buttonEraser) {
+                    $("#erasertool").toggleClass("down");
+                    $('#erasertool').css('backgroundColor', currentColor);
+                    buttonEraser = false;
+                }
+            }
+        });
+        $('#erasertool').click(function() {
+            if (!buttonEraser) {
+                $(this).toggleClass("down");
+                buttonEraser = true;
+                //$(this).css({ boxShadow: '10px 10px 10px ' + currentColor });
+                $('#buckettool').css('backgroundColor', currentColor);
+                
+                if (buttonColor) {
+                    $("#preview").toggleClass("down");
+                    $('#preview').css('backgroundColor', currentColor);
+                    buttonColor = false;
+                    if (colorPanelOpen) {
+                        $('.colorselect').fadeToggle("fast", "linear");
+                        colorPanelOpen = false;
+                    }
+                } 
+                
+                if (buttonSize) {
+                    $("#sizepreview").toggleClass("down");
+                    $('#sizepreview').css('backgroundColor', currentColor);
+                    buttonSize = false;
+                    if (sizePanelOpen) {
+                        $('.sizeselect').fadeToggle("fast", "linear");
+                        sizePanelOpen = false;
+                    }
+                }
+                
+                if (buttonBrush) {
+                    $("#brushtool").toggleClass("down");
+                    $('#brushtool').css('backgroundColor', currentColor);
+                    buttonBrush = false;
+                }
+                
+                if (buttonBucket) {
+                    $("#buckettool").toggleClass("down");
+                    $('#buckettool').css('backgroundColor', currentColor);
+                    buttonBucket = false;
+                }
+            }
+        });
+        
+        //***************** Tools End ******************//
+        
+    });
+    
+/*
+    $(document).ready(function() {
+        var speed = 600;
+        $('#scrollButtonUp').hover(function() {
+            $('#carousel ul').animate({marginTop: "-300px"}, "fast");
+        });
+        $('#scrollButtonDown').hover(function() {
+            $('#carousel ul').animate({marginTop: "1px"}, "fast");
+        });
+        
+    });
+*/
+   /* $(document).ready(function() {
+    
+    if ($('#carousel ul').height() > $('#scrollContainer').height()) {
+        $("#scrollButtonDown").hover(function () {
+            animateContent("down");
+        }, function() { $('#carousel ul').stop(); });
+    
+        $("#scrollButtonUp").hover(function () {
+            animateContent("up");
+        }, function() { $('#carousel ul').stop(); });
+    }
+}); 
+
+function animateContent(direction) {  
+    var animationOffset = $('#scrollContainer').height() - $('#carousel ul').height();
+    if (direction == 'up') {
+        animationOffset = 0;
+    }
+    var speed = 1200;
+    $('#carousel ul').animate({ "marginTop": animationOffset + "px" }, speed);
+}*/
+    
+    //***************** Scroll Button Shading ******************//
+
+$(function() {
+    $('#scrollButtonUp').css('opacity', 0);
+    
+    $('#scrollContainer').scroll(function() {
+        var total = $(this)[0].scrollHeight - $(this).height();
+        var opacity = $(this).scrollTop() / total;
+        $('#scrollButtonDown').css('opacity', opacity);
+        $('#scrollButtonUp').css('opacity', (1 - opacity));
+    });
+
+    $('#scrollButtonUp').click(function() {
+        $('#carousel ul').animate({
+            scrollTop: 0
+        }, 100);
+    });
+});
+
+    //***************** Color Select Canvas Events ******************//
 
     $(function() {
-
-        // create canvas and context objects
-        var canvas = document.getElementById('layer2');
-        var ctx = canvas.getContext('2d');
-
         // drawing active image
         var image = new Image();
         image.onload = function() {
             // draws the image on the canvas note: dimensions must match canvas dimensions
-            ctx.drawImage(image, 0, 0, 428, 339);
+            ctx1.drawImage(image, 0, 0, 428, 339);
         };
-
         // select desired colorwheel/chart
         var imageSrc = 'assets/colorWheel.png';
 
         image.src = imageSrc;
 
-        $('#layer2').mousedown(function(e) { // mouse move handler
+        $('#layer2').on("vmousedown", function(e) { // mouse move handler
             // get coordinates of current position
-            var canvasOffset = $(canvas).offset();
+            var canvasOffset = $(canvas1).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
             var canvasY = Math.floor(e.pageY - canvasOffset.top);
 
             // get current pixel
-            var imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
+            var imageData = ctx1.getImageData(canvasX, canvasY, 1, 1);
 
             // gets the color data for the pixel
             var pixel = imageData.data;
@@ -299,150 +436,141 @@ window.onload = window.onresize = function() {
             var pixelColor = "rgb(" + pixel[0] + ", " + pixel[1] + ", " + pixel[2] + ")";
 
             // set the background color of preview
-            $('.preview').css('backgroundColor', pixelColor);
+            $('#preview').css('backgroundColor', pixelColor);
 
-            // sets the paint color to the current color
+            // sets the paint color to the current color and rgb values
+            currentColorR = pixel[0];
+            currentColorG = pixel[1];
+            currentColorB = pixel[2];
             currentColor = pixelColor;
-
-            // closes the color palette window
-            //$('.colorselect').fadeToggle(.5, "linear");
         });
-                $('#layer2').mouseup(function(e) { // mouse move handler
-            
-            $('.colorselect').fadeToggle(.5, "linear");
-        });
-
-        // this is the actual clicking of the colorchart event listener
-        $('.preview').click(function(e) { // preview click
+        $('#layer2').on("vmouseup", function(e) { // mouse move handler
+            colorPanelOpen = false;
             // closes the color palette window
             $('.colorselect').fadeToggle("fast", "linear");
         });
 
-        $('#layer2').mousemove(function(e) {
+        // this is the clicking of the colorchart event listener
+        $('#preview').on("vclick", function(e) { // preview click
+            if (sizePanelOpen) {
+                $('.sizeselect').fadeToggle("fast", "linear");
+                sizePanelOpen = false;
+            }
+            // closes the color palette window
+            colorPanelOpen = !colorPanelOpen;
+            $('.colorselect').fadeToggle("fast", "linear");
+        });
+
+        $('#layer2').on("vmousemove", function(e) {
             // get coordinates of current position
-            var canvasOffset = $(canvas).offset();
+            var canvasOffset = $(canvas1).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
             var canvasY = Math.floor(e.pageY - canvasOffset.top);
 
-            // get current pixel
-            var imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
-
-            // gets the color data for the pixel
+            var imageData = ctx1.getImageData(canvasX, canvasY, 1, 1);
             var pixel = imageData.data;
-
-            // stores rgb color value in pixelColor
             var pixelColor = "rgb(" + pixel[0] + ", " + pixel[1] + ", " + pixel[2] + ")";
 
             // set the background color of preview
-            $('.preview').css('backgroundColor', pixelColor);
+            $('#preview').css('backgroundColor', pixelColor);
             // set the background color of preview
-            $('.sizepreview').css('backgroundColor', pixelColor);
+            $('#sizepreview').css('backgroundColor', pixelColor);
             // set the background color of preview
-            $('.sizeselect').css('backgroundColor', pixelColor);
-            
+            $('#erasertool').css('backgroundColor', pixelColor);
+            // set the background color of preview
+            $('#brushtool').css('backgroundColor', pixelColor);
+            $('#buckettool').css('backgroundColor', pixelColor);
         });
-
     });
     
-        $(function() {
+    //***************** Color Select Canvas Events End ******************//
+    
+    //***************** Size Select Canvas Events ******************//
 
-        // create canvas and context objects
-        
+    $(function() {
 
-        
         // drawing active image
         var image1 = new Image();
         image1.onload = function() {
-            // draws the image on the canvas note: dimensions must match canvas dimensions
-            //ctx.fillStyle = '#000000';
-            // fill the canvas with background color
-           // ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
             ctx.drawImage(image1, 0, 4, 400, 125);
         };
 
-        // select desired colorwheel/chart
+        // size selector image
         var imageSrc1 = 'assets/sizeSelection.png';
 
         image1.src = imageSrc1;
-        
+
         // drawing active image
         var image2 = new Image();
         image2.onload = function() {
-            // draws the image on the canvas note: dimensions must match canvas dimensions
-            //ctx.fillStyle = '#000000';
-            // fill the canvas with background color
-           // ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
             ctx.drawImage(image2, 0, 4, 400, 125);
         };
-
-        // select desired colorwheel/chart
+        // size background image
         var imageSrc2 = 'assets/sizeSelectionMedium.png';
 
         image2.src = imageSrc2;
-
-        $('#layer3').mousedown(function(e) { // mouse move handler
-            // get coordinates of current position
+        ctx.drawImage(image2, 0, 4, 400, 125);
+        $('#layer3').on("vmousedown", function(e) { // mouse move handler
             var canvasOffset = $(canvas).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
-            var canvasY = Math.floor(e.pageY - canvasOffset.top);
-            //alert("Canvas x = " + canvasX);
-            
-            if(canvasX <= 56){
+
+            if (canvasX <= 56) {
                 currentSize = sizeExtraSmall;
                 //ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
                 var imageSrc2 = 'assets/sizeSelectionExtraSmall.png';
                 image2.src = imageSrc2;
                 ctx.drawImage(image2, 0, 4, 400, 125);
             }
-            if(canvasX <= 111 && canvasX > 56){
+            if (canvasX <= 111 && canvasX > 56) {
                 currentSize = sizeSmall;
                 //ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
                 var imageSrc2 = 'assets/sizeSelectionSmall.png';
                 image2.src = imageSrc2;
                 ctx.drawImage(image2, 0, 4, 400, 125);
             }
-            if(canvasX <= 178 && canvasX > 111){
+            if (canvasX <= 178 && canvasX > 111) {
                 currentSize = sizeMedium;
                 //ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
                 var imageSrc2 = 'assets/sizeSelectionMedium.png';
                 image2.src = imageSrc2;
                 ctx.drawImage(image2, 0, 4, 400, 125);
             }
-            if(canvasX <= 268 && canvasX > 178){
+            if (canvasX <= 268 && canvasX > 178) {
                 currentSize = sizeLarge;
                 //ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
                 var imageSrc2 = 'assets/sizeSelectionLarge.png';
                 image2.src = imageSrc2;
                 ctx.drawImage(image2, 0, 4, 400, 125);
             }
-            if(canvasX <= 400 && canvasX > 268){
+            if (canvasX <= 400 && canvasX > 268) {
                 currentSize = sizeExtraLarge;
                 //ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
                 var imageSrc2 = 'assets/sizeSelectionExtraLarge.png';
                 image2.src = imageSrc2;
                 ctx.drawImage(image2, 0, 4, 400, 125);
             }
-            
+
 
             // closes the color palette window
-           // $('.sizeselect').fadeToggle(.5, "linear");
+            $('.sizeselect').fadeToggle("fast", "linear");
+            sizePanelOpen = false;
         });
 
         // this is the actual clicking of the colorchart event listener
-        $('.sizepreview').click(function(e) { // preview click
+        $('#sizepreview').on("vclick", function(e) { // preview click
+            if (colorPanelOpen) {
+                $('.colorselect').fadeToggle("fast", "linear");
+                colorPanelOpen = false;
+            }
             // closes the color palette window
             sizePanelOpen = !sizePanelOpen;
-        $('.sizeselect').fadeToggle("fast", "linear");
-            
+            $('.sizeselect').fadeToggle("fast", "linear");
         });
-        $('#layer3').mousemove(function(e) {
-  
-        });
-
     });
-    
-    init();
 };
+
+//***************** Size Select Canvas Events End ******************//
+
 // function for setting a new color
 var setColor = function(color) {
     currentColor = color;
@@ -455,10 +583,150 @@ var setSize = function(size) {
 
 // this function sets the coloring page its called from the coresponding html button 
 var setColoringPage = function(imagePath) {
-    outlineImage.src = imagePath;
-    context.clearRect(0, 0, myCanvas.width, myCanvas.height);
     context1.clearRect(0, 0, myCanvas.width, myCanvas.height);
-    context1.drawImage(outlineImage, 0, 0, myCanvas.width, myCanvas.height);
+    context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+    context.fillStyle = '#ffffff';
+    context.fillRect(0, 0, myCanvas.width, myCanvas.height);
+    outlineImage.src = imagePath;
+    currentPage = imagePath;
+    outlineImage.onload();
+};
+// function for setting a new tool state
+var setTool = function(newTool) {
+    state = newTool;
 };
 
+/************** Multi Layer Flood Fill Scan Line Stack Algoritham  *******************/
 
+/* this allows us to avoid redrawing and still use another layer for our canvas
+ * notice it takes two ctx arguments one for the drawing canvas and the second for the 
+ * outline canvas.  The drawing canvas checks RGB values but the outline canvas just 
+ * checks the alpha(transparency).
+ */
+
+var stack = [];
+
+
+function floodFillScanLine(x, y, curColor, ctx, outlineCtx) {
+
+
+
+    if (!stack.push(x, y)) {
+        return;
+    }
+    var width = ctx.canvas.width;
+    var height = ctx.canvas.height;
+
+    colorData = ctx.getImageData(0, 0, width, height);
+    pixelAddress = (y * width + x) * 4;
+    var color = ctx.getImageData(x, y, width, height);
+    var pixel = color.data;
+    var pixelColor = "rgb(" + pixel[0] + ", " + pixel[1] + ", " + pixel[2] + ")";
+    oColorData = outlineCtx.getImageData(0, 0, width, height);
+
+    var startColorR = colorData.data[pixelAddress];
+    var startColorG = colorData.data[pixelAddress + 1];
+    var startColorB = colorData.data[pixelAddress + 2];
+
+    var oStartColorA = oColorData.data[pixelAddress + 3];
+
+    var rgb = curColor.match(/\d+/g);
+    var curColorR = rgb[0];
+    var curColorG = rgb[1];
+    var curColorB = rgb[2];
+
+    if (curColor === pixelColor) {
+        return;
+    }
+    if (oStartColorA > 5) {
+        return;
+    }
+
+
+    var y1;
+    var Left;
+    var Right;
+
+    while (stack.length > 0) {
+        y = stack.pop();
+        x = stack.pop();
+        pixelAddress = (y * width + x) * 4;
+        y1 = y;
+
+        while (y1 >= 0 && compareColor(pixelAddress, startColorR, startColorG, startColorB)
+                && checkPixelA(pixelAddress)) {
+            y1--;
+            pixelAddress -= width * 4;
+        }
+        pixelAddress += width * 4;
+        y1++;
+        Left = Right = false;
+
+        while (y1 < height && compareColor(pixelAddress, startColorR, startColorG, startColorB)
+                && checkPixelA(pixelAddress)) {
+            y1++;
+
+            colorData.data[pixelAddress] = curColorR;
+            colorData.data[pixelAddress + 1] = curColorG;
+            colorData.data[pixelAddress + 2] = curColorB;
+            colorData.data[pixelAddress + 3] = 255;
+            //context.putImageData(colorData, 0, 0);
+
+
+            if (!Left && x > 0 && compareColor(pixelAddress - 4, startColorR, startColorG, startColorB, colorData)
+                    && checkPixelA(pixelAddress)) {
+                if (!stack.push(x - 1, y1))
+                    return;
+                Left = true;
+            } else if (Left && x > 0 && compareColor(pixelAddress - 4, startColorR, startColorG, startColorB, colorData)
+                    && checkPixelA(pixelAddress)) {
+                Left = false;
+            }
+            if (!Right && x < (width - 1) && compareColor(pixelAddress + 4, startColorR, startColorG, startColorB, colorData)
+                    && checkPixelA(pixelAddress)) {
+                if (!stack.push(x + 1, y1))
+                    return;
+                Right = true;
+            } else if (Right && x < (width - 1) && compareColor(pixelAddress + 4, startColorR, startColorG, startColorB, colorData)
+                    && checkPixelA(pixelAddress)) {
+                Right = false;
+            }
+            pixelAddress += width * 4;
+        }
+
+    }
+    ctx.putImageData(colorData, 0, 0);
+}
+
+// compares RGB values to a pixels RGB valus
+
+// has a hardcoded tolerance of 5
+compareColor = function(pixelAddress, startR, startG, startB) {
+
+    var r = colorData.data[pixelAddress];
+    var g = colorData.data[pixelAddress + 1];
+    var b = colorData.data[pixelAddress + 2];
+    var a = colorData.data[pixelAddress + 3];
+
+    // If the current pixel matches the clicked color
+    if (r <= startR + 5 && r >= startR - 5 &&
+            g <= startG + 5 && g >= startG - 5 &&
+            b <= startB + 5 && b >= startB - 5) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+// checks the alpha(transparency) variable
+
+checkPixelA = function(pixelAddress) {
+
+    var a = oColorData.data[pixelAddress + 3];
+
+    if (a > 200) {
+        return false;
+    } else {
+        return true;
+    }
+};
