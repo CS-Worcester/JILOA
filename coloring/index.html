@@ -3,15 +3,19 @@
 <html>
     <head>
         <title></title>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="jquery.mobile-1.3.0.min.js"><\/script>');</script> 
         <script src = 'WArtColor.js'></script>
         <link type="text/css" rel="stylesheet" href="WArtColorStyle.css"/>
+        <script>window.jQuery || document.write('<script src="jquery-1.9.1.min.js"><\/script>');</script>
+
+
     </head>
     <body>
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> 
-
-        <script>window.jQuery || document.write('<script src="jquery-1.9.1.min.js"><\/script>');</script>
 
         <table align ="center">
 
@@ -20,20 +24,34 @@
             <tr>
                 <td id ="toolbox" style = "z-index: 3">
                     <br>
-                    <div class="preview" style="text-align: center"></div>
+                    <div class ="tilebutton"  id = "preview" style="text-align: center"></div>
 
                     <!-- color selection element -->
-                    <div class="colorselect" style="display:none; z-index: 2">
+                    <div class ="colorselect" style="display:none; z-index: 2">
                         <canvas id="layer2" width="427" height="339"></canvas>
+                        <div class ="toolText"><b>Colors</b></div>
                     </div>
-                    <div style=" text-shadow: 3px; font-family: cursive; font-size: 20px; text-align: center">Colors</div>
-                    <div class="sizepreview"></div>
-
+                    <div class ="toolText"><b>Colors</b></div>
+                    <div class ="tilebutton" id ="sizepreview"></div>
                     <!-- color selection element -->
                     <div class="sizeselect" style="display:none; z-index: 1">
                         <canvas id="layer3" width="400" height="125"></canvas>
+                        <div class ="toolText"><b>Sizes</b></div>
                     </div>
-                    <div style=" text-shadow: 3px; font-family: cursive; font-size: 20px; text-align: center">Sizes</div>
+                    <div class ="toolText"><b>Sizes</b></div>
+
+                    <div id ="toolset">
+
+                        <div class ="tilebutton" id ="brushtool" onclick= "setTool(paint);" ></div>
+                        <div class ="toolText"><b>Brush</b></div>
+
+                        <div class ="tilebutton" id ="buckettool" onclick= "setTool(fillBucket);"></div>
+                        <div class ="toolText"><b>Bucket</b></div>
+
+                        <div class ="tilebutton" id ="erasertool" onclick= "setTool(eraser);"></div>
+                        <div class ="toolText"><b>Eraser</b></div>
+
+                    </div>
                 </td>
 
                 <td>
@@ -41,6 +59,7 @@
                     <div id ="coloringCanvas">
                         <canvas  id='drawingCanvas' style="  border: 3px solid black; z-index:1; cursor: crosshair ; "  ></canvas>
                         <canvas  id='layer1' style="border: 3px solid black; z-index:2; cursor: crosshair" ></canvas>
+                        <!-- could fix fill issues with a third layer-->
                     </div>
 
                 </td>
@@ -48,42 +67,48 @@
                 <td id ="coloringscroll">
                     <!-- functionality for selecting to come but it will 
                     work similar to the current color selection logic -->
-                    <br>
-                    <img  class ="scrollButton" src ="assets/scrollUp.png">
-                    </br>
+                  <a id="scrollButtonUp" href="#">
+                    <img  class ="scrollButton" src ="assets/scrollUpBlack.png">
+                    </a>
 
-                    <div style="height: 475px;width:130px; overflow:auto;">
+
+                    <div id ="scrollContainer">
+                        
+                        
                         <!-- Tools -->
-
-                        <br>
-                        <img onclick= "setColoringPage(statue1);" class ="coloringPage" src ="assets/thumb1.png">
-                        </br>
-                        <br>
-                        <img onclick= "setColoringPage(statue2);" class ="coloringPage" src ="assets/thumb2.png">
-                        </br>
-                        <br>
-                        <img onclick= "setColoringPage(statue3);" class ="coloringPage" src ="assets/thumb3.png">
-                        </br>
-                        <br>
-                        <img onclick= "setColoringPage(statue4);" class ="coloringPage" src ="assets/thumb4.png">
-                        </br>
-                        <br>
-                        <img onclick= "setColoringPage(statue5);" class ="coloringPage" src ="assets/thumb5.png">
-                        </br>
-                        <br>
-                        <img onclick= "setColoringPage(statue6);" class ="coloringPage" src ="assets/thumb6.png">
-                        </br>
-                        <br>
-                        <img onclick= "setColoringPage(statue7);" class ="coloringPage" src ="assets/thumb7.png">
-                        </br>
-                        <br>
-                        <img onclick= "setColoringPage(blank);" class ="coloringPage" src ="assets/blankthumb.png">
-                        </br>
+                        <div id="carousel" >
+                            <ul>
+                                <li>
+                                    <img onclick= "setColoringPage(statue1);" class ="coloringPage" src ="assets/thumb1.png">
+                                </li>
+                                <li>
+                                    <img onclick= "setColoringPage(statue2);" class ="coloringPage" src ="assets/thumb2.png">
+                                </li>
+                                <li>
+                                    <img onclick= "setColoringPage(statue3);" class ="coloringPage" src ="assets/thumb3.png">
+                                </li>
+                                <li>
+                                    <img onclick= "setColoringPage(statue4);" class ="coloringPage" src ="assets/thumb4.png">
+                                </li>
+                                <li>
+                                    <img onclick= "setColoringPage(statue5);" class ="coloringPage" src ="assets/thumb5.png">
+                                </li>
+                                <li>
+                                    <img onclick= "setColoringPage(statue6);" class ="coloringPage" src ="assets/thumb6.png">
+                                </li>
+                                <li>
+                                    <img onclick= "setColoringPage(statue7);" class ="coloringPage" src ="assets/thumb7.png">
+                                </li>
+                                <li>
+                                    <img onclick= "setColoringPage(blank);" class ="coloringPage" src ="assets/blankthumb.png">
+                                </li>
+                            </ul>
+                        </div>
 
                     </div>
-                    <br>
+                    <a id="scrollButtonDown" href="#">
                     <img  class ="scrollButton" src ="assets/scrollDownBlack.png">
-                    </br>
+                    </a>
                 </td>
                 <td>
 

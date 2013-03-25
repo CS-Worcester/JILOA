@@ -9,6 +9,14 @@
 root { 
     display: block;
 }
+ul
+{
+    list-style-type: none;
+}
+/* overrides jquery mobile */
+.ui-page {
+    background: transparent;
+}
 
 body{
     background-color: white;
@@ -45,14 +53,14 @@ body{
     margin-bottom: 200px;
 }
 .sizeselect {
-    background-color: #000;
+    background-color: #fff;
     border: solid 3px #000000;
-    /*box-shadow: 2px 2px 2px #444444;*/
+    box-shadow: 5px 5px 5px #444444;
     position: absolute;
     border-radius: 5px;
-    margin-left: 114px;
-    margin-top: 100px;
-    
+    margin-left: 100px;
+    margin-top: 10px;
+
 }
 #picker{
     cursor: crosshair;
@@ -60,34 +68,94 @@ body{
     margin: 10px;
     border: 0;
 }
-.preview {
-   background: url("assets/colorButtonBrush.png") repeat scroll center center transparent;
-   
-    border: solid 3px #000000;
+
+
+#preview {
+    background: url("assets/transparentPaintPalette.png") repeat scroll center center transparent;
     background-color: #000000;
-    border-radius:50px;
-    box-shadow: 2px 2px 2px #444444;
-    cursor: pointer;
-    height: 60px;
-    width: 60px;
+    box-shadow: 0px 0px 0px #444444;
+    border-radius:10px;
 }
- .sizepreview {
-     float: right;
-    margin: auto;
-    margin-top: 20px;
+#preview.down {
+    background: url("assets/transparentPaintPalette.png") repeat scroll center center transparent;
+    box-shadow: 10px 10px 10px #444444;
+}
+#sizepreview {
     background: url("assets/colortips.png") repeat scroll center center transparent;
-    border: solid 3px #000000;
     background-color: #000000;
-    border-radius:5px;
-    box-shadow: 2px 2px 2px #444444;
+    box-shadow: 0px 0px 0px #444444;
+    border-radius:10px;
+}
+#sizepreview.down {
+    box-shadow: 10px 10px 10px #444444;
+}
+#brushtool {
+    background: url("assets/colorButtonBrush.png") repeat scroll center center transparent;
+    background-color: #000000;
+    box-shadow: 10px 10px 10px #444444;
+    border-top: solid 5px #eaeaea;
+    border-left: solid 5px #eaeaea;
+    border-bottom: solid 5px #777;
+    border-right: solid 5px #777;
+}
+#brushtool.down {
+    box-shadow: 0px 0px 0px #444444;
+}
+#buckettool {
+    background: url("assets/paintBucket.png") repeat scroll center center transparent;
+    background-color: #000000;
+    border-top: solid 5px #eaeaea;
+    border-left: solid 5px #eaeaea;
+    border-bottom: solid 5px #777;
+    border-right: solid 5px #777;
+    box-shadow: 0px 0px 0px #444444;
+}
+#buckettool.down {
+    box-shadow: 10px 10px 10px #444444;
+}
+#erasertool {
+    background: url("assets/eraser.png") repeat scroll center center transparent;
+    background-color: #000000;
+    border-top: solid 5px #eaeaea;
+    border-left: solid 5px #eaeaea;
+    border-bottom: solid 5px #777;
+    border-right: solid 5px #777;
+    box-shadow: 0px 0px 0px #444444;
+}
+#erasertool.down {
+    box-shadow: 10px 10px 10px #444444;
+}
+.tilebutton{
+    border-radius: 40px;
+    border-top: solid 5px #eaeaea;
+    border-left: solid 5px #eaeaea;
+    border-bottom: solid 5px #777;
+    border-right: solid 5px #777; 
+    width: 50%;
+    margin: 0px auto;
     cursor: pointer;
     height: 60px;
-    width: 60px;
+    width: 60px
 }
 #toolbox{
     position: absolute;
     left: 10mm;
     top: 30mm;
+}
+#toolset{
+   /* border-radius: 30px;
+    border-top: solid 5px #eaeaea;
+    border-left: solid 5px #eaeaea;
+    border-bottom: solid 5px #888;
+    border-right: solid 5px #888; 
+    background-color: #cccccc;
+    padding-top: 20px;
+    width: 100px;*/
+}
+.toolText{
+    font-family: cursive; 
+    font-size: 20px; 
+    text-align: center
 }
 #coloringscroll{
     position: absolute;
@@ -118,5 +186,29 @@ body{
 .scrollButton{
     margin: auto;
     height: 30px;
-    width:90px;
+    width:80px;
+    padding-left:10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#scrollContainer{
+    height: 440px; 
+    width:120px; 
+    overflow: auto;
+}
+
+#carousel ul { 
+    list-style-type:none;
+    margin-left:0; left:0; 
+    padding-left:0px;
+}
+#carousel li { 
+    display:inline;
+    margin: auto;
+}
+#carousel ul li img{ 
+    width: 100px; 
+    height: 100px; 
+    border:1px solid #ccc;
+    margin: auto;
 }
