@@ -6,7 +6,7 @@
 ===================================================================================*/
 
 div.jigsaw {
-    position: absolute; background-color: white; border-color: darkblue; border-style: solid; }
+    position: absolute; background-color: white; border-color: black; border-style: solid; }
 
 div.jigsaw.highlight {
     border-color: darkgreen; }
@@ -21,13 +21,13 @@ div.jigsaw div.menu {
     position: relative; }
 
 div.jigsaw div.menu table.menu {
-    width: 100%; color: white; text-align: center; background-color: blue; }
+    width: 100%; color: white; text-align: center; background-color: black; }
 
 div.jigsaw.resolved div.menu table.menu {
     background-color: darkgreen; }
 
 div.jigsaw div.menu table.menu td {
-    padding: 3px; }
+    padding: 5px; }
 
 div.jigsaw div.menu table.menu a.button {
     color: black; padding: 2px; text-decoration: none; border: 1px solid gray; background-color: lightgray;
