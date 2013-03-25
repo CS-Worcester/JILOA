@@ -110,7 +110,7 @@ window.onload = window.onresize = function() {
 
     painting = false;
 
-    $('#drawingCanvas').on("vmousedown", function(e) { // mouse move handler
+    $('#drawingCanvas').mousedown( function(e) { // mouse move handler
         e.preventDefault();
         var canvasOffset = $(myCanvas).offset();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
@@ -148,7 +148,7 @@ window.onload = window.onresize = function() {
     });
 
 
-    $("#drawingCanvas").on("vmousemove", function(e) {
+    $("#drawingCanvas").mousemove( function(e) {
         var canvasOffset = $(myCanvas).offset();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
         var canvasY = Math.floor(e.pageY - canvasOffset.top);
@@ -162,7 +162,7 @@ window.onload = window.onresize = function() {
         }
     });
 
-    $('#drawingCanvas').on("vmouseup", function(e) { // mouse move handler
+    $('#drawingCanvas').mouseup(function(e) { // mouse move handler
 
         if (state === fillBucket) {
         } else {
@@ -172,7 +172,7 @@ window.onload = window.onresize = function() {
         }
     });
 
-    $('#drawingCanvas').on("vmouseout", function(e) {
+    $('#drawingCanvas').mouseout(function(e) {
         if (state === fillBucket) {
         } else {
             if (painting) {
@@ -438,7 +438,7 @@ function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
 
         image.src = imageSrc;
 
-        $('#layer2').on("vmousedown", function(e) { // mouse move handler
+        $('#layer2').mousedown( function(e) { // mouse move handler
             // get coordinates of current position
             var canvasOffset = $(canvas1).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
@@ -462,14 +462,14 @@ function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
             currentColorB = pixel[2];
             currentColor = pixelColor;
         });
-        $('#layer2').on("vmouseup", function(e) { // mouse move handler
+        $('#layer2').mouseup(function(e) { // mouse move handler
             colorPanelOpen = false;
             // closes the color palette window
             $('.colorselect').fadeToggle("fast", "linear");
         });
 
         // this is the clicking of the colorchart event listener
-        $('#preview').on("vclick", function(e) { // preview click
+        $('#preview').click(function(e) { // preview click
             if (sizePanelOpen) {
                 $('.sizeselect').fadeToggle("fast", "linear");
                 sizePanelOpen = false;
@@ -479,7 +479,7 @@ function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
             $('.colorselect').fadeToggle("fast", "linear");
         });
 
-        $('#layer2').on("vmousemove", function(e) {
+        $('#layer2').mousemove(function(e) {
             // get coordinates of current position
             var canvasOffset = $(canvas1).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
@@ -528,7 +528,7 @@ function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
 
         image2.src = imageSrc2;
         ctx.drawImage(image2, 0, 4, 400, 125);
-        $('#layer3').on("vmousedown", function(e) { // mouse move handler
+        $('#layer3').mousedown(function(e) { // mouse move handler
             var canvasOffset = $(canvas).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
 
@@ -575,7 +575,7 @@ function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
         });
 
         // this is the actual clicking of the colorchart event listener
-        $('#sizepreview').on("vclick", function(e) { // preview click
+        $('#sizepreview').click(function(e) { // preview click
             if (colorPanelOpen) {
                 $('.colorselect').fadeToggle("fast", "linear");
                 colorPanelOpen = false;
