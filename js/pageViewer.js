@@ -1,6 +1,7 @@
 var pageWidth = window.innerWidth; //for sizing purposes since there is an issue with %s and the div setup currently - this might be temporary
 var pageHeight = window.innerHeight; //same issue as stated above
 $(document).ready(function(){
+	$('#article-wrapper').css('height', pageHeight*0.8+'px');
 	var curArticle = 0; //variable for the current article
 	$('.article').css('marginLeft', pageWidth*0.01+"px"); //pageWidth issues in regular css, this a dynamic solution
 	$('.article-preview').css('width', pageWidth*0.59+"px");
