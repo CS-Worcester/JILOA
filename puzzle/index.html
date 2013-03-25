@@ -7,7 +7,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title></title>
+	<style type="text/css">
+            body { background-color:lightgrey; }
+	    h1 { font-size: 12px; }
+	    h2 { text-align:center; font-size:15px; }
+        </style>
+        <title>Game</title>
             <meta http-equiv="Content-Language" content="en-GB"/>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
             <meta name="keywords" content=""/>
@@ -17,21 +22,30 @@
     
             <script type="text/javascript" src="utilities/jquery/jquery-1.7.2.min.js"></script>
             <script type="text/javascript" src="utilities/jquery/jquery-ui-1.8.22.custom.min.js"></script>
+	    <script src="utilities/jquery/touchPunch.js"></script>
+	    
             <script type="text/javascript" src="puzzleWAM.js"></script>
             <script type="text/javascript">
                 jQuery(document).ready(function() {
+		    var x = 'big';
+		    var y = 'normal';
                     jqJigsawPuzzle.createPuzzleFromImage("#my_puzzle", {
-                        piecesSize: 'big',
-                        borderWidth: 5,
+                        piecesSize: x,
+                        borderWidth: 8,
                         shuffle: {
-                            rightLimit: 500, leftLimit: 0, topLimit: 5, bottomLimit: 5
+			    rightLimit: 300, leftLimit: 400, topLimit: 5, bottomLimit: 5
                         }
                     });
                 });
             </script>
     </head>
     <body>
-        <div>
+	    <br>
+	    <br>
+	    <br>
+	    <br>
+	    <br>
+        <div style="text-align: center;">
             <img id="my_puzzle" src="utilities/masks/wam.jpg" alt=""/>
         </div>
     </body>

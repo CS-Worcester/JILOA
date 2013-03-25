@@ -5,21 +5,15 @@
     Modifications: Worcester State University CS401
 ===================================================================================*/
 
-/**
- * Declare the namespace for the library.
- */
+/* Declare object for puzzle */
 jqJigsawPuzzle = new Object();
 
-
-/**
- * The array 'pieceSizes' defines the logical and the real sizes of the three sizes of pieces (small, normal and big).
- */
+/* Array PieceSizes defines logical and real sizes of piece size(Normal, Large) */
 jqJigsawPuzzle.pieceSizes = {
     normal : {
         logical: 50, real: 86 },
     big : {
-        logical: 100, real: 170 }
-};
+        logical: 100, real: 170 } };
 
 /**
  * Creates an array which defines the type of each piece of the puzzle
@@ -40,57 +34,51 @@ jqJigsawPuzzle.randomPieceTypes = function(rows, columns) {
     // ----- d -----
     // c --------- a
     // ----- b -----
-  
+    
     // Define diagonal pieces.
-    for(var i=0; i<rows; i++)
-        {
+    for(var i=0; i < rows; i++) {
         res[i] = new Array();
-        for(var j=0; j<columns; j++)
-            {
-            if( (i+j)%2 == 0)
-                {
+        for(var j=0; j < columns; j++) {
+            if( (i+j)%2 == 0) {
                 // Generate a random number between 0 and 15 (0000 and 1111).
                 var rand = Math.floor(Math.random()*16); 
-
+		
                 // Verify if the piece is in a border.
                 if(i == 0) { rand = rand | 8; }            // Is in the first row, set 'd' to 1.
                 if(i == rows-1) { rand = rand | 2; }       // Is in the last row, set 'b' to 1.
                 if(j == 0) { rand = rand | 4; }            // Is in the first column, set 'c' to 1.
                 if(j == columns-1) { rand = rand | 1; }    // Is in the last column, set 'a' to 1.
-
+		
                 // Save value.
                 res[i][j] = rand;
-                }
             }
         }
-
+    }
+    
     // Define the other pieces.
-    for(i=0; i<rows; i++)
-    for(j=0; j<columns; j++)
-        {
-        if( (i+j)%2 == 1)
-            {
-            var det = 0;
-		
+    for(i=0; i < rows; i++)
+	for(j=0; j<columns; j++) {
+        if( (i+j)%2 == 1) {
+	    var det = 0;
+	    
             if(i != 0) { det = det | (res[i-1][j] & 2)<<2; }           // d = !b from the piece up.
             if(i != rows-1) { det = det | (res[i+1][j] & 8)>>2; }      // b = !d from the piece down.
             if(j != 0) { det = det | (res[i][j-1] & 1)<<2; }           // c = !a from the piece left.
             if(j != columns-1) { det = det | (res[i][j+1] & 4)>>2; }   // a = !c from the piece right.
-
+	    
             res[i][j] = 15 - det;
-            }
         }
-
+        }
+    
     // Convert binary number into strings.
     for(i=0; i<rows; i++)
-    for(j=0; j<columns; j++)
-        {
-        var value = '';
-        value += ((res[i][j] & 8) != 0)? '1' : '0';
-        value += ((res[i][j] & 4) != 0)? '1' : '0';
-        value += ((res[i][j] & 2) != 0)? '1' : '0';
-        value += ((res[i][j] & 1) != 0)? '1' : '0';
-        res[i][j] = value;
+	for(j=0; j<columns; j++) {
+            var value = '';
+            value += ((res[i][j] & 8) != 0)? '1' : '0';
+            value += ((res[i][j] & 4) != 0)? '1' : '0';
+            value += ((res[i][j] & 2) != 0)? '1' : '0';
+            value += ((res[i][j] & 1) != 0)? '1' : '0';
+            res[i][j] = value;
         }
 
     return res;
@@ -201,7 +189,7 @@ jqJigsawPuzzle.imageToPuzzle = function(imageSelector, options) {
                    '<div class="puzzle" style="width:'+imgWidth+'px; height:'+imgHeight+'px; background-image:url(\''+imgSrc+'\');"></div>' +
                    '<div class="menu" style="width:'+(imgWidth)+'px;">' + 
                         '<table class="menu"><tr>' + 
-                            '<td><a href="#" class="button" id="'+puzzleId+'_shuffle" title="Shuffle">Shuffle</a></td>' + 
+                            '<td><a href="#" class="button" id="'+puzzleId+'_shuffle" title="Shuffle">Restart</a></td>' + 
                             '<td>Movements: <span class="movement_compter" id="'+puzzleId+'_movements"></span></td>' + 
                             '<td>Time: <span class="time_compter" id="'+puzzleId+'_time"></span></td>' + 
                         '</tr></table>' + 
@@ -272,13 +260,6 @@ jqJigsawPuzzle.imageToPuzzle = function(imageSelector, options) {
                     // Start timer counter.
                     jqJigsawPuzzle.startTimerCounter(piecesContainer);
                     
-                    // Verify if the cursor is inside the 'logical' area, besides being insided the 'real' area.
-                    //var relativeCursorPosX = event.pageX - ui.position.left - piecesContainer.position().left;
-                    //var relativeCursorPosY = event.pageY - ui.position.top - piecesContainer.position().top;                   
-                    //if( relativeCursorPosY>(logicalSize+offset) || relativeCursorPosY<offset || 
-                    //    relativeCursorPosX>(logicalSize+offset) || relativeCursorPosX<offset)
-                    //    { return false; }
-               
                     // Change z-index in order to put it on top of all the other pieces.
                     var zIndex = parseInt(piecesContainer.data('last-z-index'), 10);
                     jQuery(this).css("z-index", zIndex);
@@ -313,7 +294,6 @@ jqJigsawPuzzle.imageToPuzzle = function(imageSelector, options) {
                         if(piecesLocated+1 >= parseInt(piecesContainer.data('pieces-number'), 10)) {
                             piecesContainer.addClass('resolved');
                             jqJigsawPuzzle.stopTimerCounter(piecesContainer);
-                            if(jqJigsawPuzzle.finishSound != null) jqJigsawPuzzle.finishSound.play();
                         }
                     }
 
@@ -421,38 +401,3 @@ jqJigsawPuzzle.setTimerCounter = function(piecesContainer, time) {
     if(hours < 10) hours = '0' + hours;
     jQuery(piecesContainer).find(".time_compter").html(hours + ':' + minutes + ':' + seconds);
 };
-
-/**
- * Define the sound object, created by SoundManager, used for reproduce a sound when a piece is put.
- */
-jqJigsawPuzzle.pieceSound = null;
-
-/**
- * Define the sound object, created by SoundManager, used for reproduce a sound when the puzzle is solve.
- */
-jqJigsawPuzzle.finishSound = null;
-
-/**
- * Configure SoundManager.
- */ 
-/*soundManager.setup({
-    url: 'swf/',
-    flashVersion: 9,
-    useFlashBlock: false,
-    onready: function() {
-        // Initialize sounds.
-        jqJigsawPuzzle.pieceSound = soundManager.createSound({
-            id: 'piece',
-            url: 'mp3/tom1.mp3'
-            //, onload: function() {}
-        });
-        jqJigsawPuzzle.finishSound = soundManager.createSound({
-            id: 'finish',
-            url: 'mp3/large_crowd_applause.mp3'
-            //, onload: function() {}
-        });
-    },
-    ontimeout: function() {
-        // The library has not successfully initialized.
-    }
-});*/
