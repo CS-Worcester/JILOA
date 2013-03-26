@@ -1,6 +1,6 @@
 <!-- ==============================================
 	File: index.html
-	ÇCopyright 2012 JosŽ F. MaldonadoÈ
+	ÇCopyright 2012 JosÂŽ F. MaldonadoÈ
 	License: GNU Lesser General Public License
 	Modifications: Worcester State University CS401
 =================================================== -->
@@ -11,8 +11,10 @@
             body { background-color:lightgrey; }
 	    h1 { font-size: 12px; }
 	    h2 { text-align:center; font-size:15px; }
+	    div2 { position:absolute; right:41%; }
+	    div3 { position:absolute; float:left; }
         </style>
-        <title>Game</title>
+        <title>Puzzle Game</title>
             <meta http-equiv="Content-Language" content="en-GB"/>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
             <meta name="keywords" content=""/>
@@ -26,28 +28,35 @@
 	    
             <script type="text/javascript" src="puzzleWAM.js"></script>
             <script type="text/javascript">
-		    
-                jQuery(document).ready(function() {
-		    var x = 'big';
-		    var y = 'normal';
-                    jqJigsawPuzzle.createPuzzleFromImage("#my_puzzle", {
-                        piecesSize: x,
-                        borderWidth: 8,
-                       
-                    });
-                });
 		
+		<!-- Uses jQuery to retrieve the level difficulty and click function to start puzzle -->
+                jQuery(document).ready(function() {
+		$('#start').click(function() {
+		    jqJigsawPuzzle.createPuzzleFromImage($('#my_puzzle'), { 
+                    piecesSize: $('#diffLevel').val(), borderWidth: 8, });
+		    });
+                });
+
             </script>
     </head>
     <body>
-	
-    	    <br>
-	    <br>
-	    <br>
-	    <br>
-	    <br>
+	<h2>Select Your Difficulty Level and Start Puzzle</h2>
+	<div2>
+	     <select id="diffLevel">
+		<option value="big">Easy</option>
+		<option value="normal">Hard</option>
+	    </select>
+	     <!-- <select id="imgSelection">
+		<option value="wam.jpg">Image 1</option>
+		<option value="wam2.jpg">Image 2</option>
+		<option value="wam3.jpg">Image 3</option>
+	    </select> -->
+	    <button id="start">Start Puzzle</button>
+	    <button id="refresh" onclick="refreshPage();">Start Over</button>
+	</div2>
+    	    <br><br><br><br><br>
         <div style="text-align: center;">
-            <img id="my_puzzle" src="utilities/masks/wam.jpg" alt=""/>
+	     <img id="my_puzzle"  style="visibility:hidden" src="utilities/masks/wam.jpg" alt=""/>
         </div>
     </body>
 </html>
