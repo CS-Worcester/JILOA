@@ -189,7 +189,6 @@ jqJigsawPuzzle.imageToPuzzle = function(imageSelector, options) {
                    '<div class="puzzle" style="width:'+imgWidth+'px; height:'+imgHeight+'px; background-image:url(\''+imgSrc+'\');"></div>' +
                    '<div class="menu" style="width:'+(imgWidth)+'px;">' + 
                         '<table class="menu"><tr>' + 
-                            '<td><a href="#" class="button" id="'+puzzleId+'_shuffle" title="Shuffle">Restart</a></td>' + 
                             '<td>Movements: <span class="movement_compter" id="'+puzzleId+'_movements"></span></td>' + 
                             '<td>Time: <span class="time_compter" id="'+puzzleId+'_time"></span></td>' + 
                         '</tr></table>' + 
@@ -401,3 +400,9 @@ jqJigsawPuzzle.setTimerCounter = function(piecesContainer, time) {
     if(hours < 10) hours = '0' + hours;
     jQuery(piecesContainer).find(".time_compter").html(hours + ':' + minutes + ':' + seconds);
 };
+
+
+function refreshPage() {
+	document.location.reload(true);
+}
+
