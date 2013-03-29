@@ -52,6 +52,19 @@ var currentColorB;
 var myCanvas, layer1, context, context1;
 
 window.onload = window.onresize = function() {
+    
+    // javascript fix for disabling the ipad panning on canvas;
+    function preventBehavior(e)  {
+        e.preventDefault(); 
+    };
+
+    document.addEventListener("touchmove", preventBehavior, false);
+    
+    //jquery mobile fix for panning in ios
+    $('body').on('touchmove', function(e) {
+    e.preventDefault();
+    });
+ 
 
 // color menu
     var canvas1 = document.getElementById('layer2');
@@ -66,7 +79,7 @@ window.onload = window.onresize = function() {
     context = myCanvas.getContext('2d');
 
     layer1 = document.getElementById('layer1');
-    context1 = layer1.getContext('2d');
+    context1 = layer1.getContext('2d');document.addEventListener("touchmove", preventBehavior, false);
 
     // set canvas width to 60% of the window note: canvas 
     // id in css must be set to left: 20%; to accomadate
@@ -109,9 +122,11 @@ window.onload = window.onresize = function() {
     //***************** Drawing Canvas Events ******************//
 
     painting = false;
+    
+    
 
-    $('#drawingCanvas').mousedown( function(e) { // mouse move handler
-        e.preventDefault();
+    $('#drawingCanvas').on('vmousedown', function(e) { // mouse move handler
+        
         var canvasOffset = $(myCanvas).offset();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
         var canvasY = Math.floor(e.pageY - canvasOffset.top);
@@ -148,7 +163,7 @@ window.onload = window.onresize = function() {
     });
 
 
-    $("#drawingCanvas").mousemove( function(e) {
+    $("#drawingCanvas").on('vmousemove', function(e) {
         var canvasOffset = $(myCanvas).offset();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
         var canvasY = Math.floor(e.pageY - canvasOffset.top);
@@ -162,7 +177,7 @@ window.onload = window.onresize = function() {
         }
     });
 
-    $('#drawingCanvas').mouseup(function(e) { // mouse move handler
+    $('#drawingCanvas').on('vmouseup', function(e) { // mouse move handler
 
         if (state === fillBucket) {
         } else {
@@ -172,7 +187,7 @@ window.onload = window.onresize = function() {
         }
     });
 
-    $('#drawingCanvas').mouseout(function(e) {
+    $('#drawingCanvas').on('vmouseout', function(e) {
         if (state === fillBucket) {
         } else {
             if (painting) {
@@ -438,7 +453,7 @@ function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
 
         image.src = imageSrc;
 
-        $('#layer2').mousedown( function(e) { // mouse move handler
+        $('#layer2').on('vmousedown', function(e) { // mouse move handler
             // get coordinates of current position
             var canvasOffset = $(canvas1).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
@@ -462,7 +477,7 @@ function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
             currentColorB = pixel[2];
             currentColor = pixelColor;
         });
-        $('#layer2').mouseup(function(e) { // mouse move handler
+        $('#layer2').on('vmouseup', function(e) { // mouse move handler
             colorPanelOpen = false;
             // closes the color palette window
             $('.colorselect').fadeToggle("fast", "linear");
@@ -479,7 +494,7 @@ function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
             $('.colorselect').fadeToggle("fast", "linear");
         });
 
-        $('#layer2').mousemove(function(e) {
+        $('#layer2').on('vmousemove', function(e) {
             // get coordinates of current position
             var canvasOffset = $(canvas1).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
@@ -528,7 +543,7 @@ function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
 
         image2.src = imageSrc2;
         ctx.drawImage(image2, 0, 4, 400, 125);
-        $('#layer3').mousedown(function(e) { // mouse move handler
+        $('#layer3').on('vmousedown', function(e) { // mouse move handler
             var canvasOffset = $(canvas).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
 
@@ -601,13 +616,16 @@ var setSize = function(size) {
 
 // this function sets the coloring page its called from the coresponding html button 
 var setColoringPage = function(imagePath) {
-    context1.clearRect(0, 0, myCanvas.width, myCanvas.height);
+    context1.save;
+    context1.setTransform(1,0,0,1,0,0);
+    context1.clearRect(0, 0, layer1.width, layer1.height);
+    context1.restore();
     context.clearRect(0, 0, myCanvas.width, myCanvas.height);
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, myCanvas.width, myCanvas.height);
     outlineImage.src = imagePath;
     currentPage = imagePath;
-    outlineImage.onload();
+    context1.drawImage(outlineImage, 0, 0, layer1.width, layer1.height);
 };
 // function for setting a new tool state
 var setTool = function(newTool) {
@@ -742,7 +760,7 @@ checkPixelA = function(pixelAddress) {
 
     var a = oColorData.data[pixelAddress + 3];
 
-    if (a > 100) {
+    if (a > 200) {
         return false;
     } else {
         return true;
