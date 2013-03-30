@@ -53,11 +53,11 @@ var myCanvas, layer1, context, context1;
 
 window.onload = window.onresize = function() {
 
-    $(document).bind('touchmove', function(e) {
+   /* $(document).bind('touchmove', function(e) {
         e.preventDefault();
     }
     );
-
+*/
 
 // color menu
     var canvas1 = document.getElementById('layer2');
