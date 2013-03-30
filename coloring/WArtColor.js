@@ -52,23 +52,28 @@ var currentColorB;
 var myCanvas, layer1, context, context1;
 
 window.onload = window.onresize = function() {
-    
+
     // javascript fix for disabling the ipad panning on canvas;
-    function preventBehavior(e)  {
-        e.preventDefault(); 
-    };
+    function preventBehavior(e) {
+        e.preventDefault();
+    }
+    ;
 
     document.addEventListener("touchmove", preventBehavior, false);
-    
-    
-    
+
+
+
 
     //jquery mobile fix for panning in ios
     $('body').on('touchmove', function(e) {
-    e.preventDefault();
+        e.preventDefault();
     });
-    
- 
+
+    $(document).bind('touchmove', function(e) {
+        e.preventDefault();
+    }
+    );
+
 
 // color menu
     var canvas1 = document.getElementById('layer2');
@@ -83,13 +88,14 @@ window.onload = window.onresize = function() {
     context = myCanvas.getContext('2d');
 
     layer1 = document.getElementById('layer1');
-    context1 = layer1.getContext('2d');document.addEventListener("touchmove", preventBehavior, false);
-    
+    context1 = layer1.getContext('2d');
+    document.addEventListener("touchmove", preventBehavior, false);
+
     $('DrawingCanvas').on('touchmove', function(e) {
-    e.preventDefault();
+        e.preventDefault();
     });
     $('layer1').on('touchmove', function(e) {
-    e.preventDefault();
+        e.preventDefault();
     });
 
     // set canvas width to 60% of the window note: canvas 
@@ -129,56 +135,56 @@ window.onload = window.onresize = function() {
     outlineImage.onload = function() {
         context1.drawImage(outlineImage, 0, 0, canvasWidth, canvasHeight);
     };
-    
+
     //***************** Drawing Canvas Events ******************//
 
     painting = false;
-    
+
     // create a drawer which tracks touch movements
-var drawer = {
-   isDrawing: false,
-   touchstart: function(coors){
-      context.beginPath();
-      context.moveTo(coors.x, coors.y);
-      this.isDrawing = true;
-   },
-   touchmove: function(coors){
-      if (this.isDrawing) {
-         context.lineTo(coors.x, coors.y);
-         context.stroke();
-      }
-   },
-   touchend: function(coors){
-      if (this.isDrawing) {
-         this.touchmove(coors);
-         this.isDrawing = false;
-      }
-   }
-};
+    var drawer = {
+        isDrawing: false,
+        touchstart: function(coors) {
+            context.beginPath();
+            context.moveTo(coors.x, coors.y);
+            this.isDrawing = true;
+        },
+        touchmove: function(coors) {
+            if (this.isDrawing) {
+                context.lineTo(coors.x, coors.y);
+                context.stroke();
+            }
+        },
+        touchend: function(coors) {
+            if (this.isDrawing) {
+                this.touchmove(coors);
+                this.isDrawing = false;
+            }
+        }
+    };
 
 // create a function to pass touch events and coordinates to drawer
-function draw(event){
-   // get the touch coordinates
-   var coors = {
-      x: event.targetTouches[0].pageX,
-      y: event.targetTouches[0].pageY
-   };
-   // pass the coordinates to the appropriate handler
-   drawer[event.type](coors);
-}
+    function draw(event) {
+        // get the touch coordinates
+        var coors = {
+            x: event.targetTouches[0].pageX,
+            y: event.targetTouches[0].pageY
+        };
+        // pass the coordinates to the appropriate handler
+        drawer[event.type](coors);
+    }
 
 // prevent elastic scrolling
-    document.body.addEventListener('touchmove',function(event){
+    document.body.addEventListener('touchmove', function(event) {
         event.preventDefault();
-    },false);	// end body:touchmove
- 
+    }, false);	// end body:touchmove
+
 // attach the touchstart, touchmove, touchend event listeners.
-canvas.addEventListener('touchstart',draw, false);
-canvas.addEventListener('touchmove',draw, false);
-canvas.addEventListener('touchend',draw, false);
+    canvas.addEventListener('touchstart', draw, false);
+    canvas.addEventListener('touchmove', draw, false);
+    canvas.addEventListener('touchend', draw, false);
 
     $('#drawingCanvas').on('vmousedown touchstart', function(e) { // mouse move handler
-        
+
         var canvasOffset = $(myCanvas).offset();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
         var canvasY = Math.floor(e.pageY - canvasOffset.top);
@@ -188,11 +194,11 @@ canvas.addEventListener('touchend',draw, false);
             context.beginPath();
             context.moveTo(canvasX - 1, canvasY);
             context.lineTo(canvasX, canvasY);
-            
-            if(state === eraser){
-               context.strokeStyle = "white";
-            }else{
-               context.strokeStyle = currentColor; 
+
+            if (state === eraser) {
+                context.strokeStyle = "white";
+            } else {
+                context.strokeStyle = currentColor;
             }
             context.lineCap = "round";//Draw a line with rounded end caps
             context.lineJoin = "round";//Create a rounded corner when the two lines meet
@@ -247,7 +253,7 @@ canvas.addEventListener('touchend',draw, false);
             }
         }
     });
-    
+
     //***************** Drawing Canvas Events ******************//
 
 
@@ -260,7 +266,7 @@ canvas.addEventListener('touchend',draw, false);
     var buttonEraser = false;
 
     $(document).ready(function() {
-        
+
         //***************** Color and Size ******************//
 
         $('#preview').click(function() {
@@ -292,9 +298,9 @@ canvas.addEventListener('touchend',draw, false);
                 }
             }
         });
-        
+
         //***************** Color and Size End ******************//
-        
+
         //***************** Tools ******************//
 
         $('#brushtool').click(function() {
@@ -322,13 +328,13 @@ canvas.addEventListener('touchend',draw, false);
                         sizePanelOpen = false;
                     }
                 }
-                
+
                 if (buttonBucket) {
                     $("#buckettool").toggleClass("down");
                     $('#buckettool').css('backgroundColor', currentColor);
                     buttonBucket = false;
                 }
-                
+
                 if (buttonEraser) {
                     $("#erasertool").toggleClass("down");
                     $('#erasertool').css('backgroundColor', currentColor);
@@ -342,7 +348,7 @@ canvas.addEventListener('touchend',draw, false);
                 $(this).toggleClass("down");
                 buttonBucket = true;
                 //$(this).css({ boxShadow: '10px 10px 10px ' + currentColor });
-                
+
                 $('#buckettool').css('backgroundColor', currentColor);
                 if (buttonColor) {
                     $("#preview").toggleClass("down");
@@ -367,7 +373,7 @@ canvas.addEventListener('touchend',draw, false);
                     $('#brushtool').css('backgroundColor', currentColor);
                     buttonBrush = false;
                 }
-                
+
                 if (buttonEraser) {
                     $("#erasertool").toggleClass("down");
                     $('#erasertool').css('backgroundColor', currentColor);
@@ -381,7 +387,7 @@ canvas.addEventListener('touchend',draw, false);
                 buttonEraser = true;
                 //$(this).css({ boxShadow: '10px 10px 10px ' + currentColor });
                 $('#buckettool').css('backgroundColor', currentColor);
-                
+
                 if (buttonColor) {
                     $("#preview").toggleClass("down");
                     $('#preview').css('backgroundColor', currentColor);
@@ -390,8 +396,8 @@ canvas.addEventListener('touchend',draw, false);
                         $('.colorselect').fadeToggle("fast", "linear");
                         colorPanelOpen = false;
                     }
-                } 
-                
+                }
+
                 if (buttonSize) {
                     $("#sizepreview").toggleClass("down");
                     $('#sizepreview').css('backgroundColor', currentColor);
@@ -401,13 +407,13 @@ canvas.addEventListener('touchend',draw, false);
                         sizePanelOpen = false;
                     }
                 }
-                
+
                 if (buttonBrush) {
                     $("#brushtool").toggleClass("down");
                     $('#brushtool').css('backgroundColor', currentColor);
                     buttonBrush = false;
                 }
-                
+
                 if (buttonBucket) {
                     $("#buckettool").toggleClass("down");
                     $('#buckettool').css('backgroundColor', currentColor);
@@ -415,81 +421,83 @@ canvas.addEventListener('touchend',draw, false);
                 }
             }
         });
-        
-        //***************** Tools End ******************//
-        
-    });
-    
-/*
-    $(document).ready(function() {
-        var speed = 600;
-        $('#scrollButtonUp').hover(function() {
-            $('#carousel ul').animate({marginTop: "-300px"}, "fast");
-        });
-        $('#scrollButtonDown').hover(function() {
-            $('#carousel ul').animate({marginTop: "1px"}, "fast");
-        });
-        
-    });
-*/
-   /* $(document).ready(function() {
-    
-    if ($('#carousel ul').height() > $('#scrollContainer').height()) {
-        $("#scrollButtonDown").hover(function () {
-            animateContent("down");
-        }, function() { $('#carousel ul').stop(); });
-    
-        $("#scrollButtonUp").hover(function () {
-            animateContent("up");
-        }, function() { $('#carousel ul').stop(); });
-    }
-}); 
 
-function animateContent(direction) {  
-    var animationOffset = $('#scrollContainer').height() - $('#carousel ul').height();
-    if (direction == 'up') {
-        animationOffset = 0;
-    }
-    var speed = 1200;
-    $('#carousel ul').animate({ "marginTop": animationOffset + "px" }, speed);
-}*/
-    
+        //***************** Tools End ******************//
+
+    });
+
+    /*
+     $(document).ready(function() {
+     var speed = 600;
+     $('#scrollButtonUp').hover(function() {
+     $('#carousel ul').animate({marginTop: "-300px"}, "fast");
+     });
+     $('#scrollButtonDown').hover(function() {
+     $('#carousel ul').animate({marginTop: "1px"}, "fast");
+     });
+     
+     });
+     */
+    /* $(document).ready(function() {
+     
+     if ($('#carousel ul').height() > $('#scrollContainer').height()) {
+     $("#scrollButtonDown").hover(function () {
+     animateContent("down");
+     }, function() { $('#carousel ul').stop(); });
+     
+     $("#scrollButtonUp").hover(function () {
+     animateContent("up");
+     }, function() { $('#carousel ul').stop(); });
+     }
+     }); 
+     
+     function animateContent(direction) {  
+     var animationOffset = $('#scrollContainer').height() - $('#carousel ul').height();
+     if (direction == 'up') {
+     animationOffset = 0;
+     }
+     var speed = 1200;
+     $('#carousel ul').animate({ "marginTop": animationOffset + "px" }, speed);
+     }*/
+
     //***************** Scroll Button Shading ******************//
 
-$(function() {
-    $('#scrollButtonDown').css('opacity', 0);
-    
-    $('#scrollContainer').scroll(function() {
-        var total = $(this)[0].scrollHeight - $(this).height();
-        var opacity = $(this).scrollTop() / total;
-        $('#scrollButtonDown').css('opacity', opacity);
-        $('#scrollButtonUp').css('opacity', (1 - opacity));
+    $(function() {
+        $('#scrollButtonDown').css('opacity', 0);
+
+        $('#scrollContainer').scroll(function() {
+            var total = $(this)[0].scrollHeight - $(this).height();
+            var opacity = $(this).scrollTop() / total;
+            $('#scrollButtonDown').css('opacity', opacity);
+            $('#scrollButtonUp').css('opacity', (1 - opacity));
+        });
+
+        $('#scrollButtonDown').click(function() {
+            $('#carousel ul').animate({
+                scrollTop: 0
+            }, 100);
+        });
     });
 
-    $('#scrollButtonDown').click(function() {
-        $('#carousel ul').animate({
-            scrollTop: 0
-        }, 100);
-    });
-});
-
-function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
-   ctx.save();
-   var widths = [1   , 0.8 , 0.6 , 0.4 , 0.2  ];
-   var alphas = [0.2 , 0.4 , 0.6 , 0.8 , 1    ];
-   var previousAlpha = 0;
-   for (var pass = 0; pass < widths.length; pass++) {
-      ctx.beginPath();
-      ctx.lineWidth = lineWidth * widths[pass];
-      var alpha = a * alphas[pass];
-      // Formula: (1 - alpha) = (1 - deltaAlpha) * (1 - previousAlpha)
-      var deltaAlpha = 1 - (1 - alpha) / (1 - previousAlpha)
-      ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + "," + deltaAlpha + ")";
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
-      previousAlpha = alpha; }
-   ctx.restore(); }
+    function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
+        ctx.save();
+        var widths = [1, 0.8, 0.6, 0.4, 0.2];
+        var alphas = [0.2, 0.4, 0.6, 0.8, 1];
+        var previousAlpha = 0;
+        for (var pass = 0; pass < widths.length; pass++) {
+            ctx.beginPath();
+            ctx.lineWidth = lineWidth * widths[pass];
+            var alpha = a * alphas[pass];
+            // Formula: (1 - alpha) = (1 - deltaAlpha) * (1 - previousAlpha)
+            var deltaAlpha = 1 - (1 - alpha) / (1 - previousAlpha)
+            ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + "," + deltaAlpha + ")";
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            previousAlpha = alpha;
+        }
+        ctx.restore();
+    }
 
     //***************** Color Select Canvas Events ******************//
 
@@ -567,9 +575,9 @@ function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
             $('#buckettool').css('backgroundColor', pixelColor);
         });
     });
-    
+
     //***************** Color Select Canvas Events End ******************//
-    
+
     //***************** Size Select Canvas Events ******************//
 
     $(function() {
@@ -669,7 +677,7 @@ var setSize = function(size) {
 // this function sets the coloring page its called from the coresponding html button 
 var setColoringPage = function(imagePath) {
     context1.save;
-    context1.setTransform(1,0,0,1,0,0);
+    context1.setTransform(1, 0, 0, 1, 0, 0);
     context1.clearRect(0, 0, layer1.width, layer1.height);
     context1.restore();
     context.clearRect(0, 0, myCanvas.width, myCanvas.height);
