@@ -173,12 +173,6 @@ window.onload = window.onresize = function() {
         alert(touch.pageX + " - " + touch.pageY);
     }, false);
 
-    myCanvas.addEventListener('touchmove', function(e) {
-        e.preventDefault();
-        var touch = e.touches[0];
-        alert(touch.pageX + " - " + touch.pageY);
-    }, false);
-
     $("#drawingCanvas").on('vmousemove touchmove', function(e) {
         e.preventDefault();
         var canvasOffset = $(myCanvas).offset();
@@ -774,6 +768,18 @@ compareColor = function(pixelAddress, startR, startG, startB) {
 };
 
 // checks the alpha(transparency) variable
+
+checkPixelA = function(pixelAddress) {
+
+    var a = oColorData.data[pixelAddress + 3];
+
+    if (a > 200) {
+        return false;
+    } else {
+        return true;
+    }
+};
+y) variable
 
 checkPixelA = function(pixelAddress) {
 
