@@ -53,22 +53,6 @@ var myCanvas, layer1, context, context1;
 
 window.onload = window.onresize = function() {
 
-    // javascript fix for disabling the ipad panning on canvas;
-    function preventBehavior(e) {
-        e.preventDefault();
-    }
-    ;
-
-    document.addEventListener("touchmove", preventBehavior, false);
-
-
-
-
-    //jquery mobile fix for panning in ios
-    $('body').on('touchmove', function(e) {
-        e.preventDefault();
-    });
-
     $(document).bind('touchmove', function(e) {
         e.preventDefault();
     }
@@ -89,14 +73,15 @@ window.onload = window.onresize = function() {
 
     layer1 = document.getElementById('layer1');
     context1 = layer1.getContext('2d');
-    document.addEventListener("touchmove", preventBehavior, false);
+    
+    //document.addEventListener("touchmove", preventBehavior, false);
 
-    $('DrawingCanvas').on('touchmove', function(e) {
+    /*$('DrawingCanvas').on('touchmove', function(e) {
         e.preventDefault();
     });
     $('layer1').on('touchmove', function(e) {
         e.preventDefault();
-    });
+    });*/
 
     // set canvas width to 60% of the window note: canvas 
     // id in css must be set to left: 20%; to accomadate
@@ -140,51 +125,9 @@ window.onload = window.onresize = function() {
 
     painting = false;
 
-    // create a drawer which tracks touch movements
-    var drawer = {
-        isDrawing: false,
-        touchstart: function(coors) {
-            context.beginPath();
-            context.moveTo(coors.x, coors.y);
-            this.isDrawing = true;
-        },
-        touchmove: function(coors) {
-            if (this.isDrawing) {
-                context.lineTo(coors.x, coors.y);
-                context.stroke();
-            }
-        },
-        touchend: function(coors) {
-            if (this.isDrawing) {
-                this.touchmove(coors);
-                this.isDrawing = false;
-            }
-        }
-    };
-
-// create a function to pass touch events and coordinates to drawer
-    function draw(event) {
-        // get the touch coordinates
-        var coors = {
-            x: event.targetTouches[0].pageX,
-            y: event.targetTouches[0].pageY
-        };
-        // pass the coordinates to the appropriate handler
-        drawer[event.type](coors);
-    }
-
-// prevent elastic scrolling
-    document.body.addEventListener('touchmove', function(event) {
-        event.preventDefault();
-    }, false);	// end body:touchmove
-
-// attach the touchstart, touchmove, touchend event listeners.
-    canvas.addEventListener('touchstart', draw, false);
-    canvas.addEventListener('touchmove', draw, false);
-    canvas.addEventListener('touchend', draw, false);
 
     $('#drawingCanvas').on('vmousedown touchstart', function(e) { // mouse move handler
-
+        e.preventDefault();
         var canvasOffset = $(myCanvas).offset();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
         var canvasY = Math.floor(e.pageY - canvasOffset.top);
@@ -223,6 +166,7 @@ window.onload = window.onresize = function() {
 
     $("#drawingCanvas").on('vmousemove touchmove', function(e) {
         var canvasOffset = $(myCanvas).offset();
+        e.preventDefault();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
         var canvasY = Math.floor(e.pageY - canvasOffset.top);
         if (state === fillBucket) {
