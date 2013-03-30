@@ -112,6 +112,10 @@ window.onload = window.onresize = function() {
     context.fillRect(0, 0, canvasWidth, canvasHeight);
     //myCanvas.style.backgroundImage = defaultBackground;
     outlineImage.src = currentPage;
+    
+    document.ontouchmove = function(event){
+    event.preventDefault();
+};
 
 
     // this makes sure the image is loaded before we move on

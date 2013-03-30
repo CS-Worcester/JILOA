@@ -196,6 +196,9 @@ body{
     width:120px; 
     overflow: auto;
 }
+#carousel{
+    -webkit-overflow-scroll:touch;
+}
 
 #carousel ul { 
     list-style-type:none;
