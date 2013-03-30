@@ -60,6 +60,12 @@ window.onload = window.onresize = function() {
 
     document.addEventListener("touchmove", preventBehavior, false);
     
+    
+    // prevent elastic scrolling
+    document.body.addEventListener('touchmove',function(event){
+        event.preventDefault();
+    },false);	// end body:touchmove
+
     //jquery mobile fix for panning in ios
     $('body').on('touchmove', function(e) {
     e.preventDefault();
@@ -122,10 +128,8 @@ window.onload = window.onresize = function() {
     //***************** Drawing Canvas Events ******************//
 
     painting = false;
-    
-    
 
-    $('#drawingCanvas').on('vmousedown', function(e) { // mouse move handler
+    $('#drawingCanvas').on('vmousedown touchstart', function(e) { // mouse move handler
         
         var canvasOffset = $(myCanvas).offset();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
@@ -163,7 +167,7 @@ window.onload = window.onresize = function() {
     });
 
 
-    $("#drawingCanvas").on('vmousemove', function(e) {
+    $("#drawingCanvas").on('vmousemove touchmove', function(e) {
         var canvasOffset = $(myCanvas).offset();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
         var canvasY = Math.floor(e.pageY - canvasOffset.top);
@@ -177,7 +181,7 @@ window.onload = window.onresize = function() {
         }
     });
 
-    $('#drawingCanvas').on('vmouseup', function(e) { // mouse move handler
+    $('#drawingCanvas').on('vmouseup touchend', function(e) { // mouse move handler
 
         if (state === fillBucket) {
         } else {
