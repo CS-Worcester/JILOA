@@ -53,11 +53,11 @@ var myCanvas, layer1, context, context1;
 
 window.onload = window.onresize = function() {
 
-   /* $(document).bind('touchmove', function(e) {
-        e.preventDefault();
-    }
-    );
-*/
+    /* $(document).bind('touchmove', function(e) {
+     e.preventDefault();
+     }
+     );
+     */
 
 // color menu
     var canvas1 = document.getElementById('layer2');
@@ -73,15 +73,15 @@ window.onload = window.onresize = function() {
 
     layer1 = document.getElementById('layer1');
     context1 = layer1.getContext('2d');
-    
+
     //document.addEventListener("touchmove", preventBehavior, false);
 
     /*$('DrawingCanvas').on('touchmove', function(e) {
-        e.preventDefault();
-    });
-    $('layer1').on('touchmove', function(e) {
-        e.preventDefault();
-    });*/
+     e.preventDefault();
+     });
+     $('layer1').on('touchmove', function(e) {
+     e.preventDefault();
+     });*/
 
     // set canvas width to 60% of the window note: canvas 
     // id in css must be set to left: 20%; to accomadate
@@ -112,10 +112,10 @@ window.onload = window.onresize = function() {
     context.fillRect(0, 0, canvasWidth, canvasHeight);
     //myCanvas.style.backgroundImage = defaultBackground;
     outlineImage.src = currentPage;
-    
-    document.ontouchmove = function(event){
-    event.preventDefault();
-};
+
+    document.ontouchmove = function(event) {
+        event.preventDefault();
+    };
 
 
     // this makes sure the image is loaded before we move on
@@ -167,6 +167,17 @@ window.onload = window.onresize = function() {
         }
     });
 
+    document.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        var touch = e.touches[0];
+        alert(touch.pageX + " - " + touch.pageY);
+    }, false);
+
+    myCanvas.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        var touch = e.touches[0];
+        alert(touch.pageX + " - " + touch.pageY);
+    }, false);
 
     $("#drawingCanvas").on('vmousemove touchmove', function(e) {
         e.preventDefault();

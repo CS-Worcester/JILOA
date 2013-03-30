@@ -20,6 +20,8 @@ ul
 
 body{
     background-color: white;
+    overflow:visible;
+    overflow-x:auto;
 }
 #drawingCanvas{
     position: absolute;
