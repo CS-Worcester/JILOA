@@ -165,8 +165,8 @@ window.onload = window.onresize = function() {
 
 
     $("#drawingCanvas").on('vmousemove touchmove', function(e) {
-        var canvasOffset = $(myCanvas).offset();
         e.preventDefault();
+        var canvasOffset = $(myCanvas).offset();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
         var canvasY = Math.floor(e.pageY - canvasOffset.top);
         if (state === fillBucket) {
