@@ -167,11 +167,6 @@ window.onload = window.onresize = function() {
         }
     });
 
-    document.addEventListener('touchmove', function(e) {
-        e.preventDefault();
-        var touch = e.touches[0];
-        alert(touch.pageX + " - " + touch.pageY);
-    }, false);
 
     $("#drawingCanvas").on('vmousemove touchmove', function(e) {
         e.preventDefault();
@@ -189,7 +184,7 @@ window.onload = window.onresize = function() {
     });
 
     $('#drawingCanvas').on('vmouseup touchend', function(e) { // mouse move handler
-
+        e.preventDefault();
         if (state === fillBucket) {
         } else {
             if (painting) {
@@ -494,6 +489,8 @@ window.onload = window.onresize = function() {
             colorPanelOpen = false;
             // closes the color palette window
             $('.colorselect').fadeToggle("fast", "linear");
+            $("#preview").toggleClass("down");
+            buttonColor = false;
         });
 
         // this is the clicking of the colorchart event listener
@@ -508,6 +505,7 @@ window.onload = window.onresize = function() {
         });
 
         $('#layer2').on('vmousemove', function(e) {
+            e.preventDefault();
             // get coordinates of current position
             var canvasOffset = $(canvas1).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
@@ -600,6 +598,8 @@ window.onload = window.onresize = function() {
             // closes the color palette window
             $('.sizeselect').fadeToggle("fast", "linear");
             sizePanelOpen = false;
+            $("#sizepreview").toggleClass("down");
+            buttonSize = false;
         });
 
         // this is the actual clicking of the colorchart event listener
@@ -779,9 +779,7 @@ checkPixelA = function(pixelAddress) {
         return true;
     }
 };
-y) variable
-
-checkPixelA = function(pixelAddress) {
+xelAddress) {
 
     var a = oColorData.data[pixelAddress + 3];
 
