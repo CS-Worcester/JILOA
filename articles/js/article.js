@@ -13,59 +13,34 @@ $(document).ready(function(){
 	var width = $('#article-display p').width();
 	var top = $('#article-display p:eq(0)').position().top;
 	var left = $('#article-display p:eq(0)').position().left;
-	$('#active').css({'top' : top+'px',
+	$('#active').css({'top' : top+10+'px',
 					 'left' : left-12+'px',
 					 'width' : width+25+'px',
 					 'height' : (height+25)+'px'});
 	
   $(window).scroll(function(){
-  	if($(window).scrollTop() < scrollSwap  && currentRow != 0){
-		//$('#article-display p').removeClass('active');
-		currentRow = 0;
-		//$('#article-display p:eq('+currentRow+')').addClass('active');
-		$('#active').stop().animate({'top' : $('#article-display p:eq('+currentRow+')').position().top+5+'px',
+		if($(window).scrollTop() == $('.ui-page').height()-window.innerHeight){ //potential null value if numRow does not divide nicely into the page height-windowInnerView
+			currentRow = numRow-1;
+			animateActive();
+			slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
+		}
+		else if(currentRow != Math.floor(($(window).scrollTop())/scrollSwap)){
+			currentRow = Math.floor($(window).scrollTop()/scrollSwap);
+			animateActive();
+			slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
+		}
+	});
+  
+  function animateActive(){
+	$('#active').stop().animate({'top' : $('#article-display p:eq('+currentRow+')').position().top+10+'px',
 					 'height' : ($('#article-display p:eq('+currentRow+')').height()+20)+'px'}, animationTime);
-		slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
-	}  
-  	else if($(window).scrollTop() >= scrollSwap  && $(window).scrollTop() < scrollSwap*2 && currentRow != 1){
-		//$('#article-display p').removeClass('active');
-		currentRow = 1;
-		//$('#article-display p:eq('+currentRow+')').addClass('active');
-		$('#active').stop().animate({'top' : $('#article-display p:eq('+currentRow+')').position().top+5+'px',
-					 'height' : ($('#article-display p:eq('+currentRow+')').height()+20)+'px'}, animationTime);
-		slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
-	}
-  	else if($(window).scrollTop() >= scrollSwap*2 && $(window).scrollTop() < scrollSwap*3 && currentRow != 2){
-		//$('#article-display p').removeClass('active');
-		currentRow = 2;
-		//$('#article-display p:eq('+currentRow+')').addClass('active');
-		$('#active').stop().animate({'top' : $('#article-display p:eq('+currentRow+')').position().top+5+'px',
-					 'height' : ($('#article-display p:eq('+currentRow+')').height()+20)+'px'}, animationTime);
-		slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
-	}
-  	else if($(window).scrollTop() >= scrollSwap*3 && $(window).scrollTop() < scrollSwap*4 && currentRow != 3){
-		//$('#article-display p').removeClass('active');
-		currentRow = 3;
-		//$('#article-display p:eq('+currentRow+')').addClass('active');
-		$('#active').stop().animate({'top' : $('#article-display p:eq('+currentRow+')').position().top+5+'px',
-					 'height' : ($('#article-display p:eq('+currentRow+')').height()+20)+'px'}, animationTime);
-		slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
-	}
-  	else if($(window).scrollTop() >= scrollSwap*4 && currentRow != 4){
-		//$('#article-display p').removeClass('active');
-		currentRow = 4;
-		//$('#article-display p:eq('+currentRow+')').addClass('active');
-		$('#active').stop().animate({'top' : $('#article-display p:eq('+currentRow+')').position().top+5+'px',
-					 'height' : ($('#article-display p:eq('+currentRow+')').height()+20)+'px'}, animationTime);
-		slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
-	}
-  });
+  }
+  
 });
   
   /*
 	Animation Functions
   */
-
   function slideY(object, dist, speed){ //Slide on the Y axis using margin
     object.stop().animate({'marginTop' : dist+'px'}, speed);
   }

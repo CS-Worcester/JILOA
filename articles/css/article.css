@@ -33,3 +33,9 @@
 	color: black;
 	background-color: #FFF;
 }
+
+#article-nav{
+	width: 100%;
+	text-align: center; 
+	margin-bottom: 5px;
+}
