@@ -1,4 +1,4 @@
-/* 
+a/* 
     Document   : WArtColorStyle
     Created on : Feb 12, 2013, 3:50:49 PM
     Author     : jasonhintlian
@@ -20,6 +20,8 @@ ul
 
 body{
     background-color: white;
+    overflow:visible;
+    overflow-x:auto;
 }
 #drawingCanvas{
     position: absolute;
@@ -196,6 +198,9 @@ body{
     width:120px; 
     overflow: auto;
 }
+#carousel{
+    -webkit-overflow-scroll:touch;
+}
 
 #carousel ul { 
     list-style-type:none;
@@ -211,4 +216,7 @@ body{
     height: 100px; 
     border:1px solid #ccc;
     margin: auto;
+}
+div ul{
+    
 }
