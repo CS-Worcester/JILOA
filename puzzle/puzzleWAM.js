@@ -6,28 +6,13 @@
 ===================================================================================*/
 
 /* Declare object for puzzle */
-jqJigsawPuzzle = new Object();
+puzzle = new Object();
 
 /* Array PieceSizes defines logical and real sizes of piece size(Normal, Large) */
-jqJigsawPuzzle.pieceSizes = {
-    normal : {
-        logical: 50, real: 86 },
-    big : {
-        logical: 100, real: 170 } };
+puzzle.pieceSizes = { big : { logical: 100, real: 170 } };
 
-/**
- * Creates an array which defines the type of each piece of the puzzle
- * (the type of a piece defines which shape is going to have).
- *
- * The type of the pieces are defined by binary numbers of four digits: 'dcba'
- * where 'a' defines the left side, 'b' the bottom side, 'c' the right side and
- * 'd' the upped side.
- *
- * @param {int} rows The number of rows of the puzzle.
- * @param {int} columns The number of columns of the puzzle.
- * @return {Array} An array with the type of each piece.
- */
-jqJigsawPuzzle.randomPieceTypes = function(rows, columns) {
+/* Creates an array which defines the type of each piece of the puzzle */
+puzzle.randomPieceTypes = function(rows, columns) {
     var res = new Array();
     
     // Format used for represent a piece type as a binary number of four digits (dcba)
@@ -84,16 +69,8 @@ jqJigsawPuzzle.randomPieceTypes = function(rows, columns) {
     return res;
 }
 
-/**
- * Shuffle the pieces of a puzzle.
- * 
- * The parameter 'options' allows to extend the area, beyong the area of the 
- * puzzle container, in which the pieces can be put when shuffling.
- *
- * @param {string} containerSelector The jQuery selector of the puzzle's container.
- * @param {object} options An associative array with the values 'rightLimit', 'leftLimit', 'topLimit' and 'bottomLimit'.
- */
-jqJigsawPuzzle.shufflePieces = function(containerSelector, options) {
+/* Shuffle the pieces of a puzzle. */
+puzzle.shufflePieces = function(containerSelector, options) {
     // Process parameters.
     var divPuzzle = jQuery(containerSelector).find('div.puzzle');
     var rightLimit = (options != null && !isNaN(options.rightLimit))? options.rightLimit : 0;
@@ -113,35 +90,14 @@ jqJigsawPuzzle.shufflePieces = function(containerSelector, options) {
     });
 }
 
-/**
- * Loads an image and creates a puzzle with it.
- *
- * @param {string} containerSelector The jQuery selector of the element in which to put the image.
- * @param {string} imageUrl The image's URL.
- * @param {object} options An associative array with the values 'piecesSize', 'borderWidth' and 'shuffle' (which is an associative arrary with the values 'rightLimit', 'leftLimit', 'topLimit' and 'bottomLimit').
- */
-jqJigsawPuzzle.createPuzzleFromURL = function(containerSelector, imageUrl, options) {
-    // Add image to the container.
-    var imgId = 'img_' + new Date().getTime();
-    jQuery(containerSelector).append('<img src="'+imageUrl+'" id="'+imgId+'" alt=""/>');
-
-    // Create puzzle from the image.
-    jqJigsawPuzzle.createPuzzleFromImage("#" + imgId, options);
-};
-
-/**
- * Creates a puzzle from an image already defined in the page.
- *
- * @param {string} imageSelector The jQuery selector of the image used for the puzzle.
- * @param {object} options An associative array with the values 'piecesSize', 'borderWidth' and 'shuffle' (which is an associative arrary with the values 'rightLimit', 'leftLimit', 'topLimit' and 'bottomLimit').
- */
-jqJigsawPuzzle.createPuzzleFromImage = function(imageSelector, options) {
+/* Creates a puzzle from an image already defined in the page.*/
+puzzle.create = function(imageSelector, options) {
     // Verify if the image exists.
     if(jQuery(imageSelector).size() > 0) {   
         // Verify if the image has been fully loaded.
         if(jQuery(imageSelector).width() > 0 && jQuery(imageSelector).height() > 0) {
             // Transform image to puzzle.
-            jqJigsawPuzzle.imageToPuzzle(imageSelector, options);
+            puzzle.imageToPuzzle(imageSelector, options);
         } else {
             // Declare variable for check if the puzzle has been created.
             var puzzleCreated = false;
@@ -150,26 +106,21 @@ jqJigsawPuzzle.createPuzzleFromImage = function(imageSelector, options) {
             jQuery(imageSelector).load(function() {
                 if(!puzzleCreated) {
                     puzzleCreated = true;
-                    jqJigsawPuzzle.imageToPuzzle(imageSelector, options);
+                    puzzle.imageToPuzzle(imageSelector, options);
                 }
             });
             
             // Check, just in case, if the image has been loaded.
             if(jQuery(imageSelector).width() > 0 && jQuery(imageSelector).height() > 0) {
                 puzzleCreated = true;
-                jqJigsawPuzzle.imageToPuzzle(imageSelector, options);
+                puzzle.imageToPuzzle(imageSelector, options);
             }            
         }
     }
 }
 
-/**
- * Creates a puzzle from an image already loaded (fully rendered) in the page.
- *
- * @param {string} imageSelector The jQuery selector of the image used for the puzzle.
- * @param {object} options An associative array with the values 'piecesSize', 'borderWidth' and 'shuffle' (which is an associative arrary with the values 'rightLimit', 'leftLimit', 'topLimit' and 'bottomLimit').
- */
-jqJigsawPuzzle.imageToPuzzle = function(imageSelector, options) {
+/* Creates a puzzle from an image already loaded (fully rendered) in the page. */
+puzzle.imageToPuzzle = function(imageSelector, options) {
     // Process parameters.
     var img = jQuery(imageSelector);
     if(img.size() > 1) img = img.find(':first');   
@@ -187,19 +138,13 @@ jqJigsawPuzzle.imageToPuzzle = function(imageSelector, options) {
 
     var html = '<div class="jigsaw" id="'+puzzleId+'" style="left:'+(imgPosX-borderWidth)+'px; top:'+(imgPosY-borderWidth)+'px; width:'+(imgWidth)+'px; min-height:'+(imgHeight)+'px; border-width:'+borderWidth+'px;">' +
                    '<div class="puzzle" style="width:'+imgWidth+'px; height:'+imgHeight+'px; background-image:url(\''+imgSrc+'\');"></div>' +
-                   '<div class="menu" style="width:'+(imgWidth)+'px;">' + 
-                        '<table class="menu"><tr>' + 
-                            '<td>Movements: <span class="movement_compter" id="'+puzzleId+'_movements"></span></td>' + 
-                            '<td>Time: <span class="time_compter" id="'+puzzleId+'_time"></span></td>' + 
-                        '</tr></table>' + 
-                   '</div>' +
                '</div>';
     jQuery('body').append(html);
     var piecesContainer = jQuery("#" + puzzleId);
 
     // Get the size of the pieces.
-    var logicalSize = jqJigsawPuzzle.pieceSizes[piecesSize].logical;
-    var realSize = jqJigsawPuzzle.pieceSizes[piecesSize].real;
+    var logicalSize = puzzle.pieceSizes[piecesSize].logical;
+    var realSize = puzzle.pieceSizes[piecesSize].real;
     var offset = (realSize - logicalSize)/2;
         
     // Calculate the number of pieces.
@@ -213,7 +158,7 @@ jqJigsawPuzzle.imageToPuzzle = function(imageSelector, options) {
     piecesContainer.data('pieces-located', 0);
     
     // Calculate piece types.
-    var pieceTypes = jqJigsawPuzzle.randomPieceTypes(rows, columns);
+    var pieceTypes = puzzle.randomPieceTypes(rows, columns);
 
     // Bind z-index value to container and set the z-index of the menu.
     piecesContainer.data('last-z-index', rows*columns);
@@ -255,10 +200,7 @@ jqJigsawPuzzle.imageToPuzzle = function(imageSelector, options) {
                     var posY = parseInt(jQuery(this).attr('data-posY'), 10);
                     if(posX == ui.position.left && posY == ui.position.top)
                         { return false; }
-                    
-                    // Start timer counter.
-                    jqJigsawPuzzle.startTimerCounter(piecesContainer);
-                    
+                                    
                     // Change z-index in order to put it on top of all the other pieces.
                     var zIndex = parseInt(piecesContainer.data('last-z-index'), 10);
                     jQuery(this).css("z-index", zIndex);
@@ -277,10 +219,7 @@ jqJigsawPuzzle.imageToPuzzle = function(imageSelector, options) {
                         jQuery(this).css('left', posX);
                         jQuery(this).css('top', posY);
                         jQuery(this).css("z-index", rows*columns-2);
-
-                        // Reproduce sound.
-                        if(jqJigsawPuzzle.pieceSound != null) jqJigsawPuzzle.pieceSound.play();
-
+			
                         // Change the color of the border for a quarter of a second.
                         piecesContainer.addClass('highlight');
                         setTimeout(function() { piecesContainer.removeClass('highlight'); }, 250);
@@ -292,117 +231,21 @@ jqJigsawPuzzle.imageToPuzzle = function(imageSelector, options) {
                         // Verify if the puzzle has been solved.
                         if(piecesLocated+1 >= parseInt(piecesContainer.data('pieces-number'), 10)) {
                             piecesContainer.addClass('resolved');
-                            jqJigsawPuzzle.stopTimerCounter(piecesContainer);
+			    alert("Congratulations! You have Won!");
+			    
                         }
                     }
-
-                    // Increase compter.
-                    jqJigsawPuzzle.increaseMovementCounter(piecesContainer);
                 }
             });
         }
     }
 
     // Shuffle pieces and initialize time and movement compters.
-    jqJigsawPuzzle.shufflePieces(piecesContainer, options!=null? options.shuffle : null);
-    jqJigsawPuzzle.resetCounters(piecesContainer);
-    
-    // Assign behavior to shuffle button.
-    jQuery("#" + puzzleId + "_shuffle").click(function() {
-        piecesContainer.data('pieces-located', 0);
-        piecesContainer.removeClass('highlight');
-        piecesContainer.removeClass('resolved');
-        jqJigsawPuzzle.shufflePieces(piecesContainer, options!=null? options.shuffle : null);
-        jqJigsawPuzzle.resetCounters(piecesContainer);
-    });
+    puzzle.shufflePieces(piecesContainer, options!=null? options.shuffle : null);
+
 };
 
-/**
- * Resets the movement compter and the timer.
- *
- * @param {object} piecesContainer A jQuery selector, which can be an string or a jQuery object, of the element which contains the puzzle.
- */
-jqJigsawPuzzle.resetCounters = function(piecesContainer) {
-    // Resets timer counter.
-    jqJigsawPuzzle.stopTimerCounter(piecesContainer);
-    jqJigsawPuzzle.setTimerCounter(piecesContainer, 0);
-    
-    // Resets movement counter.
-    jQuery(piecesContainer).find(".movement_compter").html('0');
-};
-
-/**
- * Increase in one the movement compter.
- *
- * @param {object} piecesContainer A jQuery selector, which can be an string or a jQuery object, of the element which contains the puzzle.
- */
-jqJigsawPuzzle.increaseMovementCounter = function(piecesContainer) { 
-    var count = parseInt(jQuery(piecesContainer).find(".movement_compter").html(), 10);
-    jQuery(piecesContainer).find(".movement_compter").html((count+1) + '');
-};
-
-/**
- * Starts the timer counter.
- *
- * @param {object} piecesContainer A jQuery selector, which can be an string or a jQuery object, of the element which contains the puzzle.
- */
-jqJigsawPuzzle.startTimerCounter = function(piecesContainer) { 
-    // Verify if the timer has not already been started.
-    if(jQuery(piecesContainer).data('timer-status') != 'running') {
-        // Change status and set initial time.
-        jQuery(piecesContainer).data('timer-status', 'running');
-        jQuery(piecesContainer).data('timer-value', new Date().getTime());
-        
-        // Refresh timer each second.
-        var interval = setInterval(function(){
-            jqJigsawPuzzle.refreshTimerCounter(piecesContainer);
-        }, 1000);
-        jQuery(piecesContainer).data('timer-interval', interval);
-    }
-};
-
-/**
- * Stops the timer counter.
- *
- * @param {object} piecesContainer A jQuery selector, which can be an string or a jQuery object, of the element which contains the puzzle.
- */
-jqJigsawPuzzle.stopTimerCounter = function(piecesContainer) { 
-    // Verify if the timer has not already been stoped.
-    if(jQuery(piecesContainer).data('timer-status') != 'stopped') {
-        jQuery(piecesContainer).data('timer-status', 'stopped');
-        clearInterval(jQuery(piecesContainer).data('timer-interval'));
-    }
-};
-
-/**
- * Refresh the timer counter.
- *
- * @param {object} piecesContainer A jQuery selector, which can be an string or a jQuery object, of the element which contains the puzzle.
- */
-jqJigsawPuzzle.refreshTimerCounter = function(piecesContainer) { 
-    var currentTime = new Date().getTime();
-    jqJigsawPuzzle.setTimerCounter(piecesContainer, currentTime - jQuery(piecesContainer).data('timer-value'));
-};
-
-/**
- * Sets the visible value of the timer counter.
- *
- * @param {object} piecesContainer A jQuery selector, which can be an string or a jQuery object, of the element which contains the puzzle.
- * @param {int} time The time passed in milliseconds
- */
-jqJigsawPuzzle.setTimerCounter = function(piecesContainer, time) {    
-    time = (time>0)? time/1000 : 0;
-    var seconds = parseInt(time%60, 10);
-    var minutes = parseInt((time/60)%60, 10);
-    var hours = parseInt(time/3600, 10);
-    if(seconds < 10) seconds = '0' + seconds;
-    if(minutes < 10) minutes = '0' + minutes;
-    if(hours < 10) hours = '0' + hours;
-    jQuery(piecesContainer).find(".time_compter").html(hours + ':' + minutes + ':' + seconds);
-};
-
-
-function refreshPage() {
-	document.location.reload(true);
+/* Restarts the puzzle */
+function restart() {
+    document.location.reload(true);
 }
-

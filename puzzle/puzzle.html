@@ -1,0 +1,49 @@
+<!-- ==============================================
+	File: index.html
+	ÇCopyright 2012 JosŽ F. MaldonadoÈ
+	License: GNU Lesser General Public License
+	Modifications: Worcester State University CS401
+=================================================== -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <style type="text/css">
+      div2 { position:absolute; right:20px; top:10px; }
+      div3 { position:absolute; left:20px; top:10px; }
+    </style>
+    <meta http-equiv="Content-Language" content="en-GB"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="puzzleWAM.css" type="text/css"/>
+    <script type="text/javascript" src="utilities/jquery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="utilities/jquery/jquery-ui-1.8.22.custom.min.js"></script>
+    <script src="utilities/jquery/touchPunch.js"></script>
+    <script type="text/javascript" src="puzzleWAM.js"></script>
+    <script type="text/javascript">
+      $(document).bind('touchmove', function(e) { e.preventDefault(); } );
+      jQuery(document).ready(function() {
+      puzzle.create("#my_puzzle", { piecesSize: 'big', borderWidth: 5,
+      shuffle: { rightLimit: 300, leftLimit: 300, topLimit: 5, bottomLimit: 5 }
+      });
+      });
+    </script>
+  </head>
+  <body>
+    <ul>
+      <div3>
+	<li>
+	  <img onclick="location.href='index.html'" src="utilities/masks/return.jpg" width="40" height="50">
+	</li>
+      </div3>
+      <div2>
+	<li>
+	  <img onclick="restart();" src="utilities/masks/restart.jpg" width="100" height="70">
+	</li>
+      </div2>
+    </ul>
+    <br><br>
+    <div style="text-align: center;">
+      <img id="my_puzzle" src="utilities/masks/sculpture.jpg" alt=""/>
+    </div>
+  </body>
+</html>
