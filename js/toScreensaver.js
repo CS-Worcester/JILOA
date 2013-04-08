@@ -4,6 +4,6 @@ $(document).ready(function(){
         clearTimeout(timeout);
         timeout = setTimeout(function() {
              window.location = "./screensaver/screensaver.html";
-        },  1 * 15 * 1000);
+        },  1 * 60 * 1000);
     }).click();
 });

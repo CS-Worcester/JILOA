@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ideaLab Worcester Art Museum</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="css/theme.css" /> <!-- jQuery Mobile theme -->
+	<link rel="stylesheet" href="css/pageViewer.css" /> <!-- page specific css -->
+	<script src="js/jquery-1.7.2.js"></script><!-- most compatable version of jquery with jquery Mobile and ipad -->
+	<script src="js/pageViewer.js"></script> <!-- page specific javascript is loaded prior to mobile-->
+	<script src="js/jquery.mobile-1.2.0.js"></script> <!-- jQuery Mobile library -->
+	<script src="js/toScreensaver.js"></script> <!-- script to go to screensaver after some idling -->
+	<!-- TEST 10 -->
+</head>
+<body>
+<div data-role="page" data-theme="a"> 
+	<div data-role="header" role="banner">
+		<!--<a data-role="button" data-icon="home" data-iconpos="notext"> Home </a> //useless because this is the home page -->
+		<h1>Welcome to the ideaLab!</h1>
+	</div>
+	<div data-role="navbar"> <!-- basic navigation setup -->
+		<ul class='navigation'>
+			<li><a class="ui-btn-active ui-state-persist">Articles</a></li>
+			<li><a>Slideshow</a></li>
+			<li><a>Puzzle Activity</a></li>
+			<li><a>Coloring Activity</a></li>
+			<li><a>View More</a></li>
+		</ul>
+	</div>
+	<div data-role="content"> <!-- basic content setup -->
+		<div id="article-wrapper"><!-- wrapper for all previews -->
+			<div class="article" tabindex="0" id="current-article"><!-- Containter for the page preview -->
+				<div class="article-preview"><!-- div to hold this contents within the bounds of the article div but not distort -->
+					<div class="title-container"><!-- Page preview title eg. Puzzel Activity -->
+						<img src="images/article-icon.png" />
+						<span class="article-title">Articles</span>
+					</div>
+					<div class="article-info"><!-- content is located here -->
+						<p>This is where you can view articles about: The Statues, History, Resoration Process</p>
+						<a href="articles/"  rel="external" data-role="button" data-transition="sildedown" data-inline="true" class="view-more">Press here to read view the articles! </a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="article" tabindex="1"><!-- Containter for the page preview -->
+				<div class="article-preview"><!-- div to hold this contents within the bounds of the article div but not distort -->
+					<div class="title-container"><!-- Page preview title eg. Puzzel Activity -->
+						<img src="images/picture-icon.png" />
+						<span class="article-title">Slideshow</span>
+					</div>
+					<div class="article-info"><!-- content is located here -->
+						<p>Check out the cool collection of images!</p>
+						<a href="slideshow/"  rel="external" data-role="button" data-transition="sildedown" data-inline="true" class="view-more">press here to start the slideshow! </a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="article" tabindex="2"><!-- Containter for the page preview -->
+				<div class="article-preview"><!-- div to hold this contents within the bounds of the article div but not distort -->
+					<div class="title-container"><!-- Page preview title eg. Puzzel Activity -->
+						<img src="images/puzzle-icon.png" />
+						<span class="article-title">Puzzle Activity</span>
+					</div>
+					<div class="article-info"><!-- content is located here -->
+						<p>Think you have what it takes to put the statue back together?</p>
+						<a href="puzzle/"  rel="external" data-role="button" data-transition="sildedown" data-inline="true" class="view-more">press here to check out the puzzle! </a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="article" tabindex="3"> <!-- Containter for the page preview -->
+				<div class="article-preview"><!-- div to hold this contents within the bounds of the article div but not distort -->
+					<div class="title-container"><!-- Page preview title eg. Puzzel Activity -->
+						<img src="images/color-icon.png" />
+						<span class="article-title">Coloring Activity</span>
+					</div>
+					<div class="article-info"><!-- content is located here -->
+						<p>What would you color the statues?</p>
+						<a href="coloring/"  rel="external" data-role="button" data-transition="sildedown" data-inline="true" class="view-more">press here to atart coloring! </a>
+					</div>
+				</div>
+			</div>
+			<div class="article" tabindex="4">  <!-- Containter for the page preview -->
+				<div class="article-preview"> <!-- div to hold this contents within the bounds of the article div but not distort -->
+					<div class="title-container"> <!-- Page preview title eg. Puzzel Activity -->
+						<span class="article-title">View More</span>
+					</div>
+					<div class="article-info"> <!-- content is located here -->
+						<p>Place holder really</p>
+						<a href="#"  rel="external" data-role="button" data-transition="sildedown" data-inline="true" class="view-more"> View! </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

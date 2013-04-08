@@ -3,7 +3,6 @@
 <head>
 <title>Page Title :: Article Title</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />-->
 	<link rel="stylesheet" href="../css/theme.css" />
 	<link rel="stylesheet" href="css/article.css" />
 	<script src="../js/jquery-1.7.2.js"></script>
@@ -13,18 +12,15 @@
 <body>
 <div data-role="page" data-theme="b"> 
 	<div data-role="header" role="banner">
-		<a href="../" rel="external" data-role="button" data-icon="home" data-iconpos="notext"> Home </a>
-		<h1> ARCHAEOLOGY </h1>
+		<a href="../" data-role="button" data-icon="home" data-iconpos="notext"> Home </a>
+			<h1> Articles </h1>
+		
 	</div>
 	<div data-role="content" role="main">
 		<!-- div to hold the images that will be displayed
 			 acts as a "window" to the underlying divs this is done through overflow: hidden
 			 position is fixed meaning even when the user scrolls the viewer and its contents remain still
 			 -->
-		
-		<!--Div to hold the article currently filled with lorem text for testing
-			spans are currently used for the image-selector, they ar dynamically populated with js
-			-->
 	<div class="ui-grid-a my-breakpoint">
 		<div class="ui-block-a">
 			<div id="image-display">
@@ -43,7 +39,17 @@
 				</div>
 			</div>
 		</div>
+		
+		<!--Div to hold the article currently filled with lorem text for testing
+			spans are currently used for the image-selector, they ar dynamically populated with js
+			-->
 		<div class="ui-block-b">
+			
+<div data-role="controlgroup" data-type="horizontal" id="article-nav">
+	<a href="index.html" data-role="button" data-icon="arrow-l"  data-theme="a" >Previous</a>
+	<a href="index.html" data-role="button"  data-theme="a" >Archaeology</a>
+	<a href="index.html" data-role="button" data-icon="arrow-r"  data-theme="a"  data-iconpos="right">Next</a>
+</div>
 			<div id="active"></div>
 			<div id="article-display">
 				<p class='active'>	Dozens of underground tombs dating from the fourth to the first centuries BCE have been
