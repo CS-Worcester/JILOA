@@ -8,7 +8,8 @@ $(document).ready(function(){
       costly but usefull for potential dynamic values
   */
 	$('#image-display').css('height', window.innerHeight*0.8+'px');
-	var scrollSwap = ($('.ui-page').height()-window.innerHeight)/5;
+  var numRow = $('#article-display p').size();
+	var scrollSwap = ($('.ui-page').height()-window.innerHeight)/numRow;
 	var height = $('#article-display p:eq(0)').height();
 	var width = $('#article-display p').width();
 	var top = $('#article-display p:eq(0)').position().top;
@@ -16,26 +17,41 @@ $(document).ready(function(){
 	$('#active').css({'top' : top+10+'px',
 					 'left' : left-12+'px',
 					 'width' : width+25+'px',
-					 'height' : (height+25)+'px'});
+					 'height' : (height+15)+'px'});
 	
-  $(window).scroll(function(){
-		if($(window).scrollTop() == $('.ui-page').height()-window.innerHeight){ //potential null value if numRow does not divide nicely into the page height-windowInnerView
-			currentRow = numRow-1;
-			animateActive();
-			slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
-		}
-		else if(currentRow != Math.floor(($(window).scrollTop())/scrollSwap)){
-			currentRow = Math.floor($(window).scrollTop()/scrollSwap);
-			animateActive();
-			slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
-		}
-	});
-  
-  function animateActive(){
-	$('#active').stop().animate({'top' : $('#article-display p:eq('+currentRow+')').position().top+10+'px',
-					 'height' : ($('#article-display p:eq('+currentRow+')').height()+20)+'px'}, animationTime);
+  if(scrollSwap <= 0){
+    $('#article-display p').on('vclick', function(){
+      currentRow = $(this).index();    
+      animateActive();
+      slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
+    });
   }
-  
+  else{
+    $(window).scroll(function(){
+      if($(window).scrollTop() >= $('.ui-page').height()-window.innerHeight){ //potential null value if numRow does not divide nicely into the page height-windowInnerView
+        currentRow = numRow-1;
+        animateActive();
+        slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
+      }
+      else if(currentRow != Math.floor(($(window).scrollTop())/scrollSwap)){
+        currentRow = Math.floor($(window).scrollTop()/scrollSwap);
+        animateActive();
+        slideY($('#row-wrapper'), -currentRow*imageHeight, animationTime);
+      }
+    });
+    
+    
+    $('#article-display p').on('vclick', function(){
+      currentRow = $(this).index();
+      $("html, body").stop().animate({ scrollTop: (currentRow*scrollSwap)+numRow+'px' });
+    });
+    
+    function animateActive(){
+    $('#active').stop().animate({'top' : $('#article-display p:eq('+currentRow+')').position().top+10+'px',
+             'height' : ($('#article-display p:eq('+currentRow+')').height()+15)+'px'}, animationTime);
+    }
+   }
+    
 });
   
   /*
