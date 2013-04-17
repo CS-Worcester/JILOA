@@ -250,7 +250,7 @@
 	filter:alpha(opacity=20);
 	-moz-opacity:0.2;
 	-khtml-opacity: 0.2;
-	opacity: 0.2;
+	opacity: 0.7;
 }
 
 * html .jdGallery a.right, * html .jdGallery a.left
@@ -306,11 +306,11 @@
 	-khtml-opacity: 0.8;
 	opacity: 0.8;
 }
-
+/*
 .withArrows a.open:hover { background: url('img/open.png') no-repeat center center; }
 
 * html .withArrows a.open:hover { background: url('img/open.gif') no-repeat center center;
-	filter:alpha(opacity=80); }
+	filter:alpha(opacity=80); } */
 	
 	
 /* Gallery Sets */
