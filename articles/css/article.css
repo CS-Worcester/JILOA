@@ -10,16 +10,17 @@
 
 .image-row{
 	float: left;
-	height: 400px;
-	background-color: red;
-	margin: 20px;
-	width: 500px;
+	overflow: visible;
+	width: 99999px;
+  
 }
 
 .image-row img{
 	float: left;
-	padding: 2em;
+	padding: 50px 100px;
+  
 }
+
 #article-display p{
 	z-index: 1;
 	position: relative;
@@ -38,4 +39,25 @@
 	width: 100%;
 	text-align: center; 
 	margin-bottom: 5px;
+}
+
+
+#left-arrow{
+	width: 5%;
+	height: 565px;
+	position: absolute;
+	background-image:url('../images/left-arrow-white.png');
+	background-repeat:no-repeat;
+	background-position:center; 
+	z-index: 200;
+}
+#right-arrow{
+	width: 5%;
+	left: 95%;
+	height: 565px;
+	position: absolute;
+	background-image:url('../images/right-arrow-white.png');
+	background-repeat:no-repeat;
+	background-position:center; 
+	z-index: 200;
 }

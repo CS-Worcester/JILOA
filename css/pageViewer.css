@@ -17,6 +17,15 @@
 }
 
 #read a{
+  background-image: url("../images/story.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+
+#media a{
   background-image: url("../images/readMoreImage.jpg");
   background-size:100% 100%;
   height: 100%;
@@ -26,7 +35,7 @@
 }
 
 #interact a{
-  background-image: url("../images/interactImage.jpg");
+  background-image: url("../images/activies.jpg");
   background-size:100% 100%;
   height: 100%;
   width:100%;
@@ -34,7 +43,7 @@
   display: block;
 }
 
-#thanks a{
+#Acknowledgements a{
   background-image: url("../images/thanksImage.jpg");
   background-size:100% 100%;
   height: 100%;
@@ -42,7 +51,96 @@
   background-repeat:no-repeat;
   display: block;
 }
+#color a{
+  background-image: url("../images/color.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
 
+#puzzle a{
+  background-image: url("../images/puzzle.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+
+#archaeology a{
+  background-image: url("../images/archaeology.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#orantes a{
+  background-image: url("../images/orantes.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#orantes-2 a{
+  background-image: url("../images/orantes-2.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#history a{
+  background-image: url("../images/history.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#construction a{
+  background-image: url("../images/construction.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#conservation a{
+  background-image: url("../images/conservation.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#technical a{
+  background-image: url("../images/technical.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#head a{
+  background-image: url("../images/head.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#comments a{
+  background-image: url("../images/comments.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
 
 .ui-footer{
   text-align: center;
