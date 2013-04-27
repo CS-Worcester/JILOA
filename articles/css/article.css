@@ -46,7 +46,7 @@
 	width: 5%;
 	height: 565px;
 	position: absolute;
-	background-image:url('../images/left-arrow-white.png');
+	background-image:url('../images/left-arrow.png');
 	background-repeat:no-repeat;
 	background-position:center; 
 	z-index: 200;
@@ -56,7 +56,7 @@
 	left: 95%;
 	height: 565px;
 	position: absolute;
-	background-image:url('../images/right-arrow-white.png');
+	background-image:url('../images/right-arrow.png');
 	background-repeat:no-repeat;
 	background-position:center; 
 	z-index: 200;
