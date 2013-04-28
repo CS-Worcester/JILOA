@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+		<title>Slideshow Screensaver</title>
+		<link rel="stylesheet" type="text/css" href="css/s3slider.css" media="screen"/>
+		<script src="js/jquery-1.8.2.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/jquery.mobile-1.3.0.min.js"></script>
+		<script src="js/s3Slider.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function() { 
+			$('#s3slider').s3Slider({
+				timeOut: 4000
+			});
+		});
+		</script>
+		<script src="js/goToIntroPage.js" type="text/javascript"></script>
+	</head>
+	<body>	
+		<div id="s3slider">
+    		<ul id="s3sliderContent">
+        		<li class="s3sliderImage">
+            		<img width="1024" height="768" src="images/Screensaver1.jpg"></img>
+            		<span class="left" style="display: none;">
+            			<!-- "Caption" would go here -->
+            			<strong></strong>
+            			<br ></br>
+            			<!-- "info" would go here -->
+            		</span>
+            	
+        		</li>
+        		<li class="s3sliderImage">
+            		<img width="1024" height="768" src="images/Screensaver2.jpg"></img>
+            		<span class="right" style="display: none;">
+            			<strong></strong>
+            			<br ></br>
+            			
+            		</span>
+            		
+        		</li>
+        		<li class="s3sliderImage">
+            		<img width="1024" height="768" src="images/Screensaver3.jpg"></img>
+            		<span class="left" style="display: none;">
+            			<strong></strong>
+            			<br ></br>
+            			
+            		</span>
+            	
+        		</li>
+        		<li class="s3sliderImage">
+            		<img width="1024" height="768" src="images/Screensaver4.jpg"></img>
+            		<span class="right" style="display: none;">
+            			<strong></strong>
+            			<br ></br>
+            			
+            		</span>
+            	
+        		</li>
+        		<li class="s3sliderImage">
+            		<img width="1024" height="768" src="images/Screensaver5.jpg"></img>
+            		<span class="right" style="display: none;">
+            			<strong></strong>
+            			<br ></br>
+            			
+            		</span>
+            	
+        		</li>
+        		<li class="s3sliderImage">
+            		<img width="1024" height="768" src="images/Screensaver6.jpg"></img>
+            		<span class="right" style="display: none;">
+            			<strong></strong>
+            			<br ></br>
+            			
+            		</span>
+            	
+        		</li>
+        		<div class="clear s3sliderImage"></div>
+    		</ul>
+		</div>
+	</body>
+</html>
