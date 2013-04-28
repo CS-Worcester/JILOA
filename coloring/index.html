@@ -5,8 +5,9 @@
         <title></title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
-        
+
         <!--    <script src="jquery.mobile-1.3.0.js" type="text/javascript" charset="utf-8">  </script>-->
         <script src = 'WArtColor.js'></script>
         <link type="text/css" rel="stylesheet" href="WArtColorStyle.css"/>
@@ -19,108 +20,109 @@
 
     </head>
     <body>
-        <table align ="center">
-
-            <!-- Brush Sizes -->
-
+        <table id="colorTable"> <!-- start color buttons table -->
             <tr>
-                <td id ="toolbox" style = "z-index: 3">
-                    <br>
-                    <div class ="tilebutton"  id = "preview" style="text-align: center"></div>
-
-                    <!-- color selection element -->
-                    <div class ="colorselect" style="display:none; z-index: 2">
-                        <canvas id="layer2" width="427" height="339"></canvas>
-                        <div class ="toolText"><b>Colors</b></div>
-                    </div>
-                    <div class ="toolText"><b>Colors</b></div>
-                    <div class ="tilebutton" id ="sizepreview"></div>
-                    <!-- color selection element -->
-                    <div class="sizeselect" style="display:none; z-index: 1">
-                        <canvas id="layer3" width="400" height="125"></canvas>
-                        <div class ="toolText"><b>Sizes</b></div>
-                    </div>
-                    <div class ="toolText"><b>Sizes</b></div>
-
-                    <div id ="toolset">
-
-                        <div class ="tilebutton" id ="brushtool" onclick= "setTool(paint);" ></div>
-                        <div class ="toolText"><b>Brush</b></div>
-
-                        <div class ="tilebutton" id ="buckettool" onclick= "setTool(fillBucket);"></div>
-                        <div class ="toolText"><b>Bucket</b></div>
-
-                        <div class ="tilebutton" id ="erasertool" onclick= "setTool(eraser);"></div>
-                        <div class ="toolText"><b>Eraser</b></div>
-
-                    </div>
-                </td>
-
-                <td>
-                    <!-- Canvas --> 
-                    <div id ="coloringCanvas">
-                        <canvas  id='drawingCanvas' style="  border: 3px solid black; z-index:1; cursor: crosshair ; "  ></canvas>
-                        <canvas  id='layer1' style="border: 3px solid black; z-index:2; cursor: crosshair" ></canvas>
-                        <!-- could fix fill issues with a third layer-->
-                    </div>
-
-                </td>
-
-                <td id ="coloringscroll">
-                    <!-- functionality for selecting to come but it will 
-                    work similar to the current color selection logic -->
-                    <a id="scrollButtonUp" href="#">
-                        <img  class ="scrollButton" src ="assets/scrollUpBlack.png">
-                    </a>
-
-
-                    <div id ="scrollContainer">
-
-
-                        <!-- Tools -->
-                        <div id="carousel" >
-                            <ul>
-                                <li>
-                                    <img onclick= "setColoringPage(statue1);" class ="coloringPage" src ="assets/thumb1.png">
-                                </li>
-                                <li>
-                                    <img onclick= "setColoringPage(statue2);" class ="coloringPage" src ="assets/thumb2.png">
-                                </li>
-                                <li>
-                                    <img onclick= "setColoringPage(statue3);" class ="coloringPage" src ="assets/thumb3.png">
-                                </li>
-                                <li>
-                                    <img onclick= "setColoringPage(statue4);" class ="coloringPage" src ="assets/thumb4.png">
-                                </li>
-                                <li>
-                                    <img onclick= "setColoringPage(statue5);" class ="coloringPage" src ="assets/thumb5.png">
-                                </li>
-                                <li>
-                                    <img onclick= "setColoringPage(statue6);" class ="coloringPage" src ="assets/thumb6.png">
-                                </li>
-                                <li>
-                                    <img onclick= "setColoringPage(statue7);" class ="coloringPage" src ="assets/thumb7.png">
-                                </li>
-                                <li>
-                                    <img onclick= "setColoringPage(blank);" class ="coloringPage" src ="assets/blankthumb.png">
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <a id="scrollButtonDown" href="#">
-                        <img  class ="scrollButton" src ="assets/scrollDownBlack.png">
-                    </a>
-                </td>
-                <td>
-
-                    <!-- something new? -->
-
+                <td><div  id="color1" class="paintbutton" style="background:#ffcc00;"></div></td>
+                <td><div  id="color2" class="paintbutton" style="background:#ffa347;"></div></td>
+                <td><div  id="color3" class="paintbutton" style="background:#e65c00;"></div></td>
+                <!--<td><div  class="paintbutton" style="background:#ffffff;" onclick= "setPaint('#ffffff');"></div></td>-->
+            </tr>
+            <tr>
+                <td><div  id="color4" class="paintbutton" style="background:#52cccc;"></div></td>
+                <td><div  id="color5" class="paintbutton" style="background:#29a6cf;"></div></td>
+                <td><div  id="color6" class="paintbutton" style="background:#3083d6;"></div></td>
+            <!-- <td><div  class="paintbutton" style="background:#000000;" onclick= "setPaint('#000000');"></div></td> -->
+            </tr>
+            <tr>
+                <td><div  id="color7" class="paintbutton" style="background:#f8ddd4;"></div></td>
+                <td><div  id="color8" class="paintbutton" style="background:#efb29e;"></div></td>
+                <td><div  id="color9" class="paintbutton" style="background:#bc8f8f;"></div></td>
+                <!-- <td><div class ="paintbutton"  id = "preview"></div></td> -->
+            </tr>
+            <tr>
+                <td><div  id="color10" class="paintbutton" style="background:#deb887;"></div></td>
+                <td><div  id="color11" class="paintbutton" style="background:#b85c00;"></div></td>
+                <td><div  id="color12" class="paintbutton" style="background:#993300;"></div></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                   <div class ="paintbutton"  id = "preview"></div> 
                 </td>
             </tr>
+        </table> <!-- end color buttons table -->
+
+
+
+
+        <table>
+            <!-- color selection element -->
+            <tr>
+                <canvas id="layer3" class="sizeselect" width="200" height="60"></canvas>
+            <tr>
+            <tr>
+                <canvas id="undoClearRedo" class="ucr" width="188" height="68"></canvas>
+            <tr>
+            <tr>
+                <canvas id="toolbox" width="188" height="188"></canvas>
+            <tr>
+            
         </table>
+        <div>
+            <canvas id="toolboxBackground" width="188" height="188"></canvas>
+        <div>
 
+        <!-- Canvas -->
+        <div id ="coloringCanvas">
+            <canvas  id='drawingCanvas' style="  z-index:1; cursor: crosshair ; "  ></canvas>
+            <canvas  id='layer1' style=" z-index:2; cursor: crosshair" ></canvas>
+            <!-- could fix fill issues with a third layer-->
+        </div>
+        <div class ="colorselect" style="display:none; z-index: 1">
+                        <canvas id="layer2" width="200" height="260"></canvas>
+        </div>
+                <div id ="coloringscroll">
+
+            <!-- functionality for selecting to come but it will
+            work similar to the current color selection logic -->
+
+           
+                        <div id ="scrollContainer" onclick=''>
+                            <!-- Tools -->
+                            <div id="carousel" onclick=''  >
+                                <ul>
+                                    <li>
+                                        <img id="pic1" class ="coloringPage" src ="assets/thumb1.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic2" class ="coloringPage" src ="assets/thumb2.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic3" class ="coloringPage" src ="assets/thumb3.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic4" class ="coloringPage" src ="assets/thumb4.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic5" class ="coloringPage" src ="assets/thumb5.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic6" class ="coloringPage" src ="assets/thumb6.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic7" class ="coloringPage" src ="assets/thumb7.png">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+            
+
+        </div>
     </body>
-</html>
 
+
+
+
+
+
+</html>
 
