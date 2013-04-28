@@ -1,0 +1,45 @@
+<!-- ==============================================
+	File: index.html
+	ÇCopyright 2012 JosŽ F. MaldonadoÈ
+	License: GNU Lesser General Public License
+	Modifications: Worcester State University CS401
+=================================================== -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Language" content="en-GB"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="puzzle.css" type="text/css"/>
+    <script type="text/javascript" src="utilities/jquery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="utilities/jquery/jquery-ui-1.8.22.custom.min.js"></script>
+    <script src="utilities/jquery/touchPunch.js"></script>
+    <script type="text/javascript" src="puzzle.js"></script>
+    <script type="text/javascript">
+      $(document).bind('touchmove', function(e) { e.preventDefault(); } );
+      jQuery(document).ready(function() {
+      puzzle.create("#my_puzzle", { piecesSize: 'big', borderWidth: 5,
+      shuffle: { rightLimit: 300, leftLimit: 300, topLimit: 10, bottomLimit: 10 }
+      });
+      });
+    </script>
+  </head>
+  <body>
+    <ul>
+      <backButton>
+	<li>
+	  <img onclick="location.href='index.html'" src="utilities/masks/goback.png" width="63" height="63">
+	</li>
+      </backButton>
+      <restartButton>
+	<li>
+	  <img onclick="restart();" src="utilities/masks/startover.png" width="63" height="63">
+	</li>
+      </restartButton>
+    </ul>
+    <br><br>
+    <div style="text-align: center;">
+      <img id="my_puzzle" src="utilities/masks/image2.jpg" alt=""/>
+    </div>
+  </body>
+</html>

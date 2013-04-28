@@ -1,9 +1,47 @@
 /* ================================================================================ 
-    File: puzzleWAM.css
+    File: puzzle.css
     «Copyright 2012 José F. Maldonado»
     License: GNU Lesser General Public License
     Modifications: Worcester State University CS401
 ===================================================================================*/
+
+@media only screen and (orientation:landscape){
+    
+button1 { position:absolute; left:50px; bottom:-10px;  }
+
+button2 { position:absolute; left:207px; bottom:-10px; }
+
+button3 { position:absolute; left:365px; bottom:-10px; }
+    
+button4 { position:absolute; left:35px; bottom:240px; display:none;  }
+
+button5 { position:absolute; left:185px; bottom:240px; display:none; }
+
+button6 { position:absolute; left:335px; bottom:240px; display:none; }
+
+}
+
+@media only screen and (orientation:portrait){
+    
+button1 { position:absolute; left:50px; bottom:-10px; display:none; }
+
+button2 { position:absolute; left:207px; bottom:-10px; display:none; }
+
+button3 { position:absolute; left:365px; bottom:-10px; display:none; }
+    
+button4 { position:absolute; left:32px; bottom:240px;  }
+
+button5 { position:absolute; left:152px; bottom:240px; }
+
+button6 { position:absolute; left:272px; bottom:240px; }
+
+}
+
+#mymain { background: url('utilities/masks/orantesscreen-background-01.jpg') no-repeat scroll; background-size: 100% 100%; min-height: 700px; }
+
+restartButton { position:absolute; right:20px; top:10px; }
+
+backButton { position:absolute; left:20px; top:10px; }
 
 ul { list-style-type: none; }
 
@@ -64,4 +102,5 @@ div.jigsaw div.big.piece_1101 { -webkit-mask-image: url('utilities/masks/large/1
 div.jigsaw div.big.piece_1110 { -webkit-mask-image: url('utilities/masks/large/1110.png'); }
  
 div.jigsaw div.big.piece_1111 { -webkit-mask-image: url('utilities/masks/large/1111.png'); }
+
 
