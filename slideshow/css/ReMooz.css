@@ -59,56 +59,6 @@
  * Caption title
  */
 
-.remooz-title
-{
-	position:				relative;
-	left:					0;
-	top:					15px;
-	text-align:				left;
-}
-.remooz-title-bg
-{
-	position:				absolute;
-	left:					0;
-	top:					0;
-	width:					100%;
-	height:					100%;
-	background-color:		#000;
-	z-index:				99;
-	-moz-border-radius:		5px;
-	-webkit-border-radius:	5px;
-	/* shadow opacity differs from box shadow because its default set to opacity 0.8 */
-	-webkit-box-shadow:		0 0 10px rgba(0, 0, 0, 0.9);
-}
-.remooz-title-content
-{
-	position:				relative;
-	padding:				5px 15px;
-	color:					#fff;
-	z-index:				101;
-	font:					11px/1.5 Verdana, Geneva, Arial, Helvetica, sans-serif;
-}
-
-.remooz-engine-trident4 .remooz-title-bg
-{
-	display:				none;
-}
-.remooz-engine-trident4 .remooz-title-content
-{
-	background-color:		#333;
-}
-
-.remooz-title-content h6
-{
-	font-size:				1.2em;
-	font-weight:			bold;
-	color:					#eee;
-}
-.remooz-title-content p
-{
-	color:					#eee;
-}
-
 /**
  * Type specific
  */

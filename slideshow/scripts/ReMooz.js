@@ -286,14 +286,7 @@ var ReMooz = new Class({
 		}
 		this.body = new Element('div', {'class': 'remooz-body'}).inject(this.box);
 
-		var title = this.options.title || this.options.generateTitle.call(this, this.element);
-		if (title) { // thx ie6
-			var title = new Element('div', {'class': 'remooz-title'}).adopt(
-				new Element('div', {'class': 'remooz-title-bg', 'opacity': this.options.opacityTitle}),
-				new Element('div', {'class': 'remooz-title-content'}).adopt(title)
-			).inject(this.box);
-			this.tweens.fade.element.push(title);
-		}
+		
 		this.tweens.fade.set(0).fireEvent('onComplete');
 
 		this.drag = new Drag.Move(this.box, {

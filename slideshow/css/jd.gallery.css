@@ -10,7 +10,6 @@
 	border: 1px solid #000;
 }
 
-
 .jdGallery a
 {
 	outline:0;
@@ -54,7 +53,7 @@
 
 	height: 100%;
 
-	background-color: #000;
+	background-color: #fff;
 
 	background-repeat: no-repeat;
 
@@ -78,7 +77,7 @@
 
 	top: 0;
 
-	background-color: #000;
+	background-color: #fff;
 
 	background-repeat: no-repeat;
 
@@ -100,7 +99,7 @@
 	left: 0;
 
 	bottom: 0;
-	height: 40px;
+	height: 20%;
 	background: #333;
 	color: #fff;
 	text-indent: 0;
@@ -144,15 +143,15 @@
 .jdGallery a.carouselBtn
 {
 	position: absolute;
-	bottom: 0;
+	bottom: -29;
 	right: 30px;
-	height: 20px;
-	/*width: 100px; background: url('img/carousel_btn.gif') no-repeat;*/
-	text-align: center;
-	padding: 0 10px;
-	font-size: 13px;
-	background: #333;
-	color: #fff;
+	height: 50px;
+	background: url('img/button.png') no-repeat center left;
+	text-align: bottom;
+	padding: 5 10px;
+	font-size: 40px;
+	
+	color: none;
 	cursor: pointer;
 }
 
@@ -194,17 +193,17 @@
 .jdGallery .carousel .carouselInner .thumbnail, .jdExtCarousel .carouselInner .thumbnail
 {
 	cursor: pointer;
-	background: #000;
+	background: #fff;
 	background-position: center center;
 	float: left;
 	border: solid 1px #fff;
 }
 
+
 .jdGallery .wall .thumbnail, .jdExtCarousel .wall .thumbnail
 {
 	margin-bottom: 10px;
 }
-
 .jdGallery .carousel .label, .jdExtCarousel .label
 {
 	font-size: 13px;
@@ -230,8 +229,9 @@
 
 .jdGallery .carousel .label .number, .jdExtCarousel .label .number
 {
-	color: #b5b5b5;
+	color: #b5b5b5; /* 0f0 color to green */
 }
+
 
 .jdGallery a
 {
@@ -250,7 +250,7 @@
 	filter:alpha(opacity=20);
 	-moz-opacity:0.2;
 	-khtml-opacity: 0.2;
-	opacity: 0.2;
+	opacity: 0.7;
 }
 
 * html .jdGallery a.right, * html .jdGallery a.left
@@ -306,11 +306,11 @@
 	-khtml-opacity: 0.8;
 	opacity: 0.8;
 }
-
+/*
 .withArrows a.open:hover { background: url('img/open.png') no-repeat center center; }
 
 * html .withArrows a.open:hover { background: url('img/open.gif') no-repeat center center;
-	filter:alpha(opacity=80); }
+	filter:alpha(opacity=80); } */
 	
 	
 /* Gallery Sets */
@@ -343,7 +343,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: #000;
+	background: #fff;
 }
 
 .jdGallery .gallerySelector h2
@@ -357,7 +357,7 @@
 
 .jdGallery .gallerySelector .gallerySelectorWrapper
 {
-	overflow: hidden;
+	overflow: visible;
 }
 
 .jdGallery .gallerySelector .gallerySelectorInner div.galleryButton
@@ -379,7 +379,7 @@
 
 .jdGallery .gallerySelector .gallerySelectorInner div.galleryButton div.preview
 {
-	background: #000;
+	background: #fff;
 	background-position: center center;
 	float: left;
 	border: none;
