@@ -7,11 +7,11 @@
 
 @media only screen and (orientation:landscape){
     
-button1 { position:absolute; left:50px; bottom:-10px;  }
+button1 { position:absolute; left:50px; bottom:40px;  }
 
-button2 { position:absolute; left:207px; bottom:-10px; }
+button2 { position:absolute; left:207px; bottom:40px; }
 
-button3 { position:absolute; left:365px; bottom:-10px; }
+button3 { position:absolute; left:365px; bottom:40px; }
     
 button4 { position:absolute; left:35px; bottom:240px; display:none;  }
 
@@ -29,11 +29,11 @@ button2 { position:absolute; left:207px; bottom:-10px; display:none; }
 
 button3 { position:absolute; left:365px; bottom:-10px; display:none; }
     
-button4 { position:absolute; left:32px; bottom:240px;  }
+button4 { position:absolute; left:32px; bottom:290px;  }
 
-button5 { position:absolute; left:152px; bottom:240px; }
+button5 { position:absolute; left:152px; bottom:290px; }
 
-button6 { position:absolute; left:272px; bottom:240px; }
+button6 { position:absolute; left:272px; bottom:290px; }
 
 }
 
