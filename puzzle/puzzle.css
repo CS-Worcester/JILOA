@@ -7,11 +7,11 @@
 
 @media only screen and (orientation:landscape){
     
-button1 { position:absolute; left:50px; bottom:-10px;  }
+button1 { position:absolute; left:75px;  bottom:5%;  }
 
-button2 { position:absolute; left:207px; bottom:-10px; }
+button2 { position:absolute; left:232px;  bottom:5%; }
 
-button3 { position:absolute; left:365px; bottom:-10px; }
+button3 { position:absolute; left:400px;  bottom:5%; }
     
 button4 { position:absolute; left:35px; bottom:240px; display:none;  }
 
@@ -23,11 +23,11 @@ button6 { position:absolute; left:335px; bottom:240px; display:none; }
 
 @media only screen and (orientation:portrait){
     
-button1 { position:absolute; left:50px; bottom:-10px; display:none; }
+button1 { position:absolute; left:55px; bottom:5%; display:none; }
 
-button2 { position:absolute; left:207px; bottom:-10px; display:none; }
+button2 { position:absolute; left:212px; bottom:5%; display:none; }
 
-button3 { position:absolute; left:365px; bottom:-10px; display:none; }
+button3 { position:absolute; left:370px; bottom:5%; display:none; }
     
 button4 { position:absolute; left:32px; bottom:240px;  }
 
@@ -38,6 +38,7 @@ button6 { position:absolute; left:272px; bottom:240px; }
 }
 
 #mymain { background: url('utilities/masks/orantesscreen-background-01.jpg') no-repeat scroll; background-size: 100% 100%; min-height: 700px; }
+
 
 restartButton { position:absolute; right:20px; top:10px; }
 

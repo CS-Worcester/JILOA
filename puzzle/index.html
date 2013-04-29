@@ -9,11 +9,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="puzzle.css" type="text/css"/>
+    <script src="../js/jquery-1.7.2.js"></script><!-- most compatable version of jquery with jquery Mobile and ipad -->
     <script type="text/javascript">
       $(document).bind('touchmove', function(e) { e.preventDefault(); } );	    
     </script>
+    <link rel="stylesheet" href="../css/theme.css" /> <!-- jQuery Mobile theme  -->
+    <script src="../js/jquery.mobile-1.2.0.js"></script> <!-- jQuery Mobile library -->
   </head>
-  <body id="mymain">
+  <body>
+  
+  <div data-role="page" id="mymain" data-theme="a">
+  <div data-role="content">
     <ul>
 	<button1>
 	<li>
@@ -46,6 +52,12 @@
 	    </li>
 	</button6>
     </ul>
+    </div>
+  <div data-role="footer" data-position="fixed" data-mini="false" class="ui-footer ui-bar-a ui-footer-fixed slideup" id="footer">
+    <a href="../interactive.html" rel="external" data-role="button" data-icon="arrow-l">Back To Activites</a>
+    <a href="../index.html" rel="external" data-role="button" data-icon="home" data-iconpos="notext" class="center-icon" id="home-btn">Home</a>
+	</div>
+  </div>
   </body>
 </html>
 
