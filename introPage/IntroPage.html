@@ -18,7 +18,7 @@
 		$('div.ui-page').live("swipeleft", function(){
 			var nextpage = $(this).next('div[data-role="page"]');
 			if (nextpage.length > 0) {
-				$.mobile.changePage(nextpage, "slide", false, true);
+				$.mobile.changePage(nextpage, {transition: "slide"}, false, true);
 			}
 		});
 		$('div.ui-page').live("swiperight", function(){
@@ -101,7 +101,7 @@
     
     <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
 		<div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
-        	<a href="#page1" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
+        	<a href="#page1" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d" data-transition="reverse slide">Previous</a>
         	<a href="#page3" class="next" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
         </div>
         
@@ -117,7 +117,7 @@
     
     <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
 		<div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
-        	<a href="#page2" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
+        	<a href="#page2" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d" data-transition="reverse slide">Previous</a>
         	<a href="#page4" class="next" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
         </div>
         
@@ -133,7 +133,7 @@
     
     <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
 		<div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
-        	<a href="#page3" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
+        	<a href="#page3" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d" data-transition="reverse slide">Previous</a>
         	<a href="#page5" class="next" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
         </div>
         
@@ -149,7 +149,9 @@
     
     <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
 		<div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
-        	<a href="#page4" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
+        	<a href="#page4" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d" data-transition="reverse slide">Previous</a>
+        	
+        	<!-- LAST PAGE: add class="ui-disabled" to disable the "next" button -->
         	<a href="#" class="next ui-disabled" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
         </div>
         
