@@ -1,0 +1,62 @@
+#s3slider {
+    width: 1024px; /* important to be same as image width */
+    height: 768px; /* important to be same as image height */
+    position: relative; /* important */
+    overflow: hidden; /* important */
+}
+ 
+#s3sliderContent {
+    width: 1024px; /* important to be same as image width or wider */
+    position: absolute; /* important */
+    top: 0; /* important */
+    margin-left: 0; /* important */
+}
+ 
+.s3sliderImage {
+    float: left; /* important */
+    position: relative; /* important */
+    display: none; /* important */
+}
+ 
+.s3sliderImage span {
+    position: absolute; /* important */
+/*    right: 0; */
+    font: 25px/30px Arial, Helvetica, sans-serif;
+    padding: 10px 13px;
+    width: 400px;
+    background-color: #000;
+    filter: alpha(opacity=70); /* here you can set the opacity of box with text */
+    -moz-opacity: 0.7; /* here you can set the opacity of box with text */
+    -khtml-opacity: 0.7; /* here you can set the opacity of box with text */
+    opacity: 0.7; /* here you can set the opacity of box with text */
+    color: #fff;
+    display: none; /* important */
+/*	top: 0; */ /*
+        if you put top: 0;  -> the box with text will be shown 
+                                at the top of the image
+        if you put bottom: 0;  -> the box with text will be shown 
+                                at the bottom of the image
+    */
+}
+ 
+.clear {
+    clear: both;
+}
+
+.s3sliderImage span strong {
+	font-size: 30px;
+}
+
+.left {
+	top: 0;
+	left: 0;
+	width: 300px !important;
+	height: 768px;
+}
+
+.right {
+	right: 0;
+	bottom: 0;
+	width: 300px !important;
+	height: 768px;
+}

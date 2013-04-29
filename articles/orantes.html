@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>orantes</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="../css/theme.css" />
+	<link rel="stylesheet" href="css/article.css" />
+	<script src="../js/jquery-1.7.2.js"></script>
+	<script src="../js/jquery.mobile-1.2.0.js"></script>
+	<script src="js/article.js"></script>
+</head>
+<body>
+<div data-role="page" data-theme="b"> 
+	<div data-role="content" role="main">
+		<!-- div to hold the images that will be displayed
+			 acts as a "window" to the underlying divs this is done through overflow: hidden
+			 position is fixed meaning even when the user scrolls the viewer and its contents remain still
+			 -->
+	<div class="ui-grid-a my-breakpoint">
+		<div class="ui-block-a">
+			<div id="image-display">
+				<div id="left-arrow"></div>
+				<div id="right-arrow"></div>
+				<div id="row-wrapper">
+					<div class="image-row">
+						<img src="images/orantes/p_1_img_1_thumb.jpg" />
+					</div>
+					<div class="image-row">
+						<img src="images/orantes/p_2_img_1_thumb.jpg" />
+						<img src="images/orantes/p_2_img_2_thumb.jpg" />
+					</div>
+					<div class="image-row">
+						<img src="images/orantes/p_3_img_1_thumb.jpg" />
+						<img src="images/orantes/p_3_img_2_thumb.jpg" />
+					</div>
+					<div class="image-row">
+						<img src="images/orantes/p_4_img_1_thumb.jpg" />
+						<img src="images/orantes/p_4_img_2_thumb.jpg" />
+					</div>
+					<div class="image-row">
+						<img src="images/orantes/p_5_img_1_thumb.jpg" />
+						<img src="images/orantes/p_5_img_2_thumb.jpg" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--Div to hold the article currently filled with lorem text for testing
+			spans are currently used for the image-selector, they ar dynamically populated with js
+			-->
+		<div class="ui-block-b">
+      <h1>What are Orantes?</h1>
+		<div id="active"></div>
+			<div id="article-display">
+				<p>	Orantes are funerary statues—always of women—that were made exclusively in the South
+        Italian town of Canosa during the fourth and third centuries BCE.  The name of these statues
+        is derived from the latin verb orare, which means to pray.  The majority of orantes adopt 
+        the universal gesture of prayer with the arms lifted, the elbows near the sides of the body,
+        and the hands outstretched.  Their head is often tilted and their facial expression is 
+        pensive, and filled with sadness and reflection. 
+        <br />They are hollow statues made of terracotta.  Unusually large for terracotta figures 
+        of this period these statues range in height from 64 cm – 109 cm and they were originally 
+        painted in bright colors.  The original colors of the orantes unfortunately have not survived,
+        although with some exceptions.</p>				
+        <p> Orantes wear the typical dress that women wore in the ancient Greek world over 2,000 years ago.
+        All three orantes in this exhibition wear a long sleeveless dress that reaches down to their ankles
+        called a chiton.  Real chitons were made of light-weight linen cut longer than the shoulder-to-floor
+        measurement of the woman wearing it.  The excess length was pulled up (far left drawing) and tied at 
+        the waist with a girdle that was covered by the overfall of fabric known as the apoptygma 
+        (near left drawing).  A second belt was then tied below the breasts.  The orantes’ feet—wearing sandals
+        or shoes—protrude from underneath the chiton.
+				</p>
+				<p> While all orantes are depicted wearing a chiton, some are also shown wearing a cloak over the chiton.  
+        Cloaks like the ones shown here, are called himations and were heavier and often made of wool.  Himations
+        were worn by women in the winter to protect them from the cold.
+				</p>
+				<p> The hair of the orantes provides further insight into the styles from this period of Antiquity. Their 
+        wavy hair is parted in the middle and pulled back over the ears.  On some orantes the hair divides into 
+        two or more locks that rest on the shoulders and chest. On others the hair is pulled back in a ponytail
+        or a braid. 
+				</p>
+				<p> Another commonality among orantes is their unique stance that in the visual arts is called 
+        contrapposto, an Italian term that means counterpose.  In this stance, most of the figure’s weight is
+        shown resting on one foot. While the leg that holds most of the weight is straight, the other one is 
+        slightly bent at the knee, which in the case of the orantes, results in a dynamic pattern of folds
+        emanating from the left knee.  As an alternative to the static frontal stance of earlier sculpture, 
+        contrapposto was an art historical phenomenon that the Greeks invented in the early fifth century. 
+        Representing the human figure in contraposto was still considered innovative at the time the orantes were made.  
+				</p>
+			</div>
+		</div>	
+	</div>
+	</div>
+	<div data-role="footer" data-mini="false">
+    <a href="../articles.html" rel="external" data-role="button" data-icon="arrow-l">Back To Articles</a>
+    <a href="../index.html#four" rel="external" data-role="button" data-icon="home" data-iconpos="notext" class="center-icon" id="home-btn">Home</a>
+	</div>
+
+</div>
+</body>
+</html>

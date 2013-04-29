@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ARCHAEOLOGY</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="../css/theme.css" />
+	<link rel="stylesheet" href="css/article.css" />
+	<script src="../js/jquery-1.7.2.js"></script>
+	<script src="../js/jquery.mobile-1.2.0.js"></script>
+	<script src="js/article.js"></script>
+</head>
+<body>
+<div data-role="page" data-theme="b"> 
+	<div data-role="content" role="main">
+		<!-- div to hold the images that will be displayed
+			 acts as a "window" to the underlying divs this is done through overflow: hidden
+			 position is fixed meaning even when the user scrolls the viewer and its contents remain still
+			 -->
+	<div class="ui-grid-a my-breakpoint">
+		<div class="ui-block-a">
+			<div id="image-display">
+				<div id="left-arrow"></div>
+				<div id="right-arrow"></div>
+				<div id="row-wrapper">
+					<div class="image-row">
+						<img src="images/archaeology/p_1_img_1_thumb.jpg" />
+					</div>
+					<div class="image-row">
+						<img src="images/archaeology/p_2_img_1_thumb.jpg" />
+						<img src="images/archaeology/p_2_img_2_thumb.jpg" />
+					</div>
+					<div class="image-row">
+						<img src="images/archaeology/p_3_img_1_thumb.jpg" />
+					</div>
+					<div class="image-row">
+						<img src="images/archaeology/p_4_img_1_thumb.jpg" />
+						<img src="images/archaeology/p_4_img_2_thumb.jpg" />
+						<img src="images/archaeology/p_4_img_3_thumb.jpg" />
+					</div>
+					<div class="image-row">
+						<img src="images/archaeology/p_5_img_1_thumb.jpg" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--Div to hold the article currently filled with lorem text for testing
+			spans are currently used for the image-selector, they ar dynamically populated with js
+			-->
+		<div class="ui-block-b">
+      <h1>Archaeology</h1>
+		<div id="active"></div>
+			<div id="article-display">
+				<p>	Dozens of underground tombs dating from the fourth to the first centuries BCE have been discovered in and around the town of Canosa (Canusium).  Often consisting of several rooms or chambers decorated with wall painting, these tombs contained the remains of the deceased accompanied by orante statues and rich grave goods.  Most of these tombs were excavated by local inhabitants motivated by monetary gain in the nineteenth and early twentieth century prior to the establishment of modern archeological practices.  The tomb contents were sold usually without leaving any records indicating where the artifacts went.</p>
+				<p> Many of these tombs like the Scocchera B tomb still exist today—and some can even be
+					visited—but they are empty of the grave goods left by the ancient citizens of Canusium.
+					Discovered in 1895 under an almond grove on the eastern outskirts of Canosa, this tomb
+					received the name of its landowner, Mr. Scocchera. The Scocchera tomb complex is
+					unusual because—thanks to a publication from 1898, which includes some photographs
+					and a list of objects—we know much more about it than about most of the other tombs.
+					<br />
+					To enter this six-chambered underground tomb one first has to pass through a hallway, the
+					dromos.
+				</p>
+				<p> From the end of this hallway three chambers open off to three sides, and the central one
+					in turn gives access to three more chambers. The tomb floor plan can be seen here on the
+					left. Based on the 1898 publication we know that in the rear left chamber (see skull on
+					tomb plan) the only skeleton in the tomb was discovered. We also know that several pieces
+					of fine jewelry were found amongst the bones, a fact that suggests that the skeleton was
+					probably that of a woman, and that therefore the tomb was that of a wealthy lady.
+				</p>
+				<p> According to the 1898 publication the largest objects discovered in this tomb were
+					eight orante statues. Unfortunately, photographs of only three of them are in the 1898
+					publication, and their exact location in the tomb is not mentioned. These three orantes
+					are now at the National Museum of Denmark, the Antiquities Museum of Rouen and the
+					Archaeological Museum of Bari.
+				</p>
+				<p> During their extensive research in preparation for this exhibition Worcester Art Museum
+					conservators learned that according to modern scholarly research the orante statue with
+					the raised arms in this exhibition was one of the eight orantes found in the Scocchera B
+					tomb.
+				</p>
+			</div>
+		</div>	
+	</div>
+	</div>
+	<div data-role="footer" data-mini="false">
+    <a href="../articles.html" rel="external" data-role="button" data-icon="arrow-l">Back To Articles</a>
+    <a href="../index.html#four" rel="external" data-role="button" data-icon="home" data-iconpos="notext" class="center-icon" id="home-btn">Home</a>
+	</div>
+
+</div>
+</body>
+</html>

@@ -3,6 +3,7 @@ var pageHeight = window.innerHeight; //same issue as stated above
 $(document).ready(function(){
 	$('#article-wrapper').css('height', pageHeight*0.8+'px');
 	var curArticle = 0; //variable for the current article
+  var numArticles = $('.article').size();
 	$('.article').css('marginLeft', pageWidth*0.01+"px"); //pageWidth issues in regular css, this a dynamic solution
 	$('.article-preview').css('width', pageWidth*0.59+"px");
 	
@@ -13,17 +14,13 @@ $(document).ready(function(){
 	});
 	
 	$('#article-wrapper').live('swipeleft', function(){ //swipeleft event detection
-		if(curArticle < 4){ //if this isn't the last article execute
-			$('ul.navigation li a:eq('+ curArticle++ +')').removeClass('ui-btn-active ui-state-persist'); //increment current article after removing current nav button classes
-			$('ul.navigation li a:eq('+ curArticle +')').addClass('ui-btn-active ui-state-persist'); //add current nav button classes to the new article position
-			changeArticle(curArticle, 600); //execute the animation
+		if(curArticle < numArticles-1){ //if this isn't the last article execute
+			changeArticle(++curArticle, 600); //execute the animation
 		}
 		
 	}).live('swiperight', function(){ //swiperight event detection
 		if(curArticle > 0){  //if the isn't the first article execute
-			$('ul.navigation li a:eq('+ curArticle-- +')').removeClass('ui-btn-active ui-state-persist');//decrement current article after removing current nav button classes
-			$('ul.navigation li a:eq('+ curArticle +')').addClass('ui-btn-active ui-state-persist');//add current nav button classes to the new article position
-			changeArticle(curArticle, 600);//execute the animation
+			changeArticle(--curArticle, 600);//execute the animation
 		}
 	});
 });
