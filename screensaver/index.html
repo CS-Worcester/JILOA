@@ -1,0 +1,98 @@
+<!-- Screensaver Page by Sompop Suksawat -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.0.min.css" /><script type="text/javascript" src="js/jquery.mobile-1.3.0.min.js"></script>
+	<script>
+		// Bind to "mobileinit" before you load jquery.mobile.js
+		// Set the default transition to slide
+		$(document).on( "mobileinit", function() {
+			$.mobile.defaultPageTransition = "fade";
+		});	
+	</script>
+	<script>
+		var nextpage = 1;
+		var numPages;
+	
+		$(document).bind('pageshow',function() 
+		{
+	    	setTimeout(function()
+	    	{
+	    		numPages = $("div[data-role='page']").size();
+
+	    	    if (numPages>0 && numPages-1 >= nextpage)
+	    	    {
+	    	    	$.mobile.changePage("#page" + ++nextpage, "fade");
+	    	    }
+	    	    else
+	    	    {
+	    	    	nextpage = 1;
+	    	    	$.mobile.changePage($('#page'+nextpage), "fade");
+	    	    }
+	    	}, 5000);
+
+		});
+	</script>
+	<script>
+		/*
+		$('.screensaver').bind('click tap mousemove',function(){
+			window.location.href="../introPage/introPage.html";
+			
+			// Try
+			//$.mobile.changePage( "../introPage/introPage.html", { transition: "fade" });
+		});
+		*/
+		
+		// OR
+		
+		$(document).on("tap mousemove keydown click", function() {
+             window.location = "../introPage/introPage.html";
+    	});
+    	
+	</script>
+	
+	<style>
+		/* Set the background image sources */
+		#page1 { background-image: url(images/Screensaver1.jpg); }
+		#page2 { background-image: url(images/Screensaver2.jpg); }
+		#page3 { background-image: url(images/Screensaver3.jpg); }
+		#page4 { background-image: url(images/Screensaver4.jpg); }
+		#page5 { background-image: url(images/Screensaver5.jpg); }
+		#page6 { background-image: url(images/Screensaver6.jpg); }
+
+		/* Background settings */
+		.screensaver {
+			background-size: cover;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+	</style>
+	
+</head>
+<body>
+
+	<div data-role="page" id="page1" class="screensaver" data-dom-cache="true">
+	</div><!-- /page -->
+	
+	<div data-role="page" id="page2" class="screensaver" data-dom-cache="true">   
+	</div><!-- /page -->
+
+	<div data-role="page" id="page3" class="screensaver" data-dom-cache="true">
+	</div><!-- /page -->
+	
+	<div data-role="page" id="page4" class="screensaver" data-dom-cache="true">
+	</div><!-- /page -->
+
+	<div data-role="page" id="page5" class="screensaver" data-dom-cache="true">
+	</div><!-- /page -->
+	
+	<div data-role="page" id="page6" class="screensaver" data-dom-cache="true">
+	</div><!-- /page -->	
+	
+</body>
+</html>
