@@ -1,0 +1,106 @@
+/* ================================================================================ 
+    File: puzzle.css
+    «Copyright 2012 José F. Maldonado»
+    License: GNU Lesser General Public License
+    Modifications: Worcester State University CS401
+===================================================================================*/
+
+@media only screen and (orientation:landscape){
+    
+button1 { position:absolute; left:50px; bottom:-10px;  }
+
+button2 { position:absolute; left:207px; bottom:-10px; }
+
+button3 { position:absolute; left:365px; bottom:-10px; }
+    
+button4 { position:absolute; left:35px; bottom:240px; display:none;  }
+
+button5 { position:absolute; left:185px; bottom:240px; display:none; }
+
+button6 { position:absolute; left:335px; bottom:240px; display:none; }
+
+}
+
+@media only screen and (orientation:portrait){
+    
+button1 { position:absolute; left:50px; bottom:-10px; display:none; }
+
+button2 { position:absolute; left:207px; bottom:-10px; display:none; }
+
+button3 { position:absolute; left:365px; bottom:-10px; display:none; }
+    
+button4 { position:absolute; left:32px; bottom:240px;  }
+
+button5 { position:absolute; left:152px; bottom:240px; }
+
+button6 { position:absolute; left:272px; bottom:240px; }
+
+}
+
+#mymain { background: url('utilities/masks/orantesscreen-background-01.jpg') no-repeat scroll; background-size: 100% 100%; min-height: 700px; }
+
+restartButton { position:absolute; right:20px; top:10px; }
+
+backButton { position:absolute; left:20px; top:10px; }
+
+ul { list-style-type: none; }
+
+div.jigsaw { position: absolute; background-color: white; border-color: black; border-style: solid; }
+
+div.jigsaw.highlight { border-color: darkgreen; }
+
+div.jigsaw.resolved { border-color: green; }
+
+div.jigsaw div.puzzle { position: relative; -webkit-opacity: 0.3; }
+
+div.jigsaw div.menu { position: relative; }
+
+div.jigsaw div.menu table.menu { width: 100%; color: white; text-align: center; background-color: black; }
+
+div.jigsaw.resolved div.menu table.menu { background-color: darkgreen; }
+
+div.jigsaw div.menu table.menu td { padding: 5px; }
+
+div.jigsaw div.menu table.menu a.button { color: black; padding: 2px; text-decoration: none; border: 1px solid gray; background-color: lightgray; background-image: -webkit-gradient(linear, 0% 80%, 0% 20%, from(#777), to(#777), color-stop(.5,#aaa)); }
+
+div.jigsaw div.menu table.menu a.button:hover { background-color: white; background-image: -webkit-gradient(linear, 0% 80%, 0% 20%, from(#999), to(#999), color-stop(.5,#fff)); }
+
+div.jigsaw div.menu table.menu a.button:active { background-color: gray; background-image: -webkit-gradient(linear, 0% 80%, 0% 20%, from(#555), to(#555), color-stop(.5,#888)); }
+
+div.jigsaw div.big { position: absolute; background-repeat: no-repeat; }
+
+div.jigsaw div.big { width: 170px; height: 170px; }
+
+div.jigsaw div.big.piece_0000 { -webkit-mask-image: url('utilities/masks/large/0000.png'); }
+ 
+div.jigsaw div.big.piece_0001 { -webkit-mask-image: url('utilities/masks/large/0001.png'); }
+ 
+div.jigsaw div.big.piece_0010 { -webkit-mask-image: url('utilities/masks/large/0010.png'); }
+ 
+div.jigsaw div.big.piece_0011 { -webkit-mask-image: url('utilities/masks/large/0011.png'); }
+ 
+div.jigsaw div.big.piece_0100 { -webkit-mask-image: url('utilities/masks/large/0100.png'); }
+ 
+div.jigsaw div.big.piece_0101 { -webkit-mask-image: url('utilities/masks/large/0101.png'); }
+ 
+div.jigsaw div.big.piece_0110 { -webkit-mask-image: url('utilities/masks/large/0110.png'); }
+ 
+div.jigsaw div.big.piece_0111 { -webkit-mask-image: url('utilities/masks/large/0111.png'); }
+ 
+div.jigsaw div.big.piece_1000 { -webkit-mask-image: url('utilities/masks/large/1000.png'); }
+ 
+div.jigsaw div.big.piece_1001 { -webkit-mask-image: url('utilities/masks/large/1001.png'); }
+ 
+div.jigsaw div.big.piece_1010 { -webkit-mask-image: url('utilities/masks/large/1010.png'); }
+ 
+div.jigsaw div.big.piece_1011 { -webkit-mask-image: url('utilities/masks/large/1011.png'); }
+ 
+div.jigsaw div.big.piece_1100 { -webkit-mask-image: url('utilities/masks/large/1100.png'); }
+ 
+div.jigsaw div.big.piece_1101 { -webkit-mask-image: url('utilities/masks/large/1101.png'); }
+ 
+div.jigsaw div.big.piece_1110 { -webkit-mask-image: url('utilities/masks/large/1110.png'); }
+ 
+div.jigsaw div.big.piece_1111 { -webkit-mask-image: url('utilities/masks/large/1111.png'); }
+
+
