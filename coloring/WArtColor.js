@@ -1,6 +1,6 @@
 /*
- * Worcester State University 
- * CS_401 Software Developement 
+ * Worcester State University
+ * CS_401 Software Developement
  * Coloring Team: Jason Hintlian, Beto Luna
  */
 
@@ -9,21 +9,12 @@
 var paint = "paint";
 var fillBucket = "fillBucket";
 var eraser = "eraser";
-var sprayPaint = "sprayPaint";
-var state = paint;
-
-// coloring scroll book image locations
-var statue1 = "assets/1.png";
-var statue2 = "assets/2.png";
-var statue3 = "assets/3.png";
-var statue4 = "assets/4.png";
-var statue5 = "assets/5.png";
-var statue6 = "assets/6.png";
-var statue7 = "assets/7.png";
-var blank = "assets/blank.png";
+var spray = "spray";
+var state = "paint";
 
 var sizePanelOpen = false;
 var colorPanelOpen = false;
+var buttonColor = false;
 
 // eraser color
 var colorWhite = "#FFFFFF";
@@ -38,64 +29,68 @@ var currentSize = sizeMedium;
 
 // holds the coloring page
 var outlineImage = new Image();
-var currentPage = statue1;
+var currentPage = "assets/1.png";
 
 // color variables
 var colorData;
 var outlineColorData;
-var currentColor = "rgb(0, 0, 0)";
-var currentColorR;
-var currentColorG;
-var currentColorB;
+var currentColor = "rgba(255, 204, 0, 255)";
+var currentColorR = 0;
+var currentColorG = 0;
+var currentColorB = 0;
+var currentColorA = 255;
 
 //var currentState = new Red(this);
-var myCanvas, layer1, context, context1;
+var myCanvas, layer1, context, context1, canvas, ctx, undoRedoClear, canvasTools, ctxTools;
+
+var image3 = new Image();
+var imageSrc3 = 'assets/sizeSelection.png';
+image3.src = imageSrc3;
+
+var image4 = new Image();
+var imageSrc4 = 'assets/sizeSelectionMedium.png';
+image4.src = imageSrc4;
+
+// mobile safari fix for redo and undo
+var userAgent = window.navigator.userAgent;
 
 window.onload = window.onresize = function() {
-
-    /* $(document).bind('touchmove', function(e) {
-     e.preventDefault();
-     }
-     );
-     */
 
 // color menu
     var canvas1 = document.getElementById('layer2');
     var ctx1 = canvas1.getContext('2d');
 
-// size menu
-    var canvas = document.getElementById('layer3');
-    var ctx = canvas.getContext('2d');
-
-    // Get the canvas element and its drawing context 
+    // Get the canvas element and its drawing context
     myCanvas = document.getElementById('drawingCanvas');
     context = myCanvas.getContext('2d');
 
     layer1 = document.getElementById('layer1');
     context1 = layer1.getContext('2d');
 
-    //document.addEventListener("touchmove", preventBehavior, false);
+    // size menu
+    canvas = document.getElementById('layer3');
+    ctx = canvas.getContext('2d');
+    
+    // tool box menu
+    canvasTools = document.getElementById('toolbox');
+    ctxTools = canvasTools.getContext('2d');
+    
+    var canvasToolsBackground = document.getElementById('toolboxBackground');
+    var ctxToolsBackground = canvasToolsBackground.getContext('2d');
 
-    /*$('DrawingCanvas').on('touchmove', function(e) {
-     e.preventDefault();
-     });
-     $('layer1').on('touchmove', function(e) {
-     e.preventDefault();
-     });*/
-
-    // set canvas width to 60% of the window note: canvas 
+    // set canvas width to 60% of the window note: canvas
     // id in css must be set to left: 20%; to accomadate
-    var canvasWidthToWindow = .6;
+    var canvasWidthToWindow = .65;
 
-    // set canvas heigth to 90% of the window note: canvas 
+    // set canvas heigth to 90% of the window note: canvas
     // id in css must be set to top: 5%; to accomadate
-    var canvasHeightToWindow = .9;
+    var canvasHeightToWindow = .98;
 
     // gets the browser window dimensions
     var viewportWidth = window.innerWidth;
     var viewportHeight = window.innerHeight;
 
-    // get our canvas dimensions 
+    // get our canvas dimensions
     var canvasWidth = viewportWidth * canvasWidthToWindow;
     var canvasHeight = viewportHeight * canvasHeightToWindow;
 
@@ -123,64 +118,99 @@ window.onload = window.onresize = function() {
 
     outlineImage.onload = function() {
         context1.drawImage(outlineImage, 0, 0, canvasWidth, canvasHeight);
+        cPush();
     };
 
+    // sets the border to the 1st color yellow
+    $('#color1').css('box-shadow', '0px 0px 2pt 1pt #000000');
+
+    // sets the border to the 1st pic1 
+    $('#pic1').css('box-shadow', '0px 0px 2pt 1pt #000000');
+
+
     //***************** Drawing Canvas Events ******************//
-
     painting = false;
-
+    var softWidths = [1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15, 0.1, 0.05];
 
     $('#drawingCanvas').on('vmousedown touchstart', function(e) { // mouse move handler
         e.preventDefault();
+        $('#preview').css('backgroundColor', currentColor);
+        $('#brushtool').css('backgroundColor', currentColor);
+        $('#buckettool').css('backgroundColor', currentColor);
+
+
+
+
         var canvasOffset = $(myCanvas).offset();
         var canvasX = Math.floor(e.pageX - canvasOffset.left);
         var canvasY = Math.floor(e.pageY - canvasOffset.top);
+
         if (state === fillBucket) {
             floodFillScanLine(canvasX, canvasY, currentColor, context, context1);
         } else {
             context.beginPath();
-            context.moveTo(canvasX - 1, canvasY);
-            context.lineTo(canvasX, canvasY);
-
-            if (state === eraser) {
-                context.strokeStyle = "white";
-            } else {
-                context.strokeStyle = currentColor;
-            }
             context.lineCap = "round";//Draw a line with rounded end caps
             context.lineJoin = "round";//Create a rounded corner when the two lines meet
-            context.lineWidth = currentSize;
-            context.stroke();
-            painting = true;
+
+            if (state === spray) {
+                for (var pass = 0; pass < softWidths.length; pass++) {
+                    context.lineWidth = (currentSize * 1.5) * softWidths[pass];
+                    context.strokeStyle = "rgba(" + currentColorR + "," + currentColorG + "," + currentColorB + "," + .01 * pass / 2 + ")";
+                    context.moveTo(canvasX - 1, canvasY);
+                    context.lineTo(canvasX, canvasY);
+                    context.stroke();
+                }
+            } else {
+                if (state === eraser) {
+                    context.strokeStyle = "white";
+                } else {
+                    context.strokeStyle = currentColor;
+                }
+                context.lineWidth = currentSize;
+                context.moveTo(canvasX - 1, canvasY);
+                context.lineTo(canvasX, canvasY);
+                context.stroke();
+            }
         }
-        if (sizePanelOpen) {
-            $('.sizeselect').fadeToggle("fast", "linear");
-            sizePanelOpen = false;
-            $("#sizepreview").toggleClass("down");
-            buttonSize = false;
-        }
-        if (colorPanelOpen) {
-            $('.colorselect').fadeToggle("fast", "linear");
-            colorPanelOpen = false;
-            $("#preview").toggleClass("down");
-            buttonColor = false;
-        }
+        painting = true;
     });
 
 
     $("#drawingCanvas").on('vmousemove touchmove', function(e) {
         e.preventDefault();
-        var canvasOffset = $(myCanvas).offset();
-        var canvasX = Math.floor(e.pageX - canvasOffset.left);
-        var canvasY = Math.floor(e.pageY - canvasOffset.top);
+
         if (state === fillBucket) {
             // do nothing
         } else {
             if (painting) {
+                var canvasOffset = $(myCanvas).offset();
+                var canvasX = Math.floor(e.pageX - canvasOffset.left);
+                var canvasY = Math.floor(e.pageY - canvasOffset.top);
                 context.lineTo(canvasX, canvasY);
-                context.stroke();
+                if (state === spray) {
+                    context.beginPath();
+                    for (var pass = 0; pass < softWidths.length; pass++) {
+                        context.lineWidth = (currentSize * 1.5) * softWidths[pass];
+                        context.strokeStyle = "rgba(" + currentColorR + "," + currentColorG + "," + currentColorB + "," + .01 * pass / 2 + ")";
+                        context.moveTo(canvasX - 1, canvasY);
+                        context.lineTo(canvasX, canvasY);
+                        context.stroke();
+                    }
+                } else {
+                    if (state === eraser) {
+                        context.strokeStyle = "#ffffff";
+                    }
+                    else {
+                        context.strokeStyle = currentColor;
+                    }
+                    context.lineWidth = currentSize;
+                    context.lineTo(canvasX, canvasY);
+                    context.stroke();
+                    //context.closePath();
+                }
             }
         }
+
     });
 
     $('#drawingCanvas').on('vmouseup touchend', function(e) { // mouse move handler
@@ -188,284 +218,206 @@ window.onload = window.onresize = function() {
         if (state === fillBucket) {
         } else {
             if (painting) {
+                context.closePath();
                 painting = false;
             }
         }
+        cPush();
     });
 
     $('#drawingCanvas').on('vmouseout', function(e) {
         if (state === fillBucket) {
         } else {
             if (painting) {
+                context.closePath();
                 painting = false;
             }
         }
     });
 
+
+
     //***************** Drawing Canvas Events ******************//
 
+    //****************** Paint Buttons *******************//
 
-    //***************** Left Side Buttons ******************//
-
-    var buttonColor = false;
-    var buttonSize = false;
-    var buttonBrush = true;
-    var buttonBucket = false;
-    var buttonEraser = false;
-
-    $(document).ready(function() {
-
-        //***************** Color and Size ******************//
-
-        $('#preview').click(function() {
-            $(this).toggleClass("down");
-            buttonColor = !buttonColor;
-            $('#preview').css('backgroundColor', currentColor);
-            if (buttonSize) {
-                $("#sizepreview").toggleClass("down");
-                $('#sizepreview').css('backgroundColor', currentColor);
-                buttonSize = false;
-                if (sizePanelOpen) {
-                    $('.sizeselect').fadeToggle("fast", "linear");
-                    sizePanelOpen = false;
-                }
-            }
-        });
-
-        $('#sizepreview').click(function() {
-            $(this).toggleClass("down");
-            buttonSize = !buttonSize;
-            $('#sizepreview').css('backgroundColor', currentColor);
-            if (buttonColor) {
-                $("#preview").toggleClass("down");
-                $('#preview').css('backgroundColor', currentColor);
-                buttonColor = false;
-                if (colorPanelOpen) {
-                    $('.colorselect').fadeToggle("fast", "linear");
-                    colorPanelOpen = false;
-                }
-            }
-        });
-
-        //***************** Color and Size End ******************//
-
-        //***************** Tools ******************//
-
-        $('#brushtool').click(function() {
-            if (!buttonBrush) {
-                $(this).toggleClass("down");
-                buttonBrush = true;
-
-
-                $('#brushtool').css('backgroundColor', currentColor);
-                if (buttonColor) {
-                    $("#preview").toggleClass("down");
-                    $('#preview').css('backgroundColor', currentColor);
-                    buttonColor = false;
-                    if (colorPanelOpen) {
-                        $('.colorselect').fadeToggle("fast", "linear");
-                        colorPanelOpen = false;
-                    }
-                }
-                if (buttonSize) {
-                    $("#sizepreview").toggleClass("down");
-                    $('#sizepreview').css('backgroundColor', currentColor);
-                    buttonSize = false;
-                    if (sizePanelOpen) {
-                        $('.sizeselect').fadeToggle("fast", "linear");
-                        sizePanelOpen = false;
-                    }
-                }
-
-                if (buttonBucket) {
-                    $("#buckettool").toggleClass("down");
-                    $('#buckettool').css('backgroundColor', currentColor);
-                    buttonBucket = false;
-                }
-
-                if (buttonEraser) {
-                    $("#erasertool").toggleClass("down");
-                    $('#erasertool').css('backgroundColor', currentColor);
-                    buttonEraser = false;
-                }
-            }
-        });
-
-        $('#buckettool').click(function() {
-            if (!buttonBucket) {
-                $(this).toggleClass("down");
-                buttonBucket = true;
-                //$(this).css({ boxShadow: '10px 10px 10px ' + currentColor });
-
-                $('#buckettool').css('backgroundColor', currentColor);
-                if (buttonColor) {
-                    $("#preview").toggleClass("down");
-                    $('#preview').css('backgroundColor', currentColor);
-                    buttonColor = false;
-                    if (colorPanelOpen) {
-                        $('.colorselect').fadeToggle("fast", "linear");
-                        colorPanelOpen = false;
-                    }
-                }
-                if (buttonSize) {
-                    $("#sizepreview").toggleClass("down");
-                    $('#sizepreview').css('backgroundColor', currentColor);
-                    buttonSize = false;
-                    if (sizePanelOpen) {
-                        $('.sizeselect').fadeToggle("fast", "linear");
-                        sizePanelOpen = false;
-                    }
-                }
-                if (buttonBrush) {
-                    $("#brushtool").toggleClass("down");
-                    $('#brushtool').css('backgroundColor', currentColor);
-                    buttonBrush = false;
-                }
-
-                if (buttonEraser) {
-                    $("#erasertool").toggleClass("down");
-                    $('#erasertool').css('backgroundColor', currentColor);
-                    buttonEraser = false;
-                }
-            }
-        });
-        $('#erasertool').click(function() {
-            if (!buttonEraser) {
-                $(this).toggleClass("down");
-                buttonEraser = true;
-                //$(this).css({ boxShadow: '10px 10px 10px ' + currentColor });
-                $('#buckettool').css('backgroundColor', currentColor);
-
-                if (buttonColor) {
-                    $("#preview").toggleClass("down");
-                    $('#preview').css('backgroundColor', currentColor);
-                    buttonColor = false;
-                    if (colorPanelOpen) {
-                        $('.colorselect').fadeToggle("fast", "linear");
-                        colorPanelOpen = false;
-                    }
-                }
-
-                if (buttonSize) {
-                    $("#sizepreview").toggleClass("down");
-                    $('#sizepreview').css('backgroundColor', currentColor);
-                    buttonSize = false;
-                    if (sizePanelOpen) {
-                        $('.sizeselect').fadeToggle("fast", "linear");
-                        sizePanelOpen = false;
-                    }
-                }
-
-                if (buttonBrush) {
-                    $("#brushtool").toggleClass("down");
-                    $('#brushtool').css('backgroundColor', currentColor);
-                    buttonBrush = false;
-                }
-
-                if (buttonBucket) {
-                    $("#buckettool").toggleClass("down");
-                    $('#buckettool').css('backgroundColor', currentColor);
-                    buttonBucket = false;
-                }
-            }
-        });
-
-        //***************** Tools End ******************//
-
+    $('#color1').on('vmousedown', function() {
+        setPaint('#ffcc00');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color1').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color2').on('vmousedown', function() {
+        setPaint('#ffa347');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color2').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color3').on('vmousedown', function() {
+        setPaint('#e65c00');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color3').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color4').on('vmousedown', function() {
+        setPaint('#52cccc');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color4').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color5').on('vmousedown', function() {
+        setPaint('#29a6cf');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color5').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color6').on('vmousedown', function() {
+        setPaint('#3083d6');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color6').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color7').on('vmousedown', function() {
+        setPaint('#f8ddd4');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color7').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color8').on('vmousedown', function() {
+        setPaint('#efb29e');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color8').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color9').on('vmousedown', function() {
+        setPaint('#bc8f8f');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color9').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color10').on('vmousedown', function() {
+        setPaint('#deb887');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color10').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color11').on('vmousedown', function() {
+        setPaint('#b85c00');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color11').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#color12').on('vmousedown', function() {
+        setPaint('#993300');
+        $('.paintbutton').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#color12').css('box-shadow', '0px 0px 2pt 1pt #000000');
     });
 
-    /*
-     $(document).ready(function() {
-     var speed = 600;
-     $('#scrollButtonUp').hover(function() {
-     $('#carousel ul').animate({marginTop: "-300px"}, "fast");
-     });
-     $('#scrollButtonDown').hover(function() {
-     $('#carousel ul').animate({marginTop: "1px"}, "fast");
-     });
-     
-     });
-     */
-    /* $(document).ready(function() {
-     
-     if ($('#carousel ul').height() > $('#scrollContainer').height()) {
-     $("#scrollButtonDown").hover(function () {
-     animateContent("down");
-     }, function() { $('#carousel ul').stop(); });
-     
-     $("#scrollButtonUp").hover(function () {
-     animateContent("up");
-     }, function() { $('#carousel ul').stop(); });
-     }
-     }); 
-     
-     function animateContent(direction) {  
-     var animationOffset = $('#scrollContainer').height() - $('#carousel ul').height();
-     if (direction == 'up') {
-     animationOffset = 0;
-     }
-     var speed = 1200;
-     $('#carousel ul').animate({ "marginTop": animationOffset + "px" }, speed);
-     }*/
+    //****************** Paint Buttons End*******************//
 
-    //***************** Scroll Button Shading ******************//
+    //****************** Statue Buttons *******************//
 
-    $(function() {
-        $('#scrollButtonDown').css('opacity', 0);
-
-        $('#scrollContainer').scroll(function() {
-            var total = $(this)[0].scrollHeight - $(this).height();
-            var opacity = $(this).scrollTop() / total;
-            $('#scrollButtonDown').css('opacity', opacity);
-            $('#scrollButtonUp').css('opacity', (1 - opacity));
-        });
-
-        $('#scrollButtonDown').click(function() {
-            $('#carousel ul').animate({
-                scrollTop: 0
-            }, 100);
-        });
+    $('#pic1').on('vmousedown', function() {
+        setColoringPage("assets/1.png");
+        $('.coloringPage').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#pic1').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#pic2').on('vmousedown', function() {
+        setColoringPage("assets/2.png");
+        $('.coloringPage').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#pic2').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#pic3').on('vmousedown', function() {
+        setColoringPage("assets/3.png");
+        $('.coloringPage').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#pic3').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#pic4').on('vmousedown', function() {
+        setColoringPage("assets/4.png");
+        $('.coloringPage').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#pic4').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#pic5').on('vmousedown', function() {
+        setColoringPage("assets/5.png");
+        $('.coloringPage').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#pic5').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#pic6').on('vmousedown', function() {
+        setColoringPage("assets/6.png");
+        $('.coloringPage').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#pic6').css('box-shadow', '0px 0px 2pt 1pt #000000');
+    });
+    $('#pic7').on('vmousedown', function() {
+        setColoringPage("assets/7.png");
+        $('.coloringPage').css('box-shadow', '0px 0px 0pt 0pt #000000');
+        $('#pic7').css('box-shadow', '0px 0px 2pt 1pt #000000');
     });
 
-    function drawSoftLine(x1, y1, x2, y2, lineWidth, r, g, b, a) {
-        ctx.save();
-        var widths = [1, 0.8, 0.6, 0.4, 0.2];
-        var alphas = [0.2, 0.4, 0.6, 0.8, 1];
-        var previousAlpha = 0;
-        for (var pass = 0; pass < widths.length; pass++) {
-            ctx.beginPath();
-            ctx.lineWidth = lineWidth * widths[pass];
-            var alpha = a * alphas[pass];
-            // Formula: (1 - alpha) = (1 - deltaAlpha) * (1 - previousAlpha)
-            var deltaAlpha = 1 - (1 - alpha) / (1 - previousAlpha)
-            ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + "," + deltaAlpha + ")";
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();
-            previousAlpha = alpha;
+
+
+
+
+
+
+
+    //***************** Color Button ******************//
+
+    $('#preview').on('vmousedown', function() {
+
+        $('#preview').css('backgroundColor', currentColor);
+        $('#brushtool').css('backgroundColor', currentColor);
+        $('#buckettool').css('backgroundColor', currentColor);
+        $('#spraytool').css('backgroundColor', currentColor);
+        if (!buttonColor) {
+            $('#preview').css("border", "0px solid #000000");
+            $('#preview').css("background", "url(assets/paintPalette2.png)");
+            buttonColor = true;
+        } else {
+            $('#preview').css("border", "1px solid #000000");
+            $('#preview').css("background", "url(assets/Buttons/spectrum-01.png)");
+            buttonColor = false;
+
         }
-        ctx.restore();
-    }
+
+        $('#preview').css('backgroundColor', currentColor);
+
+        if (colorPanelOpen) {
+            colorPanelOpen = false;
+            $('.colorselect').fadeToggle("fast", "linear");
+        } else {
+            colorPanelOpen = true;
+            $('.colorselect').fadeToggle("fast", "linear");
+        }
+    });
+    //***************** Color Button End ******************//
+
 
     //***************** Color Select Canvas Events ******************//
+
+    // color menu
+    var canvas1 = document.getElementById('layer2');
+    var ctx1 = canvas1.getContext('2d');
+    colorSelectDown = false;
 
     $(function() {
         // drawing active image
         var image = new Image();
-        image.onload = function() {
-            // draws the image on the canvas note: dimensions must match canvas dimensions
-            ctx1.drawImage(image, 0, 0, 428, 339);
-        };
-        // select desired colorwheel/chart
         var imageSrc = 'assets/colorWheel.png';
-
         image.src = imageSrc;
 
-        $('#layer2').on('vmousedown', function(e) { // mouse move handler
-            // get coordinates of current position
+        /* var image2 = new Image();
+         var imageSrc2 = 'assets/whiteBlackSelectArrow.png';
+         image2.src = imageSrc2;*/
+
+        image.onload = function() {
+            ctx1.drawImage(image, 0, 0, 200, 260);
+            // ctx1.drawImage(image2, 210, 168, 40, 20);
+        };
+
+        $('#layer2').on('vmousedown', function(e) {
             var canvasOffset = $(canvas1).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
             var canvasY = Math.floor(e.pageY - canvasOffset.top);
+            colorSelectDown = true;
+        });
+
+        $('#layer2').on('vmouseup', function(e) { // mouse move handler
+
+            colorSelectDown = false;
+
+            var canvasOffset = $(canvas1).offset();
+            var canvasX = Math.floor(e.pageX - canvasOffset.left);
+            var canvasY = Math.floor(e.pageY - canvasOffset.top);
+            //$('.paintbutton').css('outline', '0px solid #000000'); 
 
             // get current pixel
             var imageData = ctx1.getImageData(canvasX, canvasY, 1, 1);
@@ -474,7 +426,7 @@ window.onload = window.onresize = function() {
             var pixel = imageData.data;
 
             // stores rgb color value in pixelColor
-            var pixelColor = "rgb(" + pixel[0] + ", " + pixel[1] + ", " + pixel[2] + ")";
+            var pixelColor = "rgba(" + pixel[0] + ", " + pixel[1] + ", " + pixel[2] + ", " + pixel[3] + ")";
 
             // set the background color of preview
             $('#preview').css('backgroundColor', pixelColor);
@@ -483,25 +435,24 @@ window.onload = window.onresize = function() {
             currentColorR = pixel[0];
             currentColorG = pixel[1];
             currentColorB = pixel[2];
+            currentColorA = pixel[3];
             currentColor = pixelColor;
-        });
-        $('#layer2').on('vmouseup', function(e) { // mouse move handler
-            colorPanelOpen = false;
-            // closes the color palette window
-            $('.colorselect').fadeToggle("fast", "linear");
-            $("#preview").toggleClass("down");
-            buttonColor = false;
+            $('#preview').css('backgroundColor', pixelColor);
+            $('#brushtool').css('backgroundColor', pixelColor);
+            $('#buckettool').css('backgroundColor', pixelColor);
+            $('#spraytool').css('backgroundColor', pixelColor);
+            $('#toolboxBackground').css('backgroundColor', currentColor);
+
+            ctx.fillStyle = currentColor;
+            ctx.fillRect(10, 4, 210, 60);
+            ctx.drawImage(image3, 0, 0, 200, 60);
+            ctx.drawImage(image4, 0, 0, 200, 60);
+
         });
 
-        // this is the clicking of the colorchart event listener
-        $('#preview').click(function(e) { // preview click
-            if (sizePanelOpen) {
-                $('.sizeselect').fadeToggle("fast", "linear");
-                sizePanelOpen = false;
-            }
-            // closes the color palette window
-            colorPanelOpen = !colorPanelOpen;
-            $('.colorselect').fadeToggle("fast", "linear");
+
+        $('#layer2').on('vmouseout', function(e) {
+            //colorSelectDown = false;
         });
 
         $('#layer2').on('vmousemove', function(e) {
@@ -511,19 +462,31 @@ window.onload = window.onresize = function() {
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
             var canvasY = Math.floor(e.pageY - canvasOffset.top);
 
-            var imageData = ctx1.getImageData(canvasX, canvasY, 1, 1);
-            var pixel = imageData.data;
-            var pixelColor = "rgb(" + pixel[0] + ", " + pixel[1] + ", " + pixel[2] + ")";
+            if (colorSelectDown === true) {
+                // get current pixel
+                var imageData = ctx1.getImageData(canvasX, canvasY, 1, 1);
 
-            // set the background color of preview
-            $('#preview').css('backgroundColor', pixelColor);
-            // set the background color of preview
-            $('#sizepreview').css('backgroundColor', pixelColor);
-            // set the background color of preview
-            $('#erasertool').css('backgroundColor', pixelColor);
-            // set the background color of preview
-            $('#brushtool').css('backgroundColor', pixelColor);
-            $('#buckettool').css('backgroundColor', pixelColor);
+                // gets the color data for the pixel
+                var pixel = imageData.data;
+
+                // stores rgb color value in pixelColor
+                var pixelColor = "rgba(" + pixel[0] + ", " + pixel[1] + ", " + pixel[2] + ", " + pixel[3] + ")";
+
+                // set the background color of preview
+                $('#preview').css('backgroundColor', pixelColor);
+
+                $('#preview').css('backgroundColor', pixelColor);
+                $('#brushtool').css('backgroundColor', pixelColor);
+                $('#buckettool').css('backgroundColor', pixelColor);
+                $('#spraytool').css('backgroundColor', pixelColor);
+
+                ctx.fillStyle = pixelColor;
+                ctx.fillRect(10, 4, 210, 60);
+                ctx.drawImage(image3, 0, 0, 200, 60);
+                ctx.drawImage(image4, 0, 0, 200, 60);
+                $('#toolboxBackground').css('backgroundColor', pixelColor);
+                ctx.fillStyle = currentColor;
+            }
         });
     });
 
@@ -531,104 +494,321 @@ window.onload = window.onresize = function() {
 
     //***************** Size Select Canvas Events ******************//
 
+    // drawing active images
+    ctx.fillStyle = currentColor;
+    ctx.fillRect(10, 4, 200, 60);
+    ctx.drawImage(image3, 0, 0, 200, 60);
+    ctx.drawImage(image4, 0, 0, 200, 60);
+
+
+
+    // size background image
+
+
     $(function() {
 
-        // drawing active image
-        var image1 = new Image();
-        image1.onload = function() {
-            ctx.drawImage(image1, 0, 4, 400, 125);
-        };
 
-        // size selector image
-        var imageSrc1 = 'assets/sizeSelection.png';
-
-        image1.src = imageSrc1;
-
-        // drawing active image
-        var image2 = new Image();
-        image2.onload = function() {
-            ctx.drawImage(image2, 0, 4, 400, 125);
-        };
-        // size background image
-        var imageSrc2 = 'assets/sizeSelectionMedium.png';
-
-        image2.src = imageSrc2;
-        ctx.drawImage(image2, 0, 4, 400, 125);
         $('#layer3').on('vmousedown', function(e) { // mouse move handler
             var canvasOffset = $(canvas).offset();
             var canvasX = Math.floor(e.pageX - canvasOffset.left);
 
-            if (canvasX <= 56) {
+            if (canvasX <= 26) {
                 currentSize = sizeExtraSmall;
                 //ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-                var imageSrc2 = 'assets/sizeSelectionExtraSmall.png';
-                image2.src = imageSrc2;
-                ctx.drawImage(image2, 0, 4, 400, 125);
+                var imageSrc4 = 'assets/sizeSelectionExtraSmall.png';
+                image4.src = imageSrc4;
+                image4.onload = function() {
+                    ctx.drawImage(image4, 0, 0, 200, 60);
+                };
+
             }
-            if (canvasX <= 111 && canvasX > 56) {
+            if (canvasX <= 52 && canvasX > 26) {
                 currentSize = sizeSmall;
                 //ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-                var imageSrc2 = 'assets/sizeSelectionSmall.png';
-                image2.src = imageSrc2;
-                ctx.drawImage(image2, 0, 4, 400, 125);
+                var imageSrc4 = 'assets/sizeSelectionSmall.png';
+                image4.src = imageSrc4;
+                image4.onload = function() {
+                    ctx.drawImage(image4, 0, 0, 200, 60);
+                };
             }
-            if (canvasX <= 178 && canvasX > 111) {
+            if (canvasX <= 86 && canvasX > 52) {
                 currentSize = sizeMedium;
                 //ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-                var imageSrc2 = 'assets/sizeSelectionMedium.png';
-                image2.src = imageSrc2;
-                ctx.drawImage(image2, 0, 4, 400, 125);
+                var imageSrc4 = 'assets/sizeSelectionMedium.png';
+                image4.src = imageSrc4;
+                image4.onload = function() {
+                    ctx.drawImage(image4, 0, 0, 200, 60);
+                };
             }
-            if (canvasX <= 268 && canvasX > 178) {
+            if (canvasX <= 132 && canvasX > 86) {
                 currentSize = sizeLarge;
                 //ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-                var imageSrc2 = 'assets/sizeSelectionLarge.png';
-                image2.src = imageSrc2;
-                ctx.drawImage(image2, 0, 4, 400, 125);
+                var imageSrc4 = 'assets/sizeSelectionLarge.png';
+                image4.src = imageSrc4;
+                image4.onload = function() {
+                    ctx.drawImage(image4, 0, 0, 200, 60);
+                };
             }
-            if (canvasX <= 400 && canvasX > 268) {
+            if (canvasX <= 190 && canvasX > 132) {
                 currentSize = sizeExtraLarge;
                 //ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-                var imageSrc2 = 'assets/sizeSelectionExtraLarge.png';
-                image2.src = imageSrc2;
-                ctx.drawImage(image2, 0, 4, 400, 125);
+                var imageSrc4 = 'assets/sizeSelectionExtraLarge.png';
+                image4.src = imageSrc4;
+                image4.onload = function() {
+                    ctx.drawImage(image4, 0, 0, 200, 60);
+                };
             }
+        });
+    });
+
+    // undoClearRedo menu
 
 
-            // closes the color palette window
-            $('.sizeselect').fadeToggle("fast", "linear");
-            sizePanelOpen = false;
-            $("#sizepreview").toggleClass("down");
-            buttonSize = false;
+
+
+    var canvasUCR = document.getElementById('undoClearRedo');
+    var ctxUCR = canvasUCR.getContext('2d');
+
+    var imageUndo = new Image();
+    var imageSrc = 'assets/Buttons/undo-off-01.png';
+    imageUndo.src = imageSrc;
+    imageUndo.onload = function() {
+        ctxUCR.drawImage(imageUndo, 0, 5, 55, 59);
+    };
+
+    var imageClear = new Image();
+    var imageSrc = 'assets/Buttons/clear-off-01.png';
+    imageClear.src = imageSrc;
+    imageClear.onload = function() {
+        ctxUCR.drawImage(imageClear, 67, 5, 55, 59);
+    };
+
+    var imageRedo = new Image();
+    var imageSrc = 'assets/Buttons/redo-off-01.png';
+    imageRedo.src = imageSrc;
+    imageRedo.onload = function() {
+        ctxUCR.drawImage(imageRedo, 133, 5, 55, 59);
+    };
+
+    var imageUndoDown = new Image();
+    var imageSrc = 'assets/Buttons/undo-on-01.png';
+    imageUndoDown.src = imageSrc;
+
+    var imageClearDown = new Image();
+    var imageSrc = 'assets/Buttons/clear-on-01.png';
+    imageClearDown.src = imageSrc;
+
+    var imageRedoDown = new Image();
+    var imageSrc = 'assets/Buttons/redo-on-01.png';
+    imageRedoDown.src = imageSrc;
+
+
+    $(function() {
+
+
+        $('#undoClearRedo').on('vmousedown', function(e) { // mouse move handler
+            var canvasOffset = $(canvasUCR).offset();
+            var canvasX = Math.floor(e.pageX - canvasOffset.left);
+
+            if (canvasX <= 67) {
+                ctxUCR.clearRect(0, 5, 55, 59);
+                ctxUCR.drawImage(imageUndoDown, 0, 5, 55, 59);
+                cUndo();
+                // mobile safari fix for redo and undo
+                // iPad or iPhone
+                if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+                    cUndo();
+                }
+            }
+            if (canvasX <= 133 && canvasX > 67) {
+                ctxUCR.clearRect(67, 5, 55, 59);
+                ctxUCR.drawImage(imageClearDown, 67, 5, 55, 59);
+                context.fillRect(0, 0, myCanvas.width, myCanvas.height);
+                cPush();
+            }
+            if (canvasX <= 190 && canvasX > 133) {
+                ctxUCR.clearRect(133, 5, 55, 59);
+                ctxUCR.drawImage(imageRedoDown, 133, 5, 55, 59);
+                cRedo();
+                // mobile safari fix for redo and undo
+                if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+                    cRedo();
+                }
+            }
         });
 
-        // this is the actual clicking of the colorchart event listener
-        $('#sizepreview').click(function(e) { // preview click
-            if (colorPanelOpen) {
-                $('.colorselect').fadeToggle("fast", "linear");
-                colorPanelOpen = false;
+        $('#undoClearRedo').on('vmouseup', function(e) { // mouse move handler
+            var canvasOffset = $(canvas).offset();
+            var canvasX = Math.floor(e.pageX - canvasOffset.left);
+
+            if (canvasX <= 67) {
+                ctxUCR.clearRect(0, 5, 55, 59);
+                ctxUCR.drawImage(imageUndo, 0, 5, 55, 59);
             }
-            // closes the color palette window
-            sizePanelOpen = !sizePanelOpen;
-            $('.sizeselect').fadeToggle("fast", "linear");
+            if (canvasX <= 133 && canvasX > 67) {
+                ctxUCR.clearRect(67, 5, 55, 59);
+                ctxUCR.drawImage(imageClear, 67, 5, 55, 59);
+            }
+            if (canvasX <= 190 && canvasX > 133) {
+                ctxUCR.clearRect(133, 5, 55, 59);
+                ctxUCR.drawImage(imageRedo, 133, 5, 55, 59);
+            }
+            else {
+                ctxUCR.clearRect(0, 0, 55, 190);
+                ctxUCR.drawImage(imageUndo, 0, 5, 55, 59);
+                ctxUCR.drawImage(imageClear, 67, 5, 55, 59);
+                ctxUCR.drawImage(imageRedo, 133, 5, 55, 59);
+            }
         });
+        $('#undoClearRedo').on('vmouseout', function(e) { // mouse move handler
+
+            ctxUCR.clearRect(0, 0, 55, 190);
+            ctxUCR.drawImage(imageUndo, 0, 5, 55, 59);
+            ctxUCR.drawImage(imageClear, 67, 5, 55, 59);
+            ctxUCR.drawImage(imageRedo, 133, 5, 55, 59);
+
+        });
+    });
+    
+    
+    var toolBoxBackground = new Image();
+    var imageSrc = 'assets/toolBoxBackground.png';
+    toolBoxBackground.src = imageSrc;
+    toolBoxBackground.onload = function() {
+        ctxTools.drawImage(toolBoxBackground, 0, 0, 188, 188);
+    };
+    
+    var imagePaintDown = new Image();
+    var imageSrc = 'assets/Buttons/paint-on-01.png';
+    imagePaintDown.src = imageSrc;
+    imagePaintDown.onload = function() {
+        ctxTools.drawImage(imagePaintDown, -1, 0, 94, 87);
+    };
+    var imageSprayPaint = new Image();
+    var imageSrc = 'assets/Buttons/spraypaint-off-01.png';
+    imageSprayPaint.src = imageSrc;
+    imageSprayPaint.onload = function() {
+        ctxTools.drawImage(imageSprayPaint, 95, 0, 94, 87);
+    };
+    var imagePour = new Image();
+    var imageSrc = 'assets/Buttons/pour-off-01.png';
+    imagePour.src = imageSrc;
+    imagePour.onload = function() {
+        ctxTools.drawImage(imagePour, -1, 90, 94, 87);
+    };
+    var imageEraser = new Image();
+    var imageSrc = 'assets/Buttons/eraser-off-01.png';
+    imageEraser.src = imageSrc;
+    imageEraser.onload = function() {
+        ctxTools.drawImage(toolBoxBackground, 0, 0, 188, 188);
+        ctxTools.drawImage(imagePaintDown, -1, 0, 94, 87);
+        ctxTools.drawImage(imageSprayPaint, 95, 0, 94, 87);
+        ctxTools.drawImage(imagePour, -1, 90, 94, 87);
+        ctxTools.drawImage(imageEraser, 95, 90, 94, 87);
+    };
+
+    var imagePaint = new Image();
+    var imageSrc = 'assets/Buttons/paint-off-01.png';
+    imagePaint.src = imageSrc;
+
+    var imageSprayPaintDown = new Image();
+    var imageSrc = 'assets/Buttons/spraypaint-on-01.png';
+    imageSprayPaintDown.src = imageSrc;
+
+    var imagePourDown = new Image();
+    var imageSrc = 'assets/Buttons/pour-on-01.png';
+    imagePourDown.src = imageSrc;
+
+    var imageEraserDown = new Image();
+    var imageSrc = 'assets/Buttons/eraser-on-01.png';
+    imageEraserDown.src = imageSrc;
+
+
+    $(function() {
+
+        $('#toolbox').on('vmousedown', function(e) { // mouse move handler
+            var canvasOffset = $(canvasTools).offset();
+            var canvasX = Math.floor(e.pageX - canvasOffset.left);
+            var canvasY = Math.floor(e.pageY - canvasOffset.top);
+
+            if (canvasX <= 94 && canvasY <= 87) {
+                state = paint;
+                toggleTools();
+                ctxTools.clearRect(-1, 0, 94, 87);
+                ctxToolsBackground.drawImage(toolBoxBackground, 0, 0, 188, 188);
+                ctxTools.drawImage(imagePaintDown, -1, 0, 94, 87);
+            }
+            if (canvasX <= 94 && canvasY > 94 && canvasY < 182) {
+                state = fillBucket;
+                toggleTools();
+                ctxTools.clearRect(-1, 90, 94, 87);
+                ctxToolsBackground.drawImage(toolBoxBackground, 0, 0, 188, 188);
+                ctxTools.drawImage(imagePourDown, -1, 90, 94, 87);
+            }
+            if (canvasX > 94 && canvasY <= 87) {
+                state = spray;
+                toggleTools();
+                ctxTools.clearRect(95, 0, 94, 87);
+                ctxToolsBackground.drawImage(toolBoxBackground, 0, 0, 188, 188);
+                ctxTools.drawImage(imageSprayPaintDown, 95, 0, 94, 87);
+            }
+            if (canvasX > 94 && canvasY > 94 && canvasY < 182) {
+                state = eraser;
+                toggleTools();
+                ctxTools.clearRect(95, 90, 94, 87);
+                ctxToolsBackground.drawImage(toolBoxBackground, 0, 0, 188, 188);
+                ctxTools.drawImage(imageEraserDown, 95, 90, 94, 87);
+            }
+        });
+
+        var toggleTools = function() {
+            ctxTools.clearRect(-1, 0, 189, 188);
+            ctxTools.drawImage(toolBoxBackground, 0, 0, 188, 188);
+            ctxTools.drawImage(imagePaint, -1, 0, 94, 87);
+            ctxTools.drawImage(imagePour, -1, 90, 94, 87);
+            ctxTools.drawImage(imageSprayPaint, 95, 0, 94, 87);
+            ctxTools.drawImage(imageEraser, 95, 90, 94, 87);
+        };
     });
 };
 
 //***************** Size Select Canvas Events End ******************//
 
 // function for setting a new color
-var setColor = function(color) {
-    currentColor = color;
+var setPaint = function(hex) {
+
+    currentColorR = parseInt((cutHex(hex)).substring(0, 2), 16);
+    currentColorG = parseInt((cutHex(hex)).substring(2, 4), 16);
+    currentColorB = parseInt((cutHex(hex)).substring(4, 6), 16);
+    currentColorA = 255;
+    currentColor = "rgba(" + currentColorR + ", " + currentColorG + ", " + currentColorB + ", 255)";
+    ctx.fillStyle = currentColor;
+    ctx.fillRect(10, 4, 210, 60);
+    ctx.drawImage(image3, 0, 0, 200, 60);
+    ctx.drawImage(image4, 0, 0, 200, 60);
+    $('#toolboxBackground').css('backgroundColor', currentColor);
+    $('#preview').css('backgroundColor', currentColor);
+    $('#brushtool').css('backgroundColor', currentColor);
+    $('#buckettool').css('backgroundColor', currentColor);
+    $('#spraytool').css('backgroundColor', currentColor);
 };
+
+
+function cutHex(h) {
+    return (h.charAt(0) === "#") ? h.substring(1, 7) : h;
+}
+;
 
 // function for setting a new color
 var setSize = function(size) {
     currentSize = size;
 };
 
-// this function sets the coloring page its called from the coresponding html button 
+// this function sets the coloring page its called from the coresponding html button
 var setColoringPage = function(imagePath) {
+
+    outlineImage.src = imagePath;
+    currentPage = imagePath;
     context1.save;
     context1.setTransform(1, 0, 0, 1, 0, 0);
     context1.clearRect(0, 0, layer1.width, layer1.height);
@@ -636,20 +816,15 @@ var setColoringPage = function(imagePath) {
     context.clearRect(0, 0, myCanvas.width, myCanvas.height);
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, myCanvas.width, myCanvas.height);
-    outlineImage.src = imagePath;
-    currentPage = imagePath;
-    context1.drawImage(outlineImage, 0, 0, layer1.width, layer1.height);
-};
-// function for setting a new tool state
-var setTool = function(newTool) {
-    state = newTool;
+    outlineImage.onload();
+    cPush();
 };
 
 /************** Multi Layer Flood Fill Scan Line Stack Algoritham  *******************/
 
 /* this allows us to avoid redrawing and still use another layer for our canvas
- * notice it takes two ctx arguments one for the drawing canvas and the second for the 
- * outline canvas.  The drawing canvas checks RGB values but the outline canvas just 
+ * notice it takes two ctx arguments one for the drawing canvas and the second for the
+ * outline canvas.  The drawing canvas checks RGB values but the outline canvas just
  * checks the alpha(transparency).
  */
 
@@ -670,7 +845,7 @@ function floodFillScanLine(x, y, curColor, ctx, outlineCtx) {
     pixelAddress = (y * width + x) * 4;
     var color = ctx.getImageData(x, y, width, height);
     var pixel = color.data;
-    var pixelColor = "rgb(" + pixel[0] + ", " + pixel[1] + ", " + pixel[2] + ")";
+    var pixelColor = "rgba(" + pixel[0] + ", " + pixel[1] + ", " + pixel[2] + ", 255)";
     oColorData = outlineCtx.getImageData(0, 0, width, height);
 
     var startColorR = colorData.data[pixelAddress];
@@ -779,13 +954,58 @@ checkPixelA = function(pixelAddress) {
         return true;
     }
 };
-xelAddress) {
 
-    var a = oColorData.data[pixelAddress + 3];
+//***************** Undo Redo Events ******************//
 
-    if (a > 200) {
-        return false;
-    } else {
-        return true;
+// Here we create an array of snap shots that we can traverse for the purpose of undo and redo
+// the final snap shot can also be used for sending via email so users can keep there work
+
+// Concept taken from
+// http://www.codicode.com/art/undo_and_redo_to_the_html5_canvas.aspx
+// author Chtiwi Malek
+// minor modifications made
+
+var cPushArray = new Array();
+var cStep = -1;
+
+// ctx = document.getElementById('myCanvas').getContext("2d");
+
+function cPush() {
+    cStep++;
+    if (cStep < cPushArray.length) {
+        cPushArray.length = cStep;
     }
-};
+    cPushArray.push(myCanvas.toDataURL());
+}
+;
+function cClear() {
+    cPushArray.length = 0;
+    cStep = -1;
+}
+;
+
+function cRedo() {
+    if (cStep < cPushArray.length - 1) {
+        cStep++;
+        var canvasPic = new Image();
+        canvasPic.src = cPushArray[cStep];
+        canvasPic.onload = function() {
+            context.drawImage(canvasPic, 0, 0);
+        };
+    }
+}
+;
+
+function cUndo() {
+    if (cStep > 0) {
+        cStep--;
+        var canvasPic = new Image();
+        canvasPic.src = cPushArray[cStep];
+        canvasPic.onload = function() {
+            context.drawImage(canvasPic, 0, 0);
+        };
+    }
+}
+;
+
+//***************** END Undo Redo Events ******************//
