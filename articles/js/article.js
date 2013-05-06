@@ -30,7 +30,7 @@ $(document).ready(function(){
       //currentImage = 0; 
     });
     $('#image-display').on('vclick', function(){
-      window.alert('click');
+     // window.alert('click');
     });
   //}
   /*else{  FOR SCROLL PARAGRAPH CHANGE
