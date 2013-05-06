@@ -142,6 +142,20 @@
   display: block;
 }
 
+#left-nav{
+  width: 20%;
+  position: absolute;
+  text-align: center;
+  left: 0.5%;
+  top: 10%;
+  z-index: 10;
+  background: rgb(21, 21, 21);
+  background: rgba(21, 21, 21, .85);
+  border-radius: 1em;
+}
+
+#left-nav  .ui-btn {text-align: left;}
+
 .ui-footer{
   text-align: center;
   height: 7%;

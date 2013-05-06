@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>ARCHAEOLOGY</title>
+<title>archaeology</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="stylesheet" href="../css/theme.css" />
 	<link rel="stylesheet" href="css/article.css" />
@@ -9,7 +9,7 @@
 	<script src="../js/jquery.mobile-1.2.0.js"></script>
 	<script src="js/article.js"></script>
 </head>
-<body>
+<body chapter="archaeology">
 <div data-role="page" data-theme="b"> 
 	<div data-role="content" role="main">
 		<!-- div to hold the images that will be displayed
@@ -19,7 +19,7 @@
 	<div class="ui-grid-a my-breakpoint">
 		<div class="ui-block-a">
 			<div id="image-display">
-				<div id="left-arrow"></div>
+        <!--<div id="left-arrow"></div>
 				<div id="right-arrow"></div>
 				<div id="row-wrapper">
 					<div class="image-row">
@@ -40,7 +40,7 @@
 					<div class="image-row">
 						<img src="images/archaeology/p_5_img_1_thumb.jpg" />
 					</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 		
@@ -84,9 +84,11 @@
 		</div>	
 	</div>
 	</div>
-	<div data-role="footer" data-mini="false">
-    <a href="../articles.html" rel="external" data-role="button" data-icon="arrow-l">Back To Articles</a>
-    <a href="../index.html#four" rel="external" data-role="button" data-icon="home" data-iconpos="notext" class="center-icon" id="home-btn">Home</a>
+	<div data-role="footer" data-position="fixed" data-mini="false" data-tap-toggle="false" class="ui-footer ui-bar-a ui-footer-fixed slideup" id="footer">
+    <a href="../articles.html" rel="external" data-role="button" data-icon="arrow-l" id="back">Back To Chapter Browser</a>
+    <a href="../index.html" rel="external" data-role="button" data-icon="home" data-iconpos="notext" class="center-icon" id="home-btn">Home</a>
+    <a href="orantes.html" rel="external" data-role="button" data-icon="arrow-r">Next Chapter</a>
+    <a href="../ack.html" rel="external" data-role="button" data-icon="arrow-r" id="ack">Acknowledgments</a>
 	</div>
 
 </div>

@@ -23,6 +23,11 @@ $(document).ready(function(){
 			changeArticle(--curArticle, 600);//execute the animation
 		}
 	});
+  
+  $('#left-nav a').live('vclick', function(){
+    curArticle = $(this).index();
+    changeArticle(curArticle, 600)
+  });
 });
 
 function changeArticle(current, speed){ //defining the function that will be used above

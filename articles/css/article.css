@@ -61,3 +61,19 @@
 	background-position:center; 
 	z-index: 200;
 }
+
+p{
+  font-size: 1.15em;
+}
+
+h1{
+  font-size: 2.5em;
+}
+
+#back{
+  float: left;
+}
+
+#ack{
+  float: right;
+}
