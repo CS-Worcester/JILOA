@@ -16,23 +16,26 @@ Some features of the app include:
 *  A stylish and consistent UI throughout the webpage
   
 Members of the project include:
-*  Aguirre, Michael
-*  Carlin, Derek
-*  Chaban, Brandon
-*  Day Jr., Chad
-*  Fitzpatrick, James
-*  Hintlian, Jason
-*  Horton, Sean
-*  Lent, Kathleen
-*  Li, Zhengjun
-*  Luna-Cano, Norberto
-*  Murphy, Dillon
-*  Murray, Andrew
-*  Nguyen, Dau
-*  Sabanty, Kerry
-*  Suksawat, Sompop
-*  Turini, Andrew
-*  Williams, Ryan
-*  Young, Joseph
+*  Project Advisor
+  *  Karl Wurst, Ph.D.
+*  Students
+  *  Aguirre, Michael
+  *  Carlin, Derek
+  *  Chaban, Brandon
+  *  Day Jr., Chad
+  *  Fitzpatrick, James
+  *  Hintlian, Jason
+  *  Horton, Sean
+  *  Lent, Kathleen
+  *  Li, Zhengjun
+  *  Luna-Cano, Norberto
+  *  Murphy, Dillon
+  *  Murray, Andrew
+  *  Nguyen, Dau
+  *  Sabanty, Kerry
+  *  Suksawat, Sompop
+  *  Turini, Andrew
+  *  Williams, Ryan
+  *  Young, Joseph
 
 See the Wiki for more details: https://github.com/CS-Worcester/CS401Spring2013/wiki  
