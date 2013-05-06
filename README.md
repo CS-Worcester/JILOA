@@ -8,31 +8,31 @@ written as a webpage intented to be used with KioskPro. The use of KioskPro allo
 on the IPads and will lock the IPad to the program.
 
 Some features of the app include:
-  A screensaver with project details for when sessions time out
-  A slideshow with images of the Orantes and the restoration process
-  An article viewer with details about the exhibit accompanied with scrolling images
-  A coloring app where patrons can color outlines of the Orantes
-  A puzzle app to place pieces of the Orantes back together
-  A stylish and consistent UI throughout the webpage
+*  A screensaver with project details for when sessions time out
+*  A slideshow with images of the Orantes and the restoration process
+*  An article viewer with details about the exhibit accompanied with scrolling images
+*  A coloring app where patrons can color outlines of the Orantes
+*  A puzzle app to place pieces of the Orantes back together
+*  A stylish and consistent UI throughout the webpage
   
 Members of the project include:
-  Aguirre, Michael
-  Carlin, Derek
-  Chaban, Brandon
-  Day Jr., Chad
-  Fitzpatrick, James
-  Hintlian, Jason
-  Horton, Sean
-  Lent, Kathleen
-  Li, Zhengjun
-  Luna-Cano, Norberto
-  Murphy, Dillon
-  Murray, Andrew
-  Nguyen, Dau
-  Sabanty, Kerry
-  Suksawat, Sompop
-  Turini, Andrew
-  Williams, Ryan
-  Young Joseph
+*  Aguirre, Michael
+*  Carlin, Derek
+*  Chaban, Brandon
+*  Day Jr., Chad
+*  Fitzpatrick, James
+*  Hintlian, Jason
+*  Horton, Sean
+*  Lent, Kathleen
+*  Li, Zhengjun
+*  Luna-Cano, Norberto
+*  Murphy, Dillon
+*  Murray, Andrew
+*  Nguyen, Dau
+*  Sabanty, Kerry
+*  Suksawat, Sompop
+*  Turini, Andrew
+*  Williams, Ryan
+*  Young Joseph
 
 See the Wiki for more details: https://github.com/CS-Worcester/CS401Spring2013/wiki  
