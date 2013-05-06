@@ -2,10 +2,10 @@ Jeppson Idea Lab Orantes App (JILOA)
 ====================================
 
 The Worcester Art Museum (Worcester, MA) is featuring an interactive exhibit showing two Orantes statues
-As a part of this exhibit, IPads will be on display containing information and activities pertaining the the history
+As a part of this exhibit, iPads will be on display containing information and activities pertaining the the history
 and restoration of the Orantes statues. The app the Worcester State Computer Science Department is working on is
 written as a webpage intented to be used with KioskPro. The use of KioskPro allows the webpage to be run as an app
-on the IPads and will lock the IPad to the program.
+on the iPads and will lock the iPad to the program.
 
 Some features of the app include:
 *  A screensaver with project details for when sessions time out
