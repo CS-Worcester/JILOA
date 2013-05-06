@@ -33,6 +33,6 @@ Members of the project include:
 *  Suksawat, Sompop
 *  Turini, Andrew
 *  Williams, Ryan
-*  Young Joseph
+*  Young, Joseph
 
 See the Wiki for more details: https://github.com/CS-Worcester/CS401Spring2013/wiki  
