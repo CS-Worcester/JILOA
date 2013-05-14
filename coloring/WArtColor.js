@@ -70,11 +70,11 @@ window.onload = window.onresize = function() {
     // size menu
     canvas = document.getElementById('layer3');
     ctx = canvas.getContext('2d');
-    
+
     // tool box menu
     canvasTools = document.getElementById('toolbox');
     ctxTools = canvasTools.getContext('2d');
-    
+
     var canvasToolsBackground = document.getElementById('toolboxBackground');
     var ctxToolsBackground = canvasToolsBackground.getContext('2d');
 
@@ -669,15 +669,15 @@ window.onload = window.onresize = function() {
 
         });
     });
-    
-    
+
+
     var toolBoxBackground = new Image();
     var imageSrc = 'assets/toolBoxBackground.png';
     toolBoxBackground.src = imageSrc;
     toolBoxBackground.onload = function() {
         ctxTools.drawImage(toolBoxBackground, 0, 0, 188, 188);
     };
-    
+
     var imagePaintDown = new Image();
     var imageSrc = 'assets/Buttons/paint-on-01.png';
     imagePaintDown.src = imageSrc;
@@ -1008,4 +1008,4 @@ function cUndo() {
 }
 ;
 
-//***************** END Undo Redo Events ******************//
+//***************** END Undo Redo Events ******************//******************//
