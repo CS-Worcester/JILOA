@@ -17,7 +17,7 @@
 }
 
 #read a{
-  background-image: url("../images/story.jpg");
+  background-image: url("../images/story.png");
   background-size:100% 100%;
   height: 100%;
   width:100%;
@@ -70,7 +70,7 @@
 }
 
 #archaeology a{
-  background-image: url("../images/archaeology.jpg");
+  background-image: url("../images/archaeology.png");
   background-size:100% 100%;
   height: 100%;
   width:100%;
@@ -78,7 +78,7 @@
   display: block;
 }
 #orantes a{
-  background-image: url("../images/orantes.jpg");
+  background-image: url("../images/orantes.png");
   background-size:100% 100%;
   height: 100%;
   width:100%;
@@ -86,7 +86,7 @@
   display: block;
 }
 #orantes-2 a{
-  background-image: url("../images/orantes-2.jpg");
+  background-image: url("../images/orantes-2.png");
   background-size:100% 100%;
   height: 100%;
   width:100%;
@@ -94,7 +94,7 @@
   display: block;
 }
 #history a{
-  background-image: url("../images/history.jpg");
+  background-image: url("../images/history.png");
   background-size:100% 100%;
   height: 100%;
   width:100%;
@@ -102,7 +102,7 @@
   display: block;
 }
 #construction a{
-  background-image: url("../images/construction.jpg");
+  background-image: url("../images/construction.png");
   background-size:100% 100%;
   height: 100%;
   width:100%;
@@ -110,7 +110,7 @@
   display: block;
 }
 #conservation a{
-  background-image: url("../images/conservation.jpg");
+  background-image: url("../images/conservation.png");
   background-size:100% 100%;
   height: 100%;
   width:100%;
@@ -118,7 +118,7 @@
   display: block;
 }
 #technical a{
-  background-image: url("../images/technical.jpg");
+  background-image: url("../images/technical.png");
   background-size:100% 100%;
   height: 100%;
   width:100%;
@@ -126,7 +126,7 @@
   display: block;
 }
 #head a{
-  background-image: url("../images/head.jpg");
+  background-image: url("../images/head.png");
   background-size:100% 100%;
   height: 100%;
   width:100%;
