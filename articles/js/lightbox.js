@@ -1,6 +1,6 @@
 $(function(){
   $('#image-display').live('vclick', function(){
-    $('body').bind('touchmove', function(e){e.preventDefault()});
+    $('body').unbind('touchmove');
     $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1,maximum-scale=5, user-scalable=yes");
     var posTop = $(window).scrollTop();
     var lb_img = $(this).css('background-image');
@@ -25,7 +25,7 @@ $(function(){
         $(this).remove();
       });
     });
-    $('body').unbind('touchmove');
+    $('body').bind('touchmove', function(e){e.preventDefault()});
     $('meta[name=viewport]').attr('content', "width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no");
   });
   });
