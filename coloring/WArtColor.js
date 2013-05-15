@@ -1,9 +1,25 @@
 /*
  * Worcester State University
  * CS_401 Software Developement
- * Coloring Team: Jason Hintlian, Beto Luna
- */
+ * Coloring Team: Jason Hintlian and Beto Luna
+ 
+Copyright 2013 Jason Hintlian and Beto Luna
 
+This file is part of the Jeppson Idea Lab Orantes App (JILOA).
+
+    JILOA is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    JILOA is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with JILOA.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 //var tool;
 var paint = "paint";
@@ -1008,4 +1024,4 @@ function cUndo() {
 }
 ;
 
-//***************** END Undo Redo Events ******************//******************//
+//***************** END Undo Redo Events ******************//
