@@ -51,8 +51,8 @@ var currentPage = "assets/1.png";
 var colorData;
 var outlineColorData;
 var currentColor = "rgba(255, 204, 0, 255)";
-var currentColorR = 0;
-var currentColorG = 0;
+var currentColorR = 255;
+var currentColorG = 204;
 var currentColorB = 0;
 var currentColorA = 255;
 
