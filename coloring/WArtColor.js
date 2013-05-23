@@ -1,9 +1,25 @@
 /*
  * Worcester State University
  * CS_401 Software Developement
- * Coloring Team: Jason Hintlian, Beto Luna
- */
+ * Coloring Team: Jason Hintlian and Beto Luna
+ 
+Copyright 2013 Jason Hintlian and Beto Luna
 
+This file is part of the Jeppson Idea Lab Orantes App (JILOA).
+
+    JILOA is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    JILOA is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with JILOA.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 //var tool;
 var paint = "paint";
@@ -70,11 +86,11 @@ window.onload = window.onresize = function() {
     // size menu
     canvas = document.getElementById('layer3');
     ctx = canvas.getContext('2d');
-    
+
     // tool box menu
     canvasTools = document.getElementById('toolbox');
     ctxTools = canvasTools.getContext('2d');
-    
+
     var canvasToolsBackground = document.getElementById('toolboxBackground');
     var ctxToolsBackground = canvasToolsBackground.getContext('2d');
 
@@ -669,15 +685,15 @@ window.onload = window.onresize = function() {
 
         });
     });
-    
-    
+
+
     var toolBoxBackground = new Image();
     var imageSrc = 'assets/toolBoxBackground.png';
     toolBoxBackground.src = imageSrc;
     toolBoxBackground.onload = function() {
         ctxTools.drawImage(toolBoxBackground, 0, 0, 188, 188);
     };
-    
+
     var imagePaintDown = new Image();
     var imageSrc = 'assets/Buttons/paint-on-01.png';
     imagePaintDown.src = imageSrc;
