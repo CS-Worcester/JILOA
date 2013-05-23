@@ -8,6 +8,9 @@
  * @license		MIT-style license
  * @author		Harald Kirschner <mail [at] digitarald.de>
  * @copyright	Author
+ *
+ * @contributions Sean Horton, James Fitzpatrick, Derek Carlin (seperate additions to work with iPad app) 
+ *
  */
 
 var ReMooz = new Class({
@@ -23,7 +26,7 @@ var ReMooz = new Class({
 		dragging: true,
 		closeOnClick: true,
 		shadow: (Browser.Engine.trident) ? 'onOpenEnd' : 'onOpen', // performance
-		resize: true,
+		resize: false, // if true sets the size to fit in gallery. 
 		margin: 20,
 		resizeFactor: 0.95,
 		resizeLimit: false, // {x: 640, y: 640}

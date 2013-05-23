@@ -21,7 +21,7 @@ This file is part of the Jeppson Idea Lab Orantes App (JILOA).
     You should have received a copy of the GNU General Public License
     along with JILOA.  If not, see <http://www.gnu.org/licenses/>.
 */ -->
-
+ 
 <!DOCTYPE html>
 <html>
     <head>
@@ -54,7 +54,7 @@ This file is part of the Jeppson Idea Lab Orantes App (JILOA).
                 <td><div  id="color4" class="paintbutton" style="background:#52cccc;"></div></td>
                 <td><div  id="color5" class="paintbutton" style="background:#29a6cf;"></div></td>
                 <td><div  id="color6" class="paintbutton" style="background:#3083d6;"></div></td>
-                <!-- <td><div  class="paintbutton" style="background:#000000;" onclick= "setPaint('#000000');"></div></td> -->
+            <!-- <td><div  class="paintbutton" style="background:#000000;" onclick= "setPaint('#000000');"></div></td> -->
             </tr>
             <tr>
                 <td><div  id="color7" class="paintbutton" style="background:#f8ddd4;"></div></td>
@@ -69,7 +69,7 @@ This file is part of the Jeppson Idea Lab Orantes App (JILOA).
             </tr>
             <tr>
                 <td colspan="3">
-                    <div class ="paintbutton"  id = "preview"></div> 
+                   <div class ="paintbutton"  id = "preview"></div> 
                 </td>
             </tr>
         </table> <!-- end color buttons table -->
@@ -80,69 +80,70 @@ This file is part of the Jeppson Idea Lab Orantes App (JILOA).
         <table>
             <!-- color selection element -->
             <tr>
-            <canvas id="layer3" class="sizeselect" width="200" height="60"></canvas>
+                <canvas id="layer3" class="sizeselect" width="200" height="60"></canvas>
             <tr>
             <tr>
-            <canvas id="undoClearRedo" class="ucr" width="188" height="68"></canvas>
+                <canvas id="undoClearRedo" class="ucr" width="188" height="68"></canvas>
             <tr>
             <tr>
-            <canvas id="toolbox" width="188" height="188"></canvas>
+                <canvas id="toolbox" width="188" height="188"></canvas>
             <tr>
-
+            
         </table>
         <div>
             <canvas id="toolboxBackground" width="188" height="188"></canvas>
-            <div>
+        <div>
 
-                <!-- Canvas -->
-                <div id ="coloringCanvas">
-                    <canvas  id='drawingCanvas' style="  z-index:1; cursor: crosshair ; "  ></canvas>
-                    <canvas  id='layer1' style=" z-index:2; cursor: crosshair" ></canvas>
-                    <!-- could fix fill issues with a third layer-->
-                </div>
-                <div class ="colorselect" style="display:none; z-index: 1">
-                    <canvas id="layer2" width="200" height="260"></canvas>
-                </div>
+        <!-- Canvas -->
+        <div id ="coloringCanvas">
+            <canvas  id='drawingCanvas' style="  z-index:1; cursor: crosshair ; "  ></canvas>
+            <canvas  id='layer1' style=" z-index:2; cursor: crosshair" ></canvas>
+            <!-- could fix fill issues with a third layer-->
+        </div>
+        <div class ="colorselect" style="display:none; z-index: 1">
+                        <canvas id="layer2" width="200" height="260"></canvas>
+        </div>
                 <div id ="coloringscroll">
 
-                    <!-- functionality for selecting to come but it will
-                    work similar to the current color selection logic -->
+            <!-- functionality for selecting to come but it will
+            work similar to the current color selection logic -->
 
-
-                    <div id ="scrollContainer" onclick=''>
-                        <!-- Tools -->
-                        <div id="carousel" onclick=''  >
-                            <ul>
-                                <li>
-                                    <img id="pic1" class ="coloringPage" src ="assets/thumb1.png">
-                                </li>
-                                <li>
-                                    <img id="pic2" class ="coloringPage" src ="assets/thumb2.png">
-                                </li>
-                                <li>
-                                    <img id="pic3" class ="coloringPage" src ="assets/thumb3.png">
-                                </li>
-                                <li>
-                                    <img id="pic4" class ="coloringPage" src ="assets/thumb4.png">
-                                </li>
-                                <li>
-                                    <img id="pic5" class ="coloringPage" src ="assets/thumb5.png">
-                                </li>
-                                <li>
-                                    <img id="pic6" class ="coloringPage" src ="assets/thumb6.png">
-                                </li>
-                                <li>
-                                    <img id="pic7" class ="coloringPage" src ="assets/thumb7.png">
-                                </li>
-                            </ul>
+           
+                        <div id ="scrollContainer" onclick=''>
+                            <!-- Tools -->
+                            <div id="carousel" onclick=''  >
+                                <ul>
+                                    <li>
+                                        <img id="pic1" class ="coloringPage" src ="assets/thumb1.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic2" class ="coloringPage" src ="assets/thumb2.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic3" class ="coloringPage" src ="assets/thumb3.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic4" class ="coloringPage" src ="assets/thumb4.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic5" class ="coloringPage" src ="assets/thumb5.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic6" class ="coloringPage" src ="assets/thumb6.png">
+                                    </li>
+                                    <li>
+                                        <img id="pic7" class ="coloringPage" src ="assets/thumb7.png">
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+            
 
-
-                </div>
-                <form id ="backButton" style="display: inline" onclick = "history.back(-1)" method="get">
-                    <button style="background-color:red; border-radius: 30px">Back</button>
-                </form>
-
-                </body>
-                </html>
+        </div>
+        <form id ="backButton" style="display: inline" action = "history.back(-1)" method="get">
+        <button style="background-color:red; border-radius: 30px">Back</button>
+</form>
+            
+    </body>
+</html>
 

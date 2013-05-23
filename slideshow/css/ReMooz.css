@@ -9,10 +9,11 @@
 
 .remooz-box
 {
-	position:				absolute;
+	position:				absolute; /* change to relative? */
+	overflow: visible;
 	top:					0;
 	left:					0;
-	background:				#fff no-repeat center;
+	background:				#fff no-repeat center; /* #fff no-repeat center */
 	z-index:				100;
 }
 .remooz-loading

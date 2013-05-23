@@ -6,7 +6,7 @@
 	height: 100%;
 
 	z-index:5;
-
+	
 }
 
 .jdGallery a
@@ -98,7 +98,7 @@
 	left: 0;
 
 	bottom: 0;
-	height: 20%;
+	height: 13%; 
 	background: #333;
 	color: #fff;
 	text-indent: 0;

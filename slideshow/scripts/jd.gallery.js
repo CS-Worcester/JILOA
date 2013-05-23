@@ -18,10 +18,11 @@
     Main Developer: Jonathan Schemoul (JonDesign: http://www.jondesign.net/)
     Contributed code by:
     - Christian Ehret (bugfix)
-- Nitrix (bugfix)
-- Valerio from Mad4Milk for his great help with the carousel scrolling and many other things.
-- Archie Cowan for helping me find a bugfix on carousel inner width problem.
-- Tomocchino from #mootools for the preloader class
+	- Nitrix (bugfix)
+	- Valerio from Mad4Milk for his great help with the carousel scrolling and many other things.
+	- Archie Cowan for helping me find a bugfix on carousel inner width problem.
+	- Tomocchino from #mootools for the preloader class
+	- Sean Horton, James Fitzpatrick, Derek Carlin (modificaitons for iPad app) 
 Many thanks to:
 - The mootools team for the great mootools lib, and it's help and support throughout the project.
 - Harald Kirschner (digitarald: http://digitarald.de/) for all his great libs. Some used here as plugins.
@@ -35,7 +36,7 @@ Many thanks to:
 var rightArrow = new Element('a');
 var leftArrow = new Element('a');
 var isCarouselOpen = false;
-
+var currentImg;
 
 function isBody(element){
 return (/^(?:body|html)$/i).test(element.tagName);
@@ -920,21 +921,31 @@ return oStr;
 	
 		function processingRoutine() {
 			var swipedElement = document.getElementById(triggerElementID);
-			if ( swipeDirection == 'left' ) {   // What we need goes here!
-				if(isCarouselOpen == true){ // carousel move
-					//THis is carousel swipe
+			if ( swipeDirection == 'left' ) {   // Swipe funcitons... What is commented out is test code. Place in what you want for each direction!
+				/*if(isCarouselOpen == true){ // carousel move
+					var currentImg = new Fx.Morph(new Element ('div').addClass("thumbnail").setStyles({
+					backgroundImage: "url('" + this.galleryData[20].thumbnail + "')",
+					backgroundPosition: "center center",
+					backgroundRepeat: 'no-repeat',
+					marginLeft: this.options.thumbSpacing + "px",
+					width: this.options.thumbWidth + "px",
+					height: this.options.thumbHeight + "px"
+					}).injectInside(element), {duration: 200}).start({
+					'opacity': this.options.thumbIdleOpacity
+					});
 				}
 				else{
 					rightArrow.fireEvent('click');
-				}
+				}*/
+				rightArrow.fireEvent('click');
 			} else if ( swipeDirection == 'right' ) {
-				if(isCarouselOpen == true){ // carousel move
-				}
-				else{
+				//if(isCarouselOpen == true){ // carousel move
+				//}
+				//else{
 					leftArrow.fireEvent('click');
-				}
+				//}
 			} else if ( swipeDirection == 'up' ) {
-				alert("hmm");
+				//alert("hmm");
 			} else if ( swipeDirection == 'down' ) {
 				carouselElement.fireEvent('showCarousel');
 			}
