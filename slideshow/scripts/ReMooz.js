@@ -9,10 +9,11 @@
  * @author		Harald Kirschner <mail [at] digitarald.de>
  * @copyright	Author
  *
- * @contributions Sean Horton, James Fitzpatrick, Derek Carlin (seperate additions to work with iPad app) 
+ * @contributions Sean Horton, James Fitzpatrick, Derek Carlin (seperate additions to work with JILOA iPad app) 
  *
  */
-
+    
+ 
 var ReMooz = new Class({
 
 	Implements: [Events, Options, Chain],
@@ -26,7 +27,7 @@ var ReMooz = new Class({
 		dragging: true,
 		closeOnClick: true,
 		shadow: (Browser.Engine.trident) ? 'onOpenEnd' : 'onOpen', // performance
-		resize: false, // if true sets the size to fit in gallery. 
+		resize: true, // if true sets the size to fit in gallery. 
 		margin: 20,
 		resizeFactor: 0.95,
 		resizeLimit: false, // {x: 640, y: 640}
@@ -100,6 +101,7 @@ var ReMooz = new Class({
 	},
 
 	open: function(e) {
+		document.ontouchmove = function(e) {e.preventDefault()}; //added 
 		if (this.opened) return (e) ? this.close() : this;
 		this.opened = this.loading = true;
 		if (!this.box) this.build();
@@ -308,13 +310,17 @@ var ReMooz = new Class({
 				this.box.removeClass('remooz-box-dragging');
 			}.bind(this)
 		});
+		
 		this.drag.detach();
 
 		this.fireEvent('onBuild', this.box, this.element);
 		this.box.inject(this.element.getDocument().body);
 	}
 
+
 });
+
+
 
 ReMooz.factory = function(extended) {
 	return $extend(this, extended);

@@ -22,14 +22,13 @@
 	- Valerio from Mad4Milk for his great help with the carousel scrolling and many other things.
 	- Archie Cowan for helping me find a bugfix on carousel inner width problem.
 	- Tomocchino from #mootools for the preloader class
-	- Sean Horton, James Fitzpatrick, Derek Carlin (modificaitons for iPad app) 
+	- Sean Horton, James Fitzpatrick, Derek Carlin (modificaitons for JILOA iPad app) 
 Many thanks to:
 - The mootools team for the great mootools lib, and it's help and support throughout the project.
 - Harald Kirschner (digitarald: http://digitarald.de/) for all his great libs. Some used here as plugins.
 */
 
 /* some quirks to circumvent broken stuff in mt1.2 */
-
 
 // Declare arrow buttons for use with swipe functionality 
 
@@ -628,7 +627,7 @@ this.galleryElements[this.currentIter].element.set('title', this.galleryData[thi
 this.ReMooz = new ReMooz(this.galleryElements[this.currentIter].element, {
 link: this.galleryData[this.currentIter].link,
 shadow: false,
-dragging: false,
+dragging: false, //edited for full screen picture 
 addClick: false,
 resizeOpacity: 1
 });
@@ -804,11 +803,12 @@ return oStr;
 *************************************************/
 
 
+
 // TOUCH-EVENTS SINGLE-FINGER SWIPE-SENSING JAVASCRIPT
 		// Courtesy of PADILICIOUS.COM and MACOSXAUTOMATION.COM
 	
 		// this script can be used with one or more page elements to perform actions based on them being swiped with a single finger
-
+	
 		var triggerElementID = null; // this variable is used to identity the triggering element
 		var fingerCount = 0;
 		var startX = 0;
@@ -950,3 +950,4 @@ return oStr;
 				carouselElement.fireEvent('showCarousel');
 			}
 		}
+		
