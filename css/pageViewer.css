@@ -15,40 +15,157 @@
 .article-preview{
 	height: 100%;
 }
-.article-title{	
-	color:#333;
-	border:0px solid black;
-	writing-mode:tb-rl;
-	-webkit-transform:rotate(90deg);
-	-moz-transform:rotate(90deg);
-	-o-transform: rotate(90deg);
-	white-space:nowrap;
-	display:block;
-	bottom:0;
-	font-family: ‘Trebuchet MS’, Helvetica, sans-serif;
-	font-size:4em;
-	font-weight:normal;
-	text-shadow: 0px 0px 1px #333;
-	}
-.title-container{
-	border-right: 5px solid black;
-	padding-top: 0.5em;
-	float: left;
-	width: 10%;
-	background-color: white;
-	height: 100%;
-}
-.title-container img{
-	max-width: 100%;
-    height: auto;
-    width: auto\9;
-	margin-bottom: 2em;
-}
-.article-info{
-	float: left;
-	width: 85%;
+
+#read a{
+  background-image: url("../images/story.png");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
 }
 
-.view-more{
-	float: right;
+#media a{
+  background-image: url("../images/readMoreImage.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+
+#interact a{
+  background-image: url("../images/activies.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+
+#Acknowledgements a{
+  background-image: url("../images/thanksImage.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#color a{
+  background-image: url("../images/color.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+
+#puzzle a{
+  background-image: url("../images/puzzle.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+
+#archaeology a{
+  background-image: url("../images/archaeology.png");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#orantes a{
+  background-image: url("../images/orantes.png");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#orantes-2 a{
+  background-image: url("../images/orantes-2.png");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#history a{
+  background-image: url("../images/history.png");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#construction a{
+  background-image: url("../images/construction.png");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#conservation a{
+  background-image: url("../images/conservation.png");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#technical a{
+  background-image: url("../images/technical.png");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#head a{
+  background-image: url("../images/head.png");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+#comments a{
+  background-image: url("../images/comments.jpg");
+  background-size:100% 100%;
+  height: 100%;
+  width:100%;
+  background-repeat:no-repeat;
+  display: block;
+}
+
+#left-nav{
+  width: 20%;
+  position: absolute;
+  text-align: center;
+  left: 0.5%;
+  top: 10%;
+  z-index: 10;
+  background: rgb(21, 21, 21);
+  background: rgba(21, 21, 21, .85);
+  border-radius: 1em;
+}
+
+#left-nav  .ui-btn {text-align: left;}
+
+.ui-footer{
+  text-align: center;
+  height: 7%;
+}
+
+
+.footer-btn{
+  width: 15%;
+}
+
+#sub-page{
+  padding-top: 3%;
 }

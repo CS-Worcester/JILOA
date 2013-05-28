@@ -73,15 +73,20 @@
 		}
 		/* The footer won't have a height because there are only two absolute positioned elements in it.
 		So we position the buttons from the bottom. */
-		.control.ui-btn-left, .home-btn.ui-btn-right {
+		.control.ui-btn-left, .home-btn.ui-btn-right, .center-wrapper {
 			top: auto;
 			bottom: 7px;
 			margin: 0;
 		}
 		
-		/* stack the buttons on the left */
+		/* stack the buttons on the left 
 		.control.ui-btn-left {
 			position: relative;
+		} */
+		
+		/* for centering the button */
+		.center-wrapper{
+			text-align: center;
 		}
 		
 		/* Prevent text selection while swiping with mouse */
@@ -123,12 +128,16 @@
 </div>
 
 <div data-role="page" id="page1" class="intropage" data-dom-cache="true" data-theme="a">   
-    <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
-		<div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
-        	<a href="#" class="prev ui-disabled" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
-        	<a href="#page2" class="next" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
-        </div>
+    <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">        
         <a href="#helpDialog" class="control ui-btn-left" data-role="button" data-icon="info" data-iconpos="left" data-mini="true" data-inline="true" data-rel="dialog" data-transition="pop" data-theme="d">Help</a>
+
+		<!-- FIRST PAGE: add class "ui-disabled" to prev button  -->
+		<div class="center-wrapper">
+			<div data-role="controlgroup" class="control" data-type="horizontal" data-mini="true">
+        		<a href="#" class="prev ui-disabled" data-role="button" data-icon="arrow-l" data-theme="d">Prev</a>
+        		<a href="#page2" class="next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="d">Next</a>
+        	</div>
+        </div>
 
 		<a href="../index.html" rel="external" data-ajax="false" class="home-btn ui-btn-right" data-role="button" data-icon="home" data-iconpos="left" data-mini="true">Skip To Home</a>
     </div>
@@ -136,23 +145,29 @@
 
 <div data-role="page" id="page2" class="intropage" data-dom-cache="true" data-theme="a">  
     <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
-		<div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
-        	<a href="#page1" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
-        	<a href="#page3" class="next" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
-        </div>
-        <a href="#helpDialog" class="control ui-btn-left data-role="button" data-icon="info" data-iconpos="left" data-mini="true" data-inline="true" data-rel="dialog" data-transition="pop" data-theme="d">Help</a>
-        
+        <a href="#helpDialog" class="control ui-btn-left" data-role="button" data-icon="info" data-iconpos="left" data-mini="true" data-inline="true" data-rel="dialog" data-transition="pop" data-theme="d">Help</a>
+		
+		<div class="center-wrapper">	
+			<div data-role="controlgroup" class="control" data-type="horizontal" data-mini="true">
+        		<a href="#page1" class="prev" data-role="button" data-icon="arrow-l" data-theme="d">Prev</a>
+        		<a href="#page3" class="next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="d">Next</a>
+        	</div>
+    	</div>
+             
 		<a href="../index.html" rel="external" data-ajax="false" class="home-btn ui-btn-right" data-role="button" data-icon="home" data-iconpos="left" data-mini="true">Skip To Home</a>
     </div>
 </div>
 
 <div data-role="page" id="page3" class="intropage" data-dom-cache="true" data-theme="a">
    <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
-		<div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
-        	<a href="#page2" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
-        	<a href="#page4" class="next" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
-        </div>
     	<a href="#helpDialog" class="control ui-btn-left data-role="button" data-icon="info" data-iconpos="left" data-mini="true" data-inline="true" data-rel="dialog" data-transition="pop" data-theme="d">Help</a>
+
+		<div class="center-wrapper">
+			<div data-role="controlgroup" class="control" data-type="horizontal" data-mini="true">
+	        	<a href="#page2" class="prev" data-role="button" data-icon="arrow-l" data-theme="d">Prev</a>
+	        	<a href="#page4" class="next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="d">Next</a>
+	        </div>
+		</div>
         
 		<a href="../index.html" rel="external" data-ajax="false" class="home-btn ui-btn-right" data-role="button" data-icon="home" data-iconpos="left" data-mini="true">Skip To Home</a>
     </div>
@@ -160,11 +175,14 @@
 
 <div data-role="page" id="page4" class="intropage" data-dom-cache="true" data-theme="a">
     <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
-		<div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
-        	<a href="#page3" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
-        	<a href="#page5" class="next" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
-        </div>
         <a href="#helpDialog" class="control ui-btn-left data-role="button" data-icon="info" data-iconpos="left" data-mini="true" data-inline="true" data-rel="dialog" data-transition="pop" data-theme="d">Help</a>
+
+		<div class="center-wrapper">
+			<div data-role="controlgroup" class="control" data-type="horizontal" data-mini="true">
+	        	<a href="#page3" class="prev" data-role="button" data-icon="arrow-l" data-theme="d">Prev</a>
+	        	<a href="#page5" class="next" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="d">Next</a>
+	        </div>
+	    </div>
         
 		<a href="../index.html" rel="external" data-ajax="false" class="home-btn ui-btn-right" data-role="button" data-icon="home" data-iconpos="left" data-mini="true">Skip To Home</a>
     </div>
@@ -172,13 +190,15 @@
 
 <div data-role="page" id="page5" class="intropage" data-dom-cache="true" data-theme="a">
     <div data-role="footer" data-position="fixed" data-fullscreen="true" data-id="ftr" data-tap-toggle="false">
-		<div data-role="controlgroup" class="control ui-btn-left" data-type="horizontal" data-mini="true">
-        	<a href="#page4" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
-        
-        	<!-- LAST PAGE: add class="ui-disabled" to disable the "next" button -->
-        	<a href="#" class="next ui-disabled" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
-        </div>
     	<a href="#helpDialog" class="control ui-btn-left data-role="button" data-icon="info" data-iconpos="left" data-mini="true" data-inline="true" data-rel="dialog" data-transition="pop" data-theme="d">Help</a>        
+
+		<div class="center-wrapper">
+			<div data-role="controlgroup" class="control" data-type="horizontal" data-mini="true">
+	        	<a href="#page4" class="prev" data-role="button" data-icon="arrow-l" data-theme="d">Prev</a>
+	        	<!-- LAST PAGE: add class="ui-disabled" to disable the "next" button -->
+	        	<a href="#" class="next ui-disabled" data-role="button" data-icon="arrow-r" data-iconpos="right" data-theme="d">Next</a>
+	        </div>
+	    </div>
         
 		<a href="../index.html" rel="external" data-ajax="false" class="home-btn ui-btn-right" data-role="button" data-icon="home" data-iconpos="left" data-mini="true">Start Using App</a>
     </div>
